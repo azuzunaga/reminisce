@@ -26,7 +26,16 @@ passport.use(
         if (existingUser) {
           done(null, existingUser);
         } else {
-          new User({ googleId: profile.id })
+          let imageUrl = profile.photos[0].value;
+          imageUrl = imageUrl.slice(0, imageUrl.length - 6);
+
+          new User({
+            googleId: profile.id,
+            username: profile.emails[0].value,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
+            imageUrl: imageUrl
+          })
             .save()
             .then(user => done(null, user));
         }
