@@ -2,7 +2,11 @@
   "name": "reminisce",
   "version": "1.0.0",
   "description":
-    "### Background and Overview Reminisce is a web application that lets writers use version control in their documents, while also preserving formatting. Users will be able to “commit” versions of their documents or projects and switch between them. Users can also invite other users to view their documents.",
+    "Reminisce is a web application that lets writers use version control in their documents.",
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.0"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
