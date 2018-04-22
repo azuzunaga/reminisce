@@ -51,24 +51,24 @@ Libraries: DraftJS
 
 ### Implementation Timeline
 
-**Day 1:** 
-    * Wrap up UA backend 
-    * Finish UA frontend
-    * Basic implementation of Mongo tables
-**Day 2:**
-    * Backend - Ability to commit and checkout past commits, ability to rollback
-    * Frontend - Complete the individual document/text editor page
-**Day 3:** 
-    * Backend - Start branching, merging and diffing
-    * Backend - Complete auto-commits (auto-saves done by the system when user is idle or quits out)
-    * Frontend - Create ineractive commits page, enable users to click on various commits and see that commit version
-**Day 4:**
-    * Backend - Complete branching/merging/diffing
-    * Frontend - Complete project page (listing of all documents within the project)
-    * Frontend - Complete User page (listing all projects that user has access to)
-**Day 5:**
-    * Backend auth for documentation (allowing for collaborators)
-    * Frontend - Displaying branching/merging diffs
-    * Finish all MVPs/styling
-    * Complete production README
-**Day 6 & 7:**
+  * **Day 1:** 
+     * Wrap up UA backend 
+     * Finish UA frontend
+     * Basic implementation of Mongo tables
+  *  **Day 2:**
+     * Backend - Ability to commit and checkout past commits, ability to rollback
+     * Frontend - Complete the individual document/text editor page
+  * **Day 3:** 
+     * Backend - Start branching, merging and diffing
+     * Backend - Complete auto-commits (auto-saves done by the system when user is idle or quits out)
+     * Frontend - Create ineractive commits page, enable users to click on various commits and see that commit version
+   * **Day 4:**
+     * Backend - Complete branching/merging/diffing
+     * Frontend - Complete project page (listing of all documents within the project)
+     * Frontend - Complete User page (listing all projects that user has access to)
+   * **Day 5:**
+     * Backend auth for documentation (allowing for collaborators)
+     * Frontend - Displaying branching/merging diffs
+     * Finish all MVPs/styling
+     * Complete production README
+   * **Day 6 & 7:**
