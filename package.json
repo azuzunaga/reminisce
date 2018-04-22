@@ -1,8 +1,7 @@
 {
   "name": "reminisce",
   "version": "1.0.0",
-  "description":
-    "Reminisce is a web application that lets writers use version control in their documents.",
+  "description": "Reminisce is a web application that lets writers use version control in their documents.",
   "engines": {
     "node": "8.11.1",
     "npm": "5.6.0"
