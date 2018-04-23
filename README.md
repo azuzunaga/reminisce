@@ -57,6 +57,10 @@ Log of past saves (commits). When clicking on a specific save, a modal will pop 
 
 ![Save History Modal with Diffs](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.46.08_AM.png)
 
+#### Additional Wireframes Coming Soon
+* Combine Drafts Page (merging branches)
+* About Us page
+
 
 ### Technologies and Technical Challenges
 
