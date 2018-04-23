@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
+import Splash from './Splash';
 const Dashboard  = () => <h2>Dashboard</h2>;
 const Project  = () => <h2>Project</h2>;
 const Document  = () => <h2>Document</h2>;
-const Landing  = () => <h2>Landing</h2>;
 
 class App extends React.Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" component={Splash} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/projects/1/1" component={Project} />
             <Route exact path="/documents/1" component={Document} />
