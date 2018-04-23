@@ -26,6 +26,38 @@ Reminisce is a web application that lets writers use version control in their do
 
 ### Wireframes
 
+#### Splash Page
+Users must log in in order to access the site:
+![Splash Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498422/Screen_Shot_2018-04-23_at_8.29.12_AM.png)
+
+#### Projects Dashboard
+Once logged in, user will be presented with all projects that they've created or have been added as a collaborator on.
+![Projects Dashboard](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.45.39_AM.png)
+
+
+#### Project Show Page
+List of documents that pertain to the selected project. On this page, users can:
+ * Toggle between different drafts (branches)
+ * Click a specific document to edit
+ * Go to the save history page for a history of saves for the project. 
+ * Save the current project draft (commit)
+ 
+![Project Show Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.45.47_AM.png)
+
+
+#### Document Editor
+Editing a specific document. Users will be spending the bulk of their time on this page. They can save this page directly, or toggle between past drafts as well. 
+
+![Document Editor Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.45.53_AM.png)
+
+#### Save History Page
+Log of past saves (commits). When clicking on a specific save, a modal will pop up with the differentials between the current save and the save immediately prior. There will be a mini map with green and red highlights where users can jump to the sections of the document that changed.
+
+![Save History Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.46.02_AM.png)
+
+![Save History Modal with Diffs](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.46.08_AM.png)
+
+
 ### Technologies and Technical Challenges
 
 Backend: NodeJS/JavaScript/Express
