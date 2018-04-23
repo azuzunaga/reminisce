@@ -23,7 +23,16 @@ app.use(passport.session());
 
 routes(app);
 
-app.get("/", (req, res) => res.send("hi there"));
+if (process.env.NODE_ENV === 'production') {
+  // Serve up production assets
+  app.use(express.static('client/build'));
+
+  // Serve index.html if the route doesn't exist
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
