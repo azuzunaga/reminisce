@@ -21,25 +21,24 @@ passport.use(
       callbackURL: "/auth/google/callback",
       proxy: true
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          done(null, existingUser);
-        } else {
-          let imageUrl = profile.photos[0].value;
-          imageUrl = imageUrl.slice(0, imageUrl.length - 6);
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({ googleId: profile.id })
 
-          new User({
-            googleId: profile.id,
-            username: profile.emails[0].value,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            imageUrl: imageUrl
-          })
-            .save()
-            .then(user => done(null, user));
-        }
-      });
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+
+      let imageUrl = profile.photos[0].value;
+      imageUrl = imageUrl.slice(0, imageUrl.length - 6);
+
+      const user = await new User({
+        googleId: profile.id,
+        username: profile.emails[0].value,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        imageUrl: imageUrl
+      }).save()
+      done(null, user);
     }
   )
 );
