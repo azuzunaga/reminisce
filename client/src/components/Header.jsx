@@ -5,19 +5,29 @@ class Header extends React.Component {
   renderContent() {
     switch (this.props.auth) {
       case null:
-        return;
+      return;
       case false:
-        return (
+      return (
+        <ul className="right">
           <li>
             <a href="/auth/google">Sign in with Google</a>
           </li>
-        );
+        </ul>
+      );
       default:
-        return (
+      return (
+        <ul className="right">
           <li>
-            <a href="api/logout">Sign Out, {this.props.auth.firstName}</a>
+            Hi, {this.props.auth.firstName}
           </li>
-        );
+          <li>
+            <img src={this.props.auth.imageUrl + "?sz=64"} alt=""/>
+          </li>
+          <li>
+            <a href="api/logout">Sign Out</a>
+          </li>
+        </ul>
+      );
     }
   }
 
@@ -33,8 +43,8 @@ class Header extends React.Component {
           </ul>
         </div>
       </nav>
-    );
-  }
+  );
+}
 }
 
 function mapStateToProps({ auth }) {
