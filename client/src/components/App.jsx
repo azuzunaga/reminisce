@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
@@ -20,8 +20,10 @@ class App extends React.Component {
       <div className="container">
         <BrowserRouter>
           <div>
-            <Header />
-            <AuthRoute exact path="/" component={Splash} />
+            <Switch>
+              <AuthRoute exact path="/" component={Splash} />
+              <Header />
+            </Switch>
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
             <ProtectedRoute exact path="/projects/1/1" component={Project} />
             <ProtectedRoute exact path="/documents/1" component={Document} />
