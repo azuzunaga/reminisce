@@ -20,16 +20,16 @@ class Header extends React.Component {
           <li>
             <a href="https://github.com/azuzunaga/reminisce" target="_blank" rel="noopener noreferrer" >GitHub</a>
           </li>
-          <li>
+          <li className="hover-family">
             <img
               className="user-pic"
               src={this.props.auth.imageUrl + "?sz=64"}
             />
-          </li>
-          <li className="hover-arrow">
+            <li className="hover-arrow">
             <img  src={arrowDown}/>
+            </li>
             <ul className="sign-out">
-              <li><a  href="api/logout">Sign Out</a></li>
+            <li><a  href="api/logout">Sign Out</a></li>
             </ul>
           </li>
         </ul>

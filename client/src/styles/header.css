@@ -51,25 +51,30 @@ a {
 .user-info ul {
   display:none;
 }
+
+.hover-family {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 .hover-arrow {
   margin-right: 15px;
-  position: relative;
-
 }
 
 .hover-arrow img {
   height: 12px;
 }
 
-.hover-arrow:hover .sign-out {
+.hover-family:hover .sign-out {
   display: inline-block;
   position: absolute;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 10px;
   background: white;
   list-style: none;
-  right: 5px;
-  top: 8px;
+  top: 63px;
+  right: 15px;
   min-width: 120px;
   z-index: 10;
 }
