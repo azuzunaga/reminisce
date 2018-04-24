@@ -15,7 +15,8 @@ const projectSchema = new Schema({
     default: [],
     required: true
   },
-  createdAt: { type: Date, default: Date.now, required: true }
+  createdAt: { type: Date, default: Date.now, required: true },
+  description: String
 });
 
 projectSchema.index({ owner: 1, name: 1 }, { unique: true });
