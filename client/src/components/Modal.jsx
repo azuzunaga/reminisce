@@ -1,6 +1,8 @@
 import React from 'react';
 import { closeModal } from '../actions';
 import { connect } from 'react-redux';
+import '../styles/modal.css';
+
 
 function Modal({modal, closeModal}) {
   if (!modal) {
