@@ -9,6 +9,7 @@ class DocumentForm extends React.Component {
     this.state = { editorState: EditorState.createEmpty()};
     this.onChange = (editorState) => this.setState({editorState});
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.onTab = (e) => this._onTab(e);
   }
 
   handleStyleClick(type) {
@@ -22,6 +23,12 @@ class DocumentForm extends React.Component {
       return 'handled';
     }
     return 'not-handled';
+  }
+
+  _onTab(e) {
+    e.preventDefault();
+    const maxDepth = 4;
+    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
 
   handleBlockClick(type) {
@@ -44,7 +51,17 @@ class DocumentForm extends React.Component {
               Underline
             </button>
           </li>
+          <li>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('header-one')}>
+              H1
+            </button>
+          </li>
 
+          <li>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('header-two')}>
+              H2
+            </button>
+          </li>
           <li>
             <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick("unordered-list-item")}>
               UL
@@ -53,7 +70,8 @@ class DocumentForm extends React.Component {
         </ul>
         <Editor editorState={this.state.editorState}
           onChange={this.onChange}
-          handleKeyCommand={this.handleKeyCommand}/>
+          handleKeyCommand={this.handleKeyCommand}
+          onTab={this.onTab} />
       </div>
     );
   }
