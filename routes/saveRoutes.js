@@ -1,28 +1,10 @@
-const { map } = require("lodash");
+const _ = require("lodash");
 const mongoose = require("mongoose");
+
 const Project = mongoose.model("projects");
 const Draft = mongoose.model("drafts");
 const Revision = mongoose.model("revisions");
 const Save = mongoose.model("saves");
-
-const exampleRequest = {
-  save: {
-    name: "abc",
-    comment: "123",
-    draftId: "5adf71cff326761db0a05d98"
-  },
-  newRevs: [
-    {
-      body: "aljsdf",
-      title: "chapter1"
-    },
-    {
-      body: "aljsdf",
-      title: "chapter2"
-    }
-  ],
-  deletedRevIds: []
-};
 
 module.exports = app => {
   app.post("/api/saves", async (req, res) => {
@@ -49,12 +31,18 @@ module.exports = app => {
 
     newRevs.forEach(rev => (rev.userId = req.user.id));
     Revision.create(newRevs, async (err, revs) => {
-      newRevIds = prevRevIds.concat(map(revs, "id"));
+      newRevIds = prevRevIds.concat(_.map(revs, "id"));
       const save = new Save(saveParams);
       save.userId = req.user.id;
       save.projectId = project.id;
       save.revisionIds = newRevIds;
       res.send(await save.save());
     });
+  });
+
+  app.get("/api/saves/:id", async (req, res) => {
+    const save = await Save.findById(req.params.id);
+    const revisions = await Revision.find({ _id: { $in: save.revisionIds } });
+    res.send({ save, revisions: _.keyBy(revisions, "_id") });
   });
 };
