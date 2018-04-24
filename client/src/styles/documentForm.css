@@ -5,6 +5,10 @@
   flex-direction: column;
   width: auto;
   background: #FAFAFA;
+  position: relative;
+  left: 0;
+  top: 11vh;
+  width: 100vw;
 }
 
 .header {
@@ -17,7 +21,7 @@
   font-family: 'Josefin Sans', sans-serif;
   margin: 0 auto;
   font-weight: normal;
-  width: 100%;
+  width: 100vw;
 }
 
 .draft-version {
