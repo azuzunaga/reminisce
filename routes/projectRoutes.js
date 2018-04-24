@@ -18,7 +18,7 @@ module.exports = app => {
     res.send(project);
   });
 
-  app.delete("/api/projects/id", async (req, res) => {
+  app.delete("/api/projects/:id", async (req, res) => {
     const project = await Project.findById(req.params.id);
     await project.remove();
     res.send(project);
