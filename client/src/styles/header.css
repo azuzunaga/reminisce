@@ -66,6 +66,10 @@ a {
   height: 12px;
 }
 
+.sign-out {
+
+}
+
 .hover-family:hover .sign-out {
   display: inline-block;
   position: absolute;
@@ -74,7 +78,11 @@ a {
   background: white;
   list-style: none;
   top: 63px;
-  right: 15px;
+  right: 5px;
+  text-align: right;
   min-width: 120px;
   z-index: 10;
+}
+.sign-out a {
+
 }
