@@ -1,15 +1,23 @@
 import React from 'react';
-
+import '../styles/splash.css';
+import logo from '../assets/reminisceLogoWhite.png';
 const Splash = () => {
   return (
-    <div>
-      <h1>Reminisce</h1>
-      <h4>
-        The tool that writers can't live without.
-        Maintain countless drafts and still maintain your sanity.
-      </h4>
-      <a href="/auth/google">Sign in with Google</a>
-    </div>
+    <div className="splash-container">
+        <img className="splash-logo" src={logo} alt="Reminisce Logo"/>
+        <h4 className="welcome-text">
+          the tool that writers can't live without.
+          maintain countless drafts and still maintain your sanity.
+        </h4>
+        <div className='login-buttons'>
+          <a className="google-signin"
+            href="/auth/google">log in
+          </a>
+          <a className="google-signin"
+            href="/auth/google">sign up
+          </a>
+        </div>
+      </div>
   );
 };
 

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+.splash-container {
+  position: fixed;
+  background-size: cover;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0.7;
+  background-image: url("../assets/splash_cropped.jpeg");
+}
+
+.welcome-text {
+  margin: 0 auto;
+  color: white;
+  font-family: 'Amatic SC';
+  font-weight: 400;
+  width: 43vw;
+  text-align: center;
+  font-size: 2.5vw;
+  padding-top: 1vw;
+
+}
+
+.splash-logo {
+  padding-top: 18vw;
+  padding-left: 3vw;
+  width: 30vw;
+  margin: 0 auto;
+}
+
+.google-signin {
+  background-color: red;
+  color: white;
+}
+
+.login-buttons {
+  padding-top: 1.5vw;
+  width: 25vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+
+.google-signin {
+  font-family: 'Amatic SC';
+  background-color: transparent;
+  font-size: 3.25vw;
+  border: 4px solid white;
+  padding: 0px 30px;
+  margin: 0;
+}
