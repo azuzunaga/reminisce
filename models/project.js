@@ -20,4 +20,11 @@ const projectSchema = new Schema({
 
 projectSchema.index({ owner: 1, name: 1 }, { unique: true });
 
+projectSchema.methods.canUserEdit = function canUserEdit(userId) {
+  return (
+    this.ownerId.toString() === userId.toString() ||
+    this.canEdit.includes(userId)
+  );
+};
+
 mongoose.model("projects", projectSchema);
