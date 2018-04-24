@@ -7,7 +7,7 @@ const Save = mongoose.model("saves");
 module.exports = app => {
   app.post("/api/drafts", async (req, res) => {
     const draft = await Draft.create(req.body.draft);
-    res.send(draft);
+    res.json(draft);
   });
 
   app.get("/api/drafts/:draftId", async (req, res) => {
@@ -15,6 +15,6 @@ module.exports = app => {
     const savesOp = Save.find({ draftId: req.params.draftId });
     draft = await draftOp;
     saves = await savesOp;
-    res.send({ draft, saves: _.keyBy(saves, "_id") });
+    res.json({ draft, saves: _.keyBy(saves, "_id") });
   });
 };

@@ -21,7 +21,7 @@ module.exports = app => {
     if (!project.canUserEdit(req.user.id)) {
       return res
         .status(403)
-        .send(["You don't have permission to edit that project"]);
+        .json(["You don't have permission to edit that project"]);
     }
 
     await prevSave;
@@ -36,13 +36,13 @@ module.exports = app => {
       save.userId = req.user.id;
       save.projectId = project.id;
       save.revisionIds = newRevIds;
-      res.send(await save.save());
+      res.json(await save.save());
     });
   });
 
   app.get("/api/saves/:id", async (req, res) => {
     const save = await Save.findById(req.params.id);
     const revisions = await Revision.find({ _id: { $in: save.revisionIds } });
-    res.send({ save, revisions: _.keyBy(revisions, "_id") });
+    res.json({ save, revisions: _.keyBy(revisions, "_id") });
   });
 };
