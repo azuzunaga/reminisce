@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+.document-create-container {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.header {
+  background: #EF6F6C;
+  display: block;
+  color: white;
+  padding: 35px 0;
+  text-align: center;
+  font-size: 42px;
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 0 auto;
+  font-weight: normal;
+  width: 100%;
+}
+
+.draft-version {
+  font-weight: normal;
+  font-size: 32px;
+  margin-left: 15px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.toolbar {
+  color: #F5F5F5;
+}

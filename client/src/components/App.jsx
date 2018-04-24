@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import Header from "./Header";
 import Splash from "./Splash";
+import DocumentForm from './DocumentForm';
 import { AuthRoute, ProtectedRoute } from "../utils/authRoutes";
 const Dashboard = () => <h2>Dashboard</h2>;
 const Project = () => <h2>Project</h2>;
@@ -26,6 +27,7 @@ class App extends React.Component {
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
             <ProtectedRoute exact path="/projects/1/1" component={Project} />
             <ProtectedRoute exact path="/documents/1" component={Document} />
+            <ProtectedRoute exact path="/document/new" component={DocumentForm} />
           </div>
         </BrowserRouter>
       </div>
