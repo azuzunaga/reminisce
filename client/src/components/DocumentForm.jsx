@@ -6,6 +6,7 @@ import '../styles/documentForm.css';
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
+    this.focus = () => this.refs.editor.focus();
     this.state = { editorState: EditorState.createEmpty()};
     this.onChange = (editorState) => this.setState({editorState});
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
@@ -32,7 +33,7 @@ class DocumentForm extends React.Component {
   }
 
   handleBlockClick(type) {
-    this.onChange(RichUtils.toggleBlockType(this.state.editorState, 'unordered-list-item'));
+    this.onChange(RichUtils.toggleBlockType(this.state.editorState, type));
   }
 
   render () {
@@ -51,15 +52,33 @@ class DocumentForm extends React.Component {
               Underline
             </button>
           </li>
+
           <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('header-one')}>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('ITALIC')}>
+              Italic
+            </button>
+          </li>
+          <li>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-one')}>
               H1
             </button>
           </li>
 
           <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('header-two')}>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-two')}>
               H2
+            </button>
+          </li>
+
+          <li>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-three')}>
+              H3
+            </button>
+          </li>
+
+          <li>
+            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-four')}>
+              H4
             </button>
           </li>
           <li>
@@ -68,10 +87,12 @@ class DocumentForm extends React.Component {
             </button>
           </li>
         </ul>
+
         <Editor editorState={this.state.editorState}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
-          onTab={this.onTab} />
+          onTab={this.onTab}
+          />
       </div>
     );
   }
