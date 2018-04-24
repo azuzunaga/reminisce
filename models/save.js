@@ -4,7 +4,11 @@ const { Schema } = mongoose;
 const saveSchema = new Schema({
   name: { type: String, required: true },
   userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
-  previousSaveId: { type: Schema.Types.ObjectId, ref: "saves", required: true },
+  previousSaveId: {
+    type: Schema.Types.ObjectId,
+    ref: "saves",
+    default: null
+  },
   comment: { type: String, required: true },
   projectId: { type: Schema.Types.ObjectId, ref: "project", required: true },
   draftId: { type: Schema.Types.ObjectId, ref: "draft", required: true },
