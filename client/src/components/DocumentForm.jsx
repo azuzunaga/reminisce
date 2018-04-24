@@ -2,7 +2,7 @@ import React from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import { connect } from 'react-redux';
 import '../styles/documentForm.css';
-
+import ul from '../assets/ul-icon.png';
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
@@ -43,21 +43,21 @@ class DocumentForm extends React.Component {
         <h2 className="draft-version">Draft Version: {this.props.save.comment}</h2>
         <ul className="toolbar">
           <li>
-            <button onMouseDown={(e)=> e.preventDefault()} onClick={() => this.handleStyleClick('BOLD')}>
-              Bold
+            <button className="bold" onMouseDown={(e)=> e.preventDefault()} onClick={() => this.handleStyleClick('BOLD')}>
+              B
             </button>
           </li>
           <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('UNDERLINE')}>
-              Underline
+          <button className="italics" onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('ITALIC')}>
+          I
+          </button>
+          </li>
+          <li>
+            <button className="underline" onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('UNDERLINE')}>
+              U
             </button>
           </li>
 
-          <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('ITALIC')}>
-              Italic
-            </button>
-          </li>
           <li>
             <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-one')}>
               H1
@@ -83,16 +83,17 @@ class DocumentForm extends React.Component {
           </li>
           <li>
             <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick("unordered-list-item")}>
-              UL
+              <img className="ul" src={ul} alt="list"/>
             </button>
           </li>
         </ul>
-
+        <div className="editor">
         <Editor editorState={this.state.editorState}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
           onTab={this.onTab}
           />
+      </div>
       </div>
     );
   }
