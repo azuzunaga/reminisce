@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
 .nav-container {
+  position: absolute;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   max-height: 240px;
-  width: 100vw;
+
   top: 0;
 }
 
@@ -17,6 +19,7 @@
   align-items: center;
   font-size: 16px;
   font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
 }
 
 .user-info li {

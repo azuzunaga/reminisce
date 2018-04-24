@@ -8,7 +8,8 @@ const draftSchema = new Schema({
     type: [{ type: Schema.Types.ObjectId, ref: "users", required: true }],
     default: [],
     required: true
-  }
+  },
+  description: String
 });
 
 mongoose.model("drafts", draftSchema);

@@ -20,7 +20,9 @@ class Header extends React.Component {
           <li>
             <a href="https://github.com/azuzunaga/reminisce" target="_blank" rel="noopener noreferrer" >GitHub</a>
           </li>
+
           <li className="hover-family">
+
             <img
               className="user-pic"
               src={this.props.auth.imageUrl + "?sz=64"}
