@@ -6,6 +6,8 @@
   align-items: center;
   margin: 0 auto;
   max-height: 240px;
+  width: 100vw;
+  top: 0;
 }
 
 .user-info {
@@ -19,12 +21,12 @@
 
 .user-info li {
   margin-left: 15px;
-  color: black;
+  color: #434343;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: #434343;
   font-size: 20px;
   margin-right: 20px;
 }
@@ -44,4 +46,30 @@ a {
 .brand-logo img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.user-info ul {
+  display:none;
+}
+.hover-arrow {
+  margin-right: 15px;
+  position: relative;
+
+}
+
+.hover-arrow img {
+  height: 12px;
+}
+
+.hover-arrow:hover .sign-out {
+  display: inline-block;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px;
+  background: white;
+  list-style: none;
+  right: 5px;
+  top: 8px;
+  min-width: 120px;
+  z-index: 10;
 }
