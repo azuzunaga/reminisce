@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
+
 const Draft = mongoose.model("drafts");
 const Save = mongoose.model("saves");
 
@@ -13,6 +15,6 @@ module.exports = app => {
     const savesOp = Save.find({ draftId: req.params.draftId });
     draft = await draftOp;
     saves = await savesOp;
-    res.send({ draft, saves });
+    res.send({ draft, saves: _.keyBy(saves, "_id") });
   });
 };
