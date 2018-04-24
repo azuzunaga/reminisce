@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles/header.css';
 import logo from '../assets/reminisceAlexBrushBlack.png';
-
+import arrowDown from '../assets/down-arrow.png';
 class Header extends React.Component {
   renderContent() {
     switch (this.props.auth) {
@@ -20,15 +20,19 @@ class Header extends React.Component {
           <li>
             <a href="https://github.com/azuzunaga/reminisce" target="_blank" rel="noopener noreferrer" >GitHub</a>
           </li>
-          <li>
+
+          <li className="hover-family">
+
             <img
               className="user-pic"
               src={this.props.auth.imageUrl + "?sz=64"}
-              alt=""
             />
-          </li>
-          <li>
-            <a className="sign-out" href="api/logout">Sign Out</a>
+            <li className="hover-arrow">
+            <img  src={arrowDown}/>
+            </li>
+            <ul className="sign-out">
+            <li><a  href="api/logout">Sign Out</a></li>
+            </ul>
           </li>
         </ul>
       );

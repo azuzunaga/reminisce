@@ -8,6 +8,7 @@
   align-items: center;
   margin: 0 auto;
   max-height: 240px;
+
   top: 0;
 }
 
@@ -48,4 +49,43 @@ a {
 .brand-logo img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.user-info ul {
+  display:none;
+}
+
+.hover-family {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.hover-arrow {
+  margin-right: 15px;
+}
+
+.hover-arrow img {
+  height: 12px;
+}
+
+.sign-out {
+
+}
+
+.hover-family:hover .sign-out {
+  display: inline-block;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px;
+  background: white;
+  list-style: none;
+  top: 63px;
+  right: 5px;
+  text-align: right;
+  min-width: 120px;
+  z-index: 10;
+}
+.sign-out a {
+
 }

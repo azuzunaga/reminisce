@@ -34,6 +34,7 @@
   margin: 0 auto;
   width: 80%;
   background: #F5F5F5;
+  margin-bottom: 10px;
 }
 
 .toolbar li {
@@ -54,6 +55,8 @@
   margin: 0 auto;
   width: 80%;
   background: #FFFDFD;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  min-height: 400px;
 }
 
 .bold {
