@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ProjectsListItem from './ProjectsListItem';
 import '../styles/dashboard.css';
 import '../styles/stylingMain.css';
 
 const fakeProjects = [
   {
+    id: 1,
     name: 'Scary Screenplay',
     description: 'Dark Thriller inspired by Edward Scissorhands',
     owner: 'Gabriel',
@@ -13,6 +15,7 @@ const fakeProjects = [
     modifiedBy: 'Gabriel',
   },
   {
+    id: 2,
     name: 'History of Abraham Lincoln',
     description: 'Well researched dissertation on the upbringing of Abraham Lincoln',
     owner: 'me',
@@ -20,16 +23,31 @@ const fakeProjects = [
     modifiedBy: 'Gabriel',
   },
   {
+    id: 3,
     name: 'Chinese Cookbook',
     description: 'Cuisine from the motherland',
     owner: 'Kimmy',
     lastModified: 'Mar 18, 5:00 PM',
     modifiedBy: 'me',
   },
-
-  ]
+];
 
 class ProjectsDashboard extends React.Component {
+  renderList() {
+    return (
+      <ul>
+      {
+        fakeProjects.map(project => {
+          return (
+            <ProjectsListItem
+            project={project}
+            key={project.id}/>
+          )
+        })
+      }
+      </ul>
+    )
+  }
 
   render() {
     return (
@@ -50,6 +68,9 @@ class ProjectsDashboard extends React.Component {
                   <h4>Modified By</h4>
                 </div>
               </div>
+              <ul>
+                { this.renderList() }
+              </ul>
             </section>
             <aside className='aside-right'>
             </aside>
