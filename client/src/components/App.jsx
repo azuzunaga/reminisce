@@ -19,6 +19,7 @@ class App extends React.Component {
       <div className="container">
         <BrowserRouter>
           <div>
+            <Modal />
             <Switch>
               <AuthRoute exact path="/" component={Splash} />
               <Header />
