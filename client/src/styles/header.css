@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
 .nav-container {
+  position: absolute;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   max-height: 240px;
+  top: 0;
 }
 
 .user-info {
@@ -15,16 +18,17 @@
   align-items: center;
   font-size: 16px;
   font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
 }
 
 .user-info li {
   margin-left: 15px;
-  color: black;
+  color: #434343;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: #434343;
   font-size: 20px;
   margin-right: 20px;
 }

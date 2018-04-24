@@ -21,9 +21,6 @@ class Header extends React.Component {
             <a href="https://github.com/azuzunaga/reminisce" target="_blank" rel="noopener noreferrer" >GitHub</a>
           </li>
           <li>
-            Hi, {this.props.auth.firstName}
-          </li>
-          <li>
             <img
               className="user-pic"
               src={this.props.auth.imageUrl + "?sz=64"}

@@ -1,0 +1,29 @@
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0px 20px;
+  font-family: 'Josefin Sans';
+  font-weight: 400;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #FAFAFA;
+}
+
+li p {
+   color: #666666;
+   text-align: center;
+   font-weight: 400;
+   cursor: pointer;
+}
+
+.project-details {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+
+.project-details p {
+  width: 33.33%;
+}
