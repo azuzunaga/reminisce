@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-
+import '../styles/reset.css';
 import Header from "./Header";
 import Splash from "./Splash";
 import { AuthRoute, ProtectedRoute } from "../utils/authRoutes";
