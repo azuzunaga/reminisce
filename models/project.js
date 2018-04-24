@@ -7,10 +7,12 @@ const projectSchema = new Schema({
   ownerId: { type: Schema.Types.ObjectId, ref: "users", required: true },
   canEdit: {
     type: [{ type: Schema.Types.ObjectId, ref: "users" }],
+    default: [],
     required: true
   },
   canView: {
     type: [{ type: Schema.Types.ObjectId, ref: "users" }],
+    default: [],
     required: true
   },
   createdAt: { type: Date, default: Date.now, required: true }
