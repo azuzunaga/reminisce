@@ -9,6 +9,7 @@ const keys = require("./config/keys");
 require("./models");
 require("./services/passport");
 
+mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI);
 
 const app = express();
