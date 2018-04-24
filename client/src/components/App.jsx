@@ -7,7 +7,7 @@ import Header from "./Header";
 import Splash from "./Splash";
 import DocumentForm from './DocumentForm';
 import { AuthRoute, ProtectedRoute } from "../utils/authRoutes";
-const Dashboard = () => <h2>Dashboard</h2>;
+import Dashboard from "./ProjectsDashboard"
 const Project = () => <h2>Project</h2>;
 const Document = () => <h2>Document</h2>;
 

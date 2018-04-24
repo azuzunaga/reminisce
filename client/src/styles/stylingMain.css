@@ -1,0 +1,87 @@
+.standard-layout {
+  position: fixed;
+  left: 0;
+  top: 11vh;
+}
+
+h2 {
+  color: white;
+  padding: 30px 0;
+  text-align: center;
+  font-size: 40px;
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 0 auto;
+  font-weight: 400;
+  width: 100vw;
+}
+
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+main aside {
+  width: 17vw;
+  background: #FAFAFA;
+}
+
+main section {
+  width: 66vw;
+  height: 100vh;
+}
+
+.main-list {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 8px -5px #d8d6d6, -4px 0 8px -5px #d8d6d6;
+  z-index: 5;
+}
+
+.main-list h3, .main-list div {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #434343;
+}
+
+
+.main-list h3 {
+  background: #F7F7F7;
+  margin: 0;
+  font-size: 30px;
+  font-weight: 400;
+  padding: 15px 20px;
+}
+
+.main-list {
+  font-size: 18px;
+  color: #434343;
+}
+
+.sub-header {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  background: #FAFAFA;
+}
+
+.sub-header h4 {
+  margin: 0;
+  padding: 10px 0px;
+  font-weight: 400;
+}
+
+.sub-header-right {
+  display: flex;
+  width: 50%;
+  padding: 0;
+}
+
+.sub-header-right h4 {
+  width: 33.33%;
+  text-align: center;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
