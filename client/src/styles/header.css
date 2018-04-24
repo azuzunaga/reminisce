@@ -37,6 +37,8 @@ a {
   height: 100px;
   display: flex;
   justify-content: center;
+  min-width: 240px;
+  margin: 0 15px;
 }
 
 .brand-logo img {
