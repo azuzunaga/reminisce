@@ -1,0 +1,42 @@
+.save-history-modal {
+  width: 60vw;
+  height: 67vh;
+  background: white;
+}
+
+.save-history-modal header {
+  display: flex;
+  justify-content: space-between;
+  background:   #F7F7F7;
+  color: #434343;
+  font-size: 24px;
+  padding: 15px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+.save-history-modal header h3 {
+  margin: 0;
+}
+
+.save-history-headers {
+  background: #FAFAFA;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Josefin Sans', sans-serif;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  padding: 7px 15px;
+}
+
+
+.save-history-headers > * {
+  margin: 0;
+}
+
+
+.close-x {
+  cursor: pointer;
+}
