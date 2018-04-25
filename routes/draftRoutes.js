@@ -1,12 +1,23 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
+const { to } = require("../utils/utils");
 const Draft = mongoose.model("drafts");
 const Save = mongoose.model("saves");
 
 module.exports = app => {
   app.post("/api/drafts", async (req, res) => {
-    const draft = await Draft.create(req.body.draft);
+    const [err, draft] = await to(Draft.create(req.body.draft));
+    if (err) {
+      switch (err.name) {
+        case "ValidationError":
+          return res
+            .status(422)
+            .json(_.map(Object.values(err.errors), "message"));
+        default:
+          return res.status(500).json(["Something went wrong"]);
+      }
+    }
     res.json(draft);
   });
 
