@@ -9,11 +9,11 @@ class ProjectsListItem extends React.Component {
     const { project } = this.props;
 
     return (
-      <li>
-        <div className='project-name'>
+      <li className='project-list-item'>
+        <div className='list-name'>
           <p> {project.name} </p>
         </div>
-        <div className='project-details'>
+        <div className='list-details'>
           <p>{project.owner}</p>
           <p>{project.lastModified}</p>
           <p>{project.modifiedBy}</p>

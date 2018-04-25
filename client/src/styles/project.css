@@ -1,0 +1,20 @@
+.project-show h2 {
+  background:  #226CE0;
+}
+
+.document-list-item p:hover {
+  text-decoration: underline #226CE0;
+}
+
+
+.doc-header-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 45%;
+}
+
+.doc-list-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 45%;
+}

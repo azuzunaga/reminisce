@@ -1,47 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ProjectsListItem from './ProjectsListItem';
-import '../styles/dashboard.css';
+import DocumentListItem from './DocumentListItem';
+import '../styles/project.css';
 import '../styles/stylingMain.css';
 
-const fakeProjects = [
+const currentProject = {
+  name: 'History of Abraham Lincoln'
+}
+const fakeDocs = [
   {
     id: 1,
-    name: 'Scary Screenplay',
-    description: 'Dark Thriller inspired by Edward Scissorhands',
-    owner: 'Gabriel',
+    name: 'Chapter One',
     lastModified: 'Today 4:00 PM',
     modifiedBy: 'Gabriel',
   },
   {
     id: 2,
-    name: 'History of Abraham Lincoln',
-    description: 'Well researched dissertation on the upbringing of Abraham Lincoln',
-    owner: 'me',
+    name: 'Chapter Two',
     lastModified: 'Apr 21, 5:00 PM',
     modifiedBy: 'Gabriel',
   },
   {
     id: 3,
-    name: 'Chinese Cookbook',
-    description: 'Cuisine from the motherland',
-    owner: 'Kimmy',
+    name: 'Chapter Three',
     lastModified: 'Mar 18, 5:00 PM',
     modifiedBy: 'me',
   },
 ];
 
-class ProjectsDashboard extends React.Component {
+class Project extends React.Component {
   renderList() {
     return (
       <ul>
       {
-        fakeProjects.map(project => {
+        fakeDocs.map(doc => {
           return (
-            <ProjectsListItem
-            project={project}
-            key={project.id}/>
+            <DocumentListItem
+            doc={doc}
+            key={doc.id}/>
           )
         })
       }
@@ -52,18 +49,17 @@ class ProjectsDashboard extends React.Component {
   render() {
     return (
       <div className='standard-layout'>
-        <header className='projects-dashboard'>
-          <h2> Projects Dashboard </h2>
+        <header className='project-show'>
+          <h2> Project: {currentProject.name} </h2>
         </header>
           <main className='main'>
             <aside className='aside-left'>
             </aside>
             <section className='main-list'>
-              <h3>Projects</h3>
+              <h3>Documents</h3>
               <div className='sub-header'>
-                <h4>Project Name</h4>
-                <div className='sub-header-right'>
-                  <h4>Owner</h4>
+                <h4>Document Name</h4>
+                <div className='doc-header-right'>
                   <h4>Last Modified</h4>
                   <h4>Modified By</h4>
                 </div>
@@ -86,4 +82,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(ProjectsDashboard);
+export default connect(mapStateToProps)(Project);

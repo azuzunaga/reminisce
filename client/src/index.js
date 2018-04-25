@@ -8,8 +8,10 @@ import App from './components/App';
 
 // const store = createStore(reducers, {}, applyMiddleware(...middlewares));
 const store = configureStore();
+window.axios = require("axios");
 
 ReactDOM.render(
   <Provider store={store}><App /></Provider>,
   document.getElementById("root")
+
 );
