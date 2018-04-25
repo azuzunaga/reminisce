@@ -9,7 +9,7 @@ import {
 export const fetchProjects = () => async dispatch => {
   const res = await axios.get('/api/projects')
 
-  dispatch({ type: FETCH_PROJECTS, projects: res.data });
+  dispatch({ type: FETCH_PROJECTS, projects: res.data.projects, users: res.data.users });
 };
 
 export const fetchUser = () => async dispatch => {
