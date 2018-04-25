@@ -1,8 +1,9 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
+import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
 class DocumentForm extends React.Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class DocumentForm extends React.Component {
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onTab = (e) => this._onTab(e);
   }
+
+  // display() {
+  //   let thing = stateToHTML(this.state.editorState.getCurrentContent());
+  // }
 
   handleStyleClick(type) {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, type));
@@ -93,8 +98,9 @@ class DocumentForm extends React.Component {
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
           onTab={this.onTab}
+          spellCheck={!this.spellCheck}
           />
-      </div>
+        </div>
       </div>
     );
   }
