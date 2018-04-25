@@ -17,13 +17,13 @@ li p {
    cursor: pointer;
 }
 
-.project-details {
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
+.list-details {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 45%;
 }
 
 
-.project-details p {
-  width: 33.33%;
+.list-details p {
+  text-align: center;
 }

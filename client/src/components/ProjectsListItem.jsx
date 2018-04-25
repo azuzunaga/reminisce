@@ -13,7 +13,9 @@ class ProjectsListItem extends React.Component {
           <Link to={`/projects/${project._id}`}>
             <p> {project.name} </p>
           </Link>
+
         </div>
+
         <div className='project-details'>
           <Link to={`/users/${project.ownerId}`}>
             <p>{users[project.ownerId].firstName}</p>
