@@ -2,6 +2,7 @@ import React from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import { connect } from 'react-redux';
 import '../styles/documentForm.css';
+import '../styles/stylingMain.css';
 import ul from '../assets/ul-icon.png';
 class DocumentForm extends React.Component {
   constructor(props) {
@@ -38,9 +39,9 @@ class DocumentForm extends React.Component {
 
   render () {
     return (
-      <div className="document-create-container">
+      <div className="standard-layout">
         <h1 className="header">Document: {this.props.document.name}</h1>
-        <h2 className="draft-version">Draft Version: {this.props.save.comment}</h2>
+        <h3 className="draft-version">Draft Version: {this.props.save.comment}</h3>
         <ul className="toolbar">
           <li>
             <button className="bold" onMouseDown={(e)=> e.preventDefault()} onClick={() => this.handleStyleClick('BOLD')}>
