@@ -11,7 +11,7 @@ const fakeProjects = [
     name: 'Scary Screenplay',
     description: 'Dark Thriller inspired by Edward Scissorhands',
     owner: 'Gabriel',
-    lastModified: 'Today 4:00 PM',
+    lastModified: 'Today, 4:00 PM',
     modifiedBy: 'Gabriel',
   },
   {

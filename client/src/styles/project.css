@@ -18,3 +18,18 @@
   grid-template-columns: 1fr 1fr;
   width: 45%;
 }
+
+
+.draft-version {
+  font-weight: normal;
+  font-size: 24px;
+  font-family: 'Josefin Sans', sans-serif;
+  background: white;
+  padding: 0;
+  margin: 15px 20px;
+  color:  #434343;
+}
+
+.draft-version span {
+  color: #666666;
+}

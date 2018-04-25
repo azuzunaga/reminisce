@@ -1,0 +1,44 @@
+.combine-drafts h2 {
+  background:  #CA2E55;
+}
+
+.draft-list-item p:hover {
+  text-decoration: underline #CA2E55;
+}
+
+.sub-header-left {
+  display: grid;
+  grid-template-columns: 1.5fr 5fr;
+  width: 55%;
+}
+
+.sub-header-left h4 {
+  text-align: left;
+}
+
+.draft-header-right {
+  width: 45%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.list-left {
+  display: grid;
+  grid-template-columns: 1.5fr 5fr;
+  width: 55%;
+}
+
+.list-left > p {
+  text-align: left;
+}
+
+.list-left > input {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.draft-list-details {
+  width: 45%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
