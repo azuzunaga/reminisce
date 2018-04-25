@@ -58,7 +58,7 @@ a {
 .hover-family {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
 }
 .hover-arrow {
