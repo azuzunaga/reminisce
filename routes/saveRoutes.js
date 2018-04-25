@@ -37,6 +37,11 @@ module.exports = app => {
       save.projectId = project.id;
       save.revisionIds = newRevIds;
 
+      draft.saveIds.push(save.id);
+      draft.updatedAt = Date.now();
+      draft.save();
+      project.updatedAt = Date.now();
+      project.save();
       res.json(await save.save());
     });
   });
