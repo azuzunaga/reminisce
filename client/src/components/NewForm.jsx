@@ -9,6 +9,7 @@ class NewForm extends React.Component {
         ownerId: this.props.userId || null,
         description: ''
       };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   update(field) {
