@@ -1,13 +1,13 @@
-const _ = require("lodash");
-const mongoose = require("mongoose");
+const _ = require('lodash');
+const mongoose = require('mongoose');
 
-const Project = mongoose.model("projects");
-const Draft = mongoose.model("drafts");
-const Revision = mongoose.model("revisions");
-const Save = mongoose.model("saves");
+const Project = mongoose.model('projects');
+const Draft = mongoose.model('drafts');
+const Revision = mongoose.model('revisions');
+const Save = mongoose.model('saves');
 
 module.exports = app => {
-  app.post("/api/saves", async (req, res) => {
+  app.post('/api/saves', async (req, res) => {
     const saveParams = req.body.save;
     const { newRevs, deletedRevIds } = req.body;
 
@@ -30,7 +30,7 @@ module.exports = app => {
 
     prevRevs = await Revision.find({ _id: { $in: prevRevIds } });
     console.log(prevRevs);
-    const titles = _.map(prevRevs.concat(newRevs), "title");
+    const titles = _.map(prevRevs.concat(newRevs), 'title');
     if (titles.length !== _.uniq(titles).length) {
       return res
         .status(403)
@@ -41,7 +41,7 @@ module.exports = app => {
 
     newRevs.forEach(rev => (rev.userId = req.user.id));
     Revision.create(newRevs, async (err, revs) => {
-      newRevIds = prevRevIds.concat(_.map(revs, "id"));
+      newRevIds = prevRevIds.concat(_.map(revs, 'id'));
       const save = new Save(saveParams);
       save.userId = req.user.id;
       save.projectId = project.id;
@@ -56,8 +56,9 @@ module.exports = app => {
     });
   });
 
-  app.get("/api/saves/:id", async (req, res) => {
+  app.get('/api/saves/:id', async (req, res) => {
     const save = await Save.findById(req.params.id);
-    res.json(save);
+    const revisions = await Revision.find({ _id: { $in: save.revisionIds } });
+    res.json({ save, revisions: _.keyBy(revisions, '_id') });
   });
 };
