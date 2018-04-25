@@ -14,7 +14,7 @@ module.exports = app => {
     const draft = await Draft.findById(saveParams.draftId);
     const project = await Project.findById(draft.projectId);
 
-    let prevSave = { revisionIds: [] };
+    let prevSave = { revisionIds: [], id: null };
     if (draft.saveIds.length) {
       prevSave = await Save.findById(draft.saveIds[draft.saveIds.length - 1]);
     }
@@ -46,6 +46,7 @@ module.exports = app => {
       save.userId = req.user.id;
       save.projectId = project.id;
       save.revisionIds = newRevIds;
+      save.previousSaveId = prevSave.id;
 
       draft.saveIds.push(save.id);
       draft.updatedAt = Date.now();
@@ -58,7 +59,13 @@ module.exports = app => {
 
   app.get('/api/saves/:id', async (req, res) => {
     const save = await Save.findById(req.params.id);
-    const revisions = await Revision.find({ _id: { $in: save.revisionIds } });
-    res.json({ save, revisions: _.keyBy(revisions, '_id') });
+    const prevSave = await Save.findById(save.previousSaveId);
+    const revisions = await Revision.find({
+      _id: { $in: save.revisionIds.concat(prevSave.revisionIds || []) }
+    });
+    res.json({
+      saves: _.keyBy([save, prevSave], '_id'),
+      revisions: _.keyBy(revisions, '_id')
+    });
   });
 };

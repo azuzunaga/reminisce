@@ -30,3 +30,13 @@ export const closeModal = () => (
     type: CLOSE_MODAL
   }
 )
+
+export const fetchSave = id => async dispatch => {
+  const res = await axios.get(`/api/saves/${id}`);
+
+  dispatch({
+    type: FETCH_SAVE,
+    save: res.save,
+    projects: res.projects
+  });
+}
