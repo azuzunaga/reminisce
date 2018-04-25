@@ -3,11 +3,16 @@ const _ = require("lodash");
 
 const Project = mongoose.model("projects");
 const Draft = mongoose.model("drafts");
+const User = mongoose.model("users");
 
 module.exports = app => {
   app.get("/api/projects", async (req, res) => {
     const projects = await Project.find({ ownerId: req.user.id });
-    res.json(_.keyBy(projects, "_id"));
+    const users = await User.find({ _id: { $in: _.map(projects, "ownerId") } });
+    res.json({
+      projects: _.keyBy(projects, "_id"),
+      users: _.keyBy(users, "_id")
+    });
   });
 
   app.post("/api/projects", async (req, res) => {
