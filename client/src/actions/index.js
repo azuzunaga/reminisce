@@ -3,7 +3,8 @@ import {
   FETCH_USER,
   OPEN_MODAL,
   CLOSE_MODAL,
-  FETCH_PROJECTS
+  FETCH_PROJECTS,
+  FETCH_SAVE
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -36,7 +37,7 @@ export const fetchSave = id => async dispatch => {
 
   dispatch({
     type: FETCH_SAVE,
-    save: res.save,
-    projects: res.projects
+    saves: res.data.saves,
+    revisions: res.data.revisions
   });
 }
