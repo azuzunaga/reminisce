@@ -81,9 +81,6 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
     fetchProjects: () => dispatch(fetchProjects()),
     openModal: (
-      // <button onClick={() => dispatch(openModal(<NewProject />))}>
-      //   <i class="material-icons">add_circle_outline</i>
-      // </button>
       <i
         class="material-icons"
         onClick={() => dispatch(openModal(<NewProject />))}
