@@ -8,14 +8,19 @@ class ProjectsListItem extends React.Component {
 
     const { project, users } = this.props;
     return (
-      <li className='project-list-item'>
-        <div className='list-name'>
-          <p> {project.name} </p>
+      <li>
+        <div className='project-name'>
+          <Link to={`/projects/${project._id}`}>
+            <p> {project.name} </p>
+          </Link>
+
         </div>
 
         <div className='project-details'>
-          <p>{users[project.ownerId].firstName}</p>
-          <p>{project.createdAt.split("T")[0]}</p>
+          <Link to={`/users/${project.ownerId}`}>
+            <p>{users[project.ownerId].firstName}</p>
+          </Link>
+          <p>{project.updatedAt.split("T")[0]}</p>
           <p>{project.modifiedBy}</p>
         </div>
       </li>
