@@ -32,6 +32,7 @@ export const closeModal = () => (
   }
 )
 
+
 export const fetchSave = id => async dispatch => {
   const res = await axios.get(`/api/saves/${id}`);
 
@@ -41,3 +42,7 @@ export const fetchSave = id => async dispatch => {
     revisions: res.data.revisions
   });
 }
+
+export const newProject = () => {};
+export const newRevision = () => {};
+
