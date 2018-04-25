@@ -5,32 +5,6 @@ import ProjectsListItem from './ProjectsListItem';
 import '../styles/dashboard.css';
 import '../styles/stylingMain.css';
 import { fetchProjects } from '../actions/index';
-const fakeProjects = [
-  {
-    id: 1,
-    name: 'Scary Screenplay',
-    description: 'Dark Thriller inspired by Edward Scissorhands',
-    owner: 'Gabriel',
-    lastModified: 'Today, 4:00 PM',
-    modifiedBy: 'Gabriel',
-  },
-  {
-    id: 2,
-    name: 'History of Abraham Lincoln',
-    description: 'Well researched dissertation on the upbringing of Abraham Lincoln',
-    owner: 'me',
-    lastModified: 'Apr 21, 5:00 PM',
-    modifiedBy: 'Gabriel',
-  },
-  {
-    id: 3,
-    name: 'Chinese Cookbook',
-    description: 'Cuisine from the motherland',
-    owner: 'Kimmy',
-    lastModified: 'Mar 18, 5:00 PM',
-    modifiedBy: 'me',
-  },
-];
 
 class ProjectsDashboard extends React.Component {
 

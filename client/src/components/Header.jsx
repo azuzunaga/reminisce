@@ -30,10 +30,10 @@ class Header extends React.Component {
               src={this.props.auth.imageUrl + "?sz=64"}
             />
             <div className="hover-arrow">
-            <img alt="Arrow Down" src={arrowDown}/>
+              <img alt="Arrow Down" src={arrowDown}/>
             </div>
             <span className="sign-out">
-              <a  href="api/logout">Sign Out</a>
+            <a  href="api/logout">Sign Out</a>
             </span>
           </li>
         </ul>

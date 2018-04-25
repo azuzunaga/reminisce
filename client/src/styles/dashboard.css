@@ -5,3 +5,17 @@
 .project-list-item p:hover {
   text-decoration: underline #17BEBB;
 }
+
+.project-details {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 45%;
+}
+
+.project-details > * {
+  text-align: center;
+}
+
+.project-details a {
+  margin: 0;
+}
