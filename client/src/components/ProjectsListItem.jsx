@@ -15,7 +15,7 @@ class ProjectsListItem extends React.Component {
         </div>
         <div className='project-details'>
           <p>{project.owner}</p>
-          <p>{project.lastModified}</p>
+          <p>{project.createdAt.split("T")[0]}</p>
           <p>{project.modifiedBy}</p>
         </div>
       </li>

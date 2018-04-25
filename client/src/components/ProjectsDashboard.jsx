@@ -39,10 +39,12 @@ class ProjectsDashboard extends React.Component {
   }
 
   renderList() {
+    if (this.props.projects) {
+    const projects = Object.values(this.props.projects);
     return (
       <ul>
       {
-        fakeProjects.map(project => {
+        projects.map(project => {
           return (
             <ProjectsListItem
             project={project}
@@ -52,7 +54,10 @@ class ProjectsDashboard extends React.Component {
       }
       </ul>
     )
+  } else {
+    return ( <div> Loading..</div>);
   }
+}
 
   render() {
     return (
@@ -87,8 +92,8 @@ class ProjectsDashboard extends React.Component {
 }
 
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps(state) {
+  return { auth: state.auth, projects: state.projects };
 }
 
 const mapDispatchToProps = (dispatch) => ({
