@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { newProject, closeModal } from '../actions';
+import { newRevision, closeModal } from '../actions';
 import NewForm from './NewForm';
 
 const mapStateToProps = ({ auth }) => {
@@ -11,7 +11,7 @@ const mapStateToProps = ({ auth }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    processForm: project => dispatch(newProject(project)),
+    processForm: revision => dispatch(newRevision(revision)),
     closeModal: () => dispatch(closeModal()),
   };
 };
