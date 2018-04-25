@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
+
+.new-form-container {
+  width: 600px;
+  background-color: #FFFFFF;
+  font-family: 'Josefin Sans', sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  padding: 15px;
+  background-color: #FAFAFA;
+  color: #434343;
+  margin: 0;
+  width: 570px;
+  font-weight: 400;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.new-form.name {
+  border: 1px solid #C1C1C1;
+  border-radius: 2px;
+  padding: 15px;
+  font-size: 20px;
+  margin: 15px;
+  width: 538px;
+  color: #666666;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+}
+
+::placeholder {
+  color: #C1C1C1;
+}
+
+textarea {
+  margin: 0 15px;
+  margin-bottom: 15px;
+  border: 1px solid #C1C1C1;
+  border-radius: 2px;
+  width: 538px;
+  padding: 15px;
+  font-size: 16px;
+  color: #666666;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  resize: none;
+}
+
+input.new-form.submit {
+  font-size: 18px;
+  padding: 0;
+  margin: 15px;
+  margin-top: 0;
+  width: 200px;
+  height: 40px;
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+}
+
+input.Document {
+  background-color: #226CE0;
+}
+
+input.Project {
+  background-color: #17BEBB;
+}

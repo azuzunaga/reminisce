@@ -5,7 +5,7 @@ import NewForm from './NewForm';
 const mapStateToProps = ({ auth }) => {
   return {
     userId: auth._id,
-    formType: "Project",
+    formType: "Document",
   };
 };
 

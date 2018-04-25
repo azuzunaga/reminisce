@@ -1,3 +1,5 @@
+import '../styles/newForm.css';
+
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -33,21 +35,24 @@ class NewForm extends React.Component {
   }
 
   renderErrors() {
-    return(
-      <h5 className="error-message">{this.props.errors}</h5>
-    );
+    if (this.props.errors) {
+      return(
+        <h5 className="error-message">{this.props.errors}</h5>
+      );
+    }
+
+    return null;
   }
 
   descriptionField() {
     if (this.props.formType !== "Document") {
       return(
         <section className="new-form description">
-          <label htmlFor="new-form-description">Description</label>
           <textarea
             name=""
             id="new-form-description"
             cols="30"
-            rows="10"
+            rows="3"
             onChange={this.update('description')}
             placeholder={this.props.formType + " description"}
           >
@@ -72,12 +77,12 @@ class NewForm extends React.Component {
             onChange={this.update('name')}
           />
           {this.renderErrors()}
+          {this.descriptionField()}
           <input
-            className="new-form submit {this.props.formType}"
+            className={"new-form submit " + this.props.formType}
             type="submit"
             value={"Create " + this.props.formType}
           />
-          {this.descriptionField()}
         </form>
       </div>
     );
