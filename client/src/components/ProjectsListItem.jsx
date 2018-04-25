@@ -15,7 +15,9 @@ class ProjectsListItem extends React.Component {
           </Link>
         </div>
         <div className='project-details'>
-          <p>{users[project.ownerId].firstName}</p>
+          <Link to={`/users/${project.ownerId}`}>
+            <p>{users[project.ownerId].firstName}</p>
+          </Link>
           <p>{project.updatedAt.split("T")[0]}</p>
           <p>{project.modifiedBy}</p>
         </div>
