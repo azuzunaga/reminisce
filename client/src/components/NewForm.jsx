@@ -6,7 +6,7 @@ class NewForm extends React.Component {
     super(props);
       this.state = {
         name: '',
-        ownerId: this.props.userId || null,
+        ownerId: this.props.userId,
         description: ''
       };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,21 +20,19 @@ class NewForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.formType === "Project") {
+    if (this.props.formType === "Project") {
       const project = Object.assign({}, this.state);
       this.props.processForm(project);
+      this.props.closeModal();
     } else {
       const revision = Object.assign({}, {
-        userId: this.state.userId, title: this.state.name
+        userId: this.state.ownerId, title: this.state.name
       });
-      this.props.processForm(revision);
+      this.props.processForm(revision).then(this.props.closeModal);
     }
   }
 
   renderErrors() {
-    const input = document.getElementById("required-input");
-    input.className += "error";
-
     return(
       <h5 className="error-message">{this.props.errors}</h5>
     );
@@ -44,7 +42,7 @@ class NewForm extends React.Component {
     if (this.props.formType !== "Document") {
       return(
         <section className="new-form description">
-          <label for="new-form-description">Description</label>
+          <label htmlFor="new-form-description">Description</label>
           <textarea
             name=""
             id="new-form-description"
