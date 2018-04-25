@@ -4,55 +4,39 @@ import { Link } from 'react-router-dom';
 import ProjectsListItem from './ProjectsListItem';
 import '../styles/dashboard.css';
 import '../styles/stylingMain.css';
-
-const fakeProjects = [
-  {
-    id: 1,
-    name: 'Scary Screenplay',
-    description: 'Dark Thriller inspired by Edward Scissorhands',
-    owner: 'Gabriel',
-    lastModified: 'Today 4:00 PM',
-    modifiedBy: 'Gabriel',
-  },
-  {
-    id: 2,
-    name: 'History of Abraham Lincoln',
-    description: 'Well researched dissertation on the upbringing of Abraham Lincoln',
-    owner: 'me',
-    lastModified: 'Apr 21, 5:00 PM',
-    modifiedBy: 'Gabriel',
-  },
-  {
-    id: 3,
-    name: 'Chinese Cookbook',
-    description: 'Cuisine from the motherland',
-    owner: 'Kimmy',
-    lastModified: 'Mar 18, 5:00 PM',
-    modifiedBy: 'me',
-  },
-];
+import { fetchProjects } from '../actions/index';
 
 class ProjectsDashboard extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchProjects();
+  }
+
   renderList() {
+    if (this.props.projects) {
+    const projects = Object.values(this.props.projects);
     return (
       <ul>
       {
-        fakeProjects.map(project => {
+        projects.map(project => {
           return (
             <ProjectsListItem
             project={project}
-            key={project.id}/>
+            key={project._id}/>
           )
         })
       }
       </ul>
     )
+  } else {
+    return ( <div> Loading..</div>);
   }
+}
 
   render() {
     return (
       <div className='standard-layout'>
-        <header>
+        <header className='projects-dashboard'>
           <h2> Projects Dashboard </h2>
         </header>
           <main className='main'>
@@ -82,8 +66,12 @@ class ProjectsDashboard extends React.Component {
 }
 
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps(state) {
+  return { auth: state.auth, projects: state.projects };
 }
 
-export default connect(mapStateToProps)(ProjectsDashboard);
+const mapDispatchToProps = (dispatch) => ({
+    fetchProjects: () => dispatch(fetchProjects())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsDashboard);

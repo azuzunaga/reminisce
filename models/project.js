@@ -16,6 +16,7 @@ const projectSchema = new Schema({
     required: true
   },
   createdAt: { type: Date, default: Date.now, required: true },
+  updatedAt: { type: Date, default: Date.now, required: true },
   description: String
 });
 

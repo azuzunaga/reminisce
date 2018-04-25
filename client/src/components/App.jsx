@@ -8,7 +8,8 @@ import Splash from "./Splash";
 import DocumentForm from './DocumentForm';
 import { AuthRoute, ProtectedRoute } from "../utils/authRoutes";
 import Dashboard from "./ProjectsDashboard"
-const Project = () => <h2>Project</h2>;
+import Project from "./ProjectShow"
+import CombineDrafts from "./CombineDrafts"
 const Document = () => <h2>Document</h2>;
 
 class App extends React.Component {
@@ -27,9 +28,10 @@ class App extends React.Component {
               <Header />
             </Switch>
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-            <ProtectedRoute exact path="/projects/1/1" component={Project} />
-            <ProtectedRoute exact path="/documents/1" component={Document} />
+            <ProtectedRoute exact path="/projects/:projectId" component={Project} />
+            <ProtectedRoute exact path="/documents/:documentId" component={Document} />
             <ProtectedRoute exact path="/document/new" component={DocumentForm} />
+            <ProtectedRoute exact path="/projects/:projectId/drafts" component={CombineDrafts} />
           </div>
         </BrowserRouter>
       </div>

@@ -57,6 +57,9 @@
 
 .editor .public-DraftEditor-content {
   min-height: 400px;
+  padding: 20px;
+  margin: 0 10px;
+
 }
 
 .editor {

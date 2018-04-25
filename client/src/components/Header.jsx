@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/header.css';
 import logo from '../assets/reminisceAlexBrushBlack.png';
 import arrowDown from '../assets/down-arrow.png';
+
 class Header extends React.Component {
   renderContent() {
     switch (this.props.auth) {
@@ -24,15 +25,16 @@ class Header extends React.Component {
           <li className="hover-family">
 
             <img
+              alt="Profile"
               className="user-pic"
               src={this.props.auth.imageUrl + "?sz=64"}
             />
-            <li className="hover-arrow">
-            <img  src={arrowDown}/>
-            </li>
-            <ul className="sign-out">
-            <li><a  href="api/logout">Sign Out</a></li>
-            </ul>
+            <div className="hover-arrow">
+              <img alt="Arrow Down" src={arrowDown}/>
+            </div>
+            <span className="sign-out">
+            <a  href="api/logout">Sign Out</a>
+            </span>
           </li>
         </ul>
       );

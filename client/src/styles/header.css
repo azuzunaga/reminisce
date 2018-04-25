@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
 .nav-container {
-  position: absolute;
+  position: fixed;
   width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  max-height: 240px;
-
+  min-height: 70 px;
+  max-height: 70px;
   top: 0;
+  z-index: 1;
 }
 
 .user-info {
@@ -17,7 +18,7 @@
   list-style: none;
   margin-right: 10px;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
 }
@@ -30,19 +31,19 @@
 a {
   text-decoration: none;
   color: #434343;
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 20px;
 }
 
 .user-pic {
   border-radius: 50%;
+  height: 50px;
 }
 
 .brand-logo {
-  height: 100px;
+  height: 70px;
   display: flex;
   justify-content: center;
-  min-width: 240px;
   margin: 0 15px;
 }
 
@@ -51,14 +52,10 @@ a {
   max-height: 100%;
 }
 
-.user-info ul {
-  display:none;
-}
-
 .hover-family {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
 }
 .hover-arrow {
@@ -66,11 +63,11 @@ a {
 }
 
 .hover-arrow img {
-  height: 12px;
+  height: 10px;
 }
 
 .sign-out {
-
+  display: none;
 }
 
 .hover-family:hover .sign-out {
@@ -80,11 +77,10 @@ a {
   padding: 10px;
   background: white;
   list-style: none;
-  top: 63px;
   right: 5px;
+  top: 50px;
   text-align: right;
   min-width: 120px;
-  z-index: 10;
 }
 .sign-out a {
 
