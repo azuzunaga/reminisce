@@ -73,7 +73,7 @@ const backtrack = (original, target) => {
   return result;
 };
 
-const diff = (original, target) => {
+const diffRevisions = (original, target) => {
   const result = [];
 
   for (const [
@@ -84,21 +84,21 @@ const diff = (original, target) => {
   ] of backtrack(original, target)) {
     if (originalIdx === prevOriginalIdx) {
       result.push({
-        type: "insert",
+        type: 'insert',
         data: target[prevTargetIdx],
         origIdx: null,
         targetIdx: prevTargetIdx + 1
       });
     } else if (targetIdx === prevTargetIdx) {
       result.push({
-        type: "delete",
+        type: 'delete',
         data: original[prevOriginalIdx],
         origIdx: prevOriginalIdx + 1,
         targetIdx: null
       });
     } else {
       result.push({
-        type: "none",
+        type: 'none',
         data: original[prevOriginalIdx],
         origIdx: prevOriginalIdx + 1,
         targetIdx: prevTargetIdx + 1
@@ -110,4 +110,33 @@ const diff = (original, target) => {
   return result;
 };
 
-export default diff;
+const diffSaves = (original, target, revisions) => {
+  const changedRevs = [];
+  debugger;
+
+  const originalTitles = original.revisionIds.map(id => revisions[id].title);
+  const targetTitles = target.revisionIds.map(id => revisions[id].title);
+
+  original.revisionIds.forEach(revId => {
+    const rev = revisions[revId];
+    if (!targetTitles.includes(rev.title)) {
+      rev.change = "delete";
+      changedRevs.push(rev);
+    }
+  });
+  target.revisionIds.forEach(revId => {
+    const rev = revisions[revId];
+    if (!originalTitles.includes(rev.title)) {
+      rev.change = "insert";
+      return changedRevs.push(rev);
+    }
+    if (!original.revisionIds.includes(revId)) {
+      rev.change = "edit";
+      changedRevs.push(rev);
+    }
+  });
+
+  return changedRevs;
+};
+
+export default diffSaves;
