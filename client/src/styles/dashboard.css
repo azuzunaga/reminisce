@@ -19,3 +19,20 @@
 .project-details a {
   margin: 0;
 }
+
+i:hover {
+  cursor: pointer;
+}
+
+.project-header {
+  display: flex;
+  width: 100%;
+  background: #FAFAFA;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #434343;
+  align-items: center;
+}
+
+.project-header h3 {
+  width: 100px;
+}
