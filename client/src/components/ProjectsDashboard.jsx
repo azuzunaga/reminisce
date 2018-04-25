@@ -48,7 +48,7 @@ class ProjectsDashboard extends React.Component {
           return (
             <ProjectsListItem
             project={project}
-            key={project.id}/>
+            key={project._id}/>
           )
         })
       }
