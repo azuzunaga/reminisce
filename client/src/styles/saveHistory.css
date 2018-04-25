@@ -18,6 +18,7 @@
 
 .save-history-modal header h3 {
   margin: 0;
+  font-weight: 400;
 }
 
 .save-history-headers {
@@ -34,9 +35,33 @@
 
 .save-history-headers > * {
   margin: 0;
+  text-align: center;
+}
+
+.save-history-headers h4:first-of-type {
+  text-align: left;
 }
 
 
 .close-x {
   cursor: pointer;
+}
+
+.save-list-item {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  padding: 0px 15px;
+}
+
+.save-list-item p {
+  color: #666666;
+  text-align: center;
+}
+
+.save-list-item p:first-of-type {
+  text-align: left;
+}
+
+.save-list-item p:hover {
+  text-decoration: underline;
 }
