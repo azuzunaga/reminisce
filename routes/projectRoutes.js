@@ -1,19 +1,39 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
+const { to } = require("../utils/utils");
 const Project = mongoose.model("projects");
 const Draft = mongoose.model("drafts");
+const User = mongoose.model("users");
 
 module.exports = app => {
   app.get("/api/projects", async (req, res) => {
     const projects = await Project.find({ ownerId: req.user.id });
-    res.json(projects);
+    const users = await User.find({ _id: { $in: _.map(projects, "ownerId") } });
+    res.json({
+      projects: _.keyBy(projects, "_id"),
+      users: _.keyBy(users, "_id")
+    });
   });
 
   app.post("/api/projects", async (req, res) => {
     const project = new Project(req.body.project);
     project.ownerId = req.user.id;
-    await project.save();
+    const [err] = await to(project.save());
+    if (err) {
+      switch (err.name) {
+        case "ValidationError":
+          return res
+            .status(422)
+            .json(_.map(Object.values(err.errors), "message"));
+        case "BulkWriteError":
+          return res
+            .status(422)
+            .json("You already have a project with that name");
+        default:
+          return res.status(500).json(["Something went wrong"]);
+      }
+    }
     const draft = new Draft({ name: "main", projectId: project.id });
     await draft.save();
     res.json({ project, draft });

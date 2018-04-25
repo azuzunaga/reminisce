@@ -5,6 +5,10 @@
   flex-direction: column;
   width: auto;
   background: #FAFAFA;
+  position: relative;
+  left: 0;
+  top: 11vh;
+  width: 100vw;
 }
 
 .header {
@@ -17,7 +21,7 @@
   font-family: 'Josefin Sans', sans-serif;
   margin: 0 auto;
   font-weight: normal;
-  width: 100%;
+  width: 100vw;
 }
 
 .draft-version {
@@ -51,12 +55,18 @@
   cursor: pointer;
 }
 
+.editor .public-DraftEditor-content {
+  min-height: 400px;
+  padding: 20px;
+  margin: 0 10px;
+
+}
+
 .editor {
   margin: 0 auto;
   width: 80%;
   background: #FFFDFD;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  min-height: 400px;
 }
 
 .bold {

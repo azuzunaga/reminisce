@@ -9,7 +9,9 @@ const draftSchema = new Schema({
     default: [],
     required: true
   },
-  description: String
+  description: String,
+  createdAt: { type: Date, default: Date.now, required: true },
+  updatedAt: { type: Date, default: Date.now, required: true }
 });
 
 mongoose.model("drafts", draftSchema);

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ProjectsListItem from './ProjectsListItem';
 import '../styles/dashboard.css';
 import '../styles/stylingMain.css';
-
+import { fetchProjects } from '../actions/index';
 const fakeProjects = [
   {
     id: 1,
@@ -33,21 +33,31 @@ const fakeProjects = [
 ];
 
 class ProjectsDashboard extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchProjects();
+  }
+
   renderList() {
+    if (this.props.projects) {
+    const projects = Object.values(this.props.projects);
     return (
       <ul>
       {
-        fakeProjects.map(project => {
+        projects.map(project => {
           return (
             <ProjectsListItem
             project={project}
-            key={project.id}/>
+            key={project._id}/>
           )
         })
       }
       </ul>
     )
+  } else {
+    return ( <div> Loading..</div>);
   }
+}
 
   render() {
     return (
@@ -82,8 +92,12 @@ class ProjectsDashboard extends React.Component {
 }
 
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps(state) {
+  return { auth: state.auth, projects: state.projects };
 }
 
-export default connect(mapStateToProps)(ProjectsDashboard);
+const mapDispatchToProps = (dispatch) => ({
+    fetchProjects: () => dispatch(fetchProjects())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsDashboard);
