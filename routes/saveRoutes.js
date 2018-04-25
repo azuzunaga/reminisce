@@ -1,20 +1,20 @@
-const _ = require("lodash");
-const mongoose = require("mongoose");
+const _ = require('lodash');
+const mongoose = require('mongoose');
 
-const Project = mongoose.model("projects");
-const Draft = mongoose.model("drafts");
-const Revision = mongoose.model("revisions");
-const Save = mongoose.model("saves");
+const Project = mongoose.model('projects');
+const Draft = mongoose.model('drafts');
+const Revision = mongoose.model('revisions');
+const Save = mongoose.model('saves');
 
 module.exports = app => {
-  app.post("/api/saves", async (req, res) => {
+  app.post('/api/saves', async (req, res) => {
     const saveParams = req.body.save;
     const { newRevs, deletedRevIds } = req.body;
 
     const draft = await Draft.findById(saveParams.draftId);
     const project = await Project.findById(draft.projectId);
 
-    let prevSave = { revisionIds: [] };
+    let prevSave = { revisionIds: [], id: null };
     if (draft.saveIds.length) {
       prevSave = await Save.findById(draft.saveIds[draft.saveIds.length - 1]);
     }
@@ -30,7 +30,7 @@ module.exports = app => {
 
     prevRevs = await Revision.find({ _id: { $in: prevRevIds } });
     console.log(prevRevs);
-    const titles = _.map(prevRevs.concat(newRevs), "title");
+    const titles = _.map(prevRevs.concat(newRevs), 'title');
     if (titles.length !== _.uniq(titles).length) {
       return res
         .status(403)
@@ -41,11 +41,12 @@ module.exports = app => {
 
     newRevs.forEach(rev => (rev.userId = req.user.id));
     Revision.create(newRevs, async (err, revs) => {
-      newRevIds = prevRevIds.concat(_.map(revs, "id"));
+      newRevIds = prevRevIds.concat(_.map(revs, 'id'));
       const save = new Save(saveParams);
       save.userId = req.user.id;
       save.projectId = project.id;
       save.revisionIds = newRevIds;
+      save.previousSaveId = prevSave.id;
 
       draft.saveIds.push(save.id);
       draft.updatedAt = Date.now();
@@ -56,8 +57,15 @@ module.exports = app => {
     });
   });
 
-  app.get("/api/saves/:id", async (req, res) => {
+  app.get('/api/saves/:id', async (req, res) => {
     const save = await Save.findById(req.params.id);
-    res.json(save);
+    const prevSave = await Save.findById(save.previousSaveId);
+    const revisions = await Revision.find({
+      _id: { $in: save.revisionIds.concat(prevSave.revisionIds || []) }
+    });
+    res.json({
+      saves: _.keyBy([save, prevSave], '_id'),
+      revisions: _.keyBy(revisions, '_id')
+    });
   });
 };

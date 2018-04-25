@@ -3,10 +3,14 @@ import authReducer from './authReducer';
 import uiReducer from './uiReducer';
 import projectReducer from './projectReducer';
 import usersReducer from './usersReducer';
+import savesReducer from './savesReducer';
+import revisionsReducer from './revisionsReducer';
 
 export default combineReducers({
   auth: authReducer,
   projects: projectReducer,
   users: usersReducer,
-  ui: uiReducer
+  ui: uiReducer,
+  saves: savesReducer,
+  revisions: revisionsReducer
 });

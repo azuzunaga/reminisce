@@ -1,0 +1,7 @@
+.diff-view .delete {
+  background-color: #fdd;
+}
+
+.diff-view .insert {
+  background-color: #dfd;
+}
