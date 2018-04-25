@@ -33,3 +33,37 @@
 .draft-version span {
   color: #666666;
 }
+
+.save-history {
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+  padding-top: 20px;
+
+}
+
+.save-history button {
+  color: #226CE0;
+  margin: 0;
+  background: none;
+  border: none;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.save-history button:hover {
+  text-decoration: underline;
+}
+
+.save-history p {
+  color: #BABABA;
+  font-size: 13px;
+  line-height: 14px;
+  margin: 0;
+  font-weight: 400;
+
+}
+
+.save-history p:first-of-type {
+  margin-top: 10px;
+}

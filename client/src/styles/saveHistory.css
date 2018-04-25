@@ -1,0 +1,67 @@
+.save-history-modal {
+  width: 60vw;
+  height: 67vh;
+  background: white;
+}
+
+.save-history-modal header {
+  display: flex;
+  justify-content: space-between;
+  background:   #F7F7F7;
+  color: #434343;
+  font-size: 24px;
+  padding: 15px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+.save-history-modal header h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+.save-history-headers {
+  background: #FAFAFA;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Josefin Sans', sans-serif;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  padding: 7px 15px;
+}
+
+
+.save-history-headers > * {
+  margin: 0;
+  text-align: center;
+}
+
+.save-history-headers h4:first-of-type {
+  text-align: left;
+}
+
+
+.close-x {
+  cursor: pointer;
+}
+
+.save-list-item {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  padding: 0px 15px;
+}
+
+.save-list-item p {
+  color: #666666;
+  text-align: center;
+}
+
+.save-list-item p:first-of-type {
+  text-align: left;
+}
+
+.save-list-item p:hover {
+  text-decoration: underline;
+}
