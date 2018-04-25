@@ -28,7 +28,7 @@ class App extends React.Component {
               <Header />
             </Switch>
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-            <ProtectedRoute exact path="/projects/1/1" component={Project} />
+            <ProtectedRoute exact path="/projects/:projectId" component={Project} />
             <ProtectedRoute exact path="/documents/:documentId" component={Document} />
             <ProtectedRoute exact path="/document/new" component={DocumentForm} />
             <ProtectedRoute exact path="/projects/:projectId/drafts" component={CombineDrafts} />
