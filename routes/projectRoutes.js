@@ -7,7 +7,7 @@ const Draft = mongoose.model("drafts");
 module.exports = app => {
   app.get("/api/projects", async (req, res) => {
     const projects = await Project.find({ ownerId: req.user.id });
-    res.json(projects);
+    res.json(_.keyBy(projects, "_id"));
   });
 
   app.post("/api/projects", async (req, res) => {
