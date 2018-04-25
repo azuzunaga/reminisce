@@ -11,7 +11,7 @@ const fakeProjects = [
     name: 'Scary Screenplay',
     description: 'Dark Thriller inspired by Edward Scissorhands',
     owner: 'Gabriel',
-    lastModified: 'Today 4:00 PM',
+    lastModified: 'Today, 4:00 PM',
     modifiedBy: 'Gabriel',
   },
   {
@@ -62,7 +62,7 @@ class ProjectsDashboard extends React.Component {
   render() {
     return (
       <div className='standard-layout'>
-        <header>
+        <header className='projects-dashboard'>
           <h2> Projects Dashboard </h2>
         </header>
           <main className='main'>

@@ -1,7 +1,7 @@
 .standard-layout {
   position: fixed;
   left: 0;
-  top: 11vh;
+  top: 8vh;
 }
 
 h2 {
@@ -13,8 +13,8 @@ h2 {
   margin: 0 auto;
   font-weight: 400;
   width: 100vw;
+  box-shadow: 0px 5px 8px -5px #d8d6d6, 0px -5px 8px -5px #d8d6d6;
 }
-
 
 main {
   display: flex;
@@ -68,17 +68,14 @@ main section {
   margin: 0;
   padding: 10px 0px;
   font-weight: 400;
+  text-align: center;
 }
 
 .sub-header-right {
-  display: flex;
-  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 45%;
   padding: 0;
-}
-
-.sub-header-right h4 {
-  width: 33.33%;
-  text-align: center;
 }
 
 ul {

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/header.css';
 import logo from '../assets/reminisceAlexBrushBlack.png';
 import arrowDown from '../assets/down-arrow.png';
+
 class Header extends React.Component {
   renderContent() {
     switch (this.props.auth) {

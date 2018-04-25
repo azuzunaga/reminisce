@@ -8,10 +8,11 @@ class ProjectsListItem extends React.Component {
 
     const { project, users } = this.props;
     return (
-      <li>
-        <div className='project-name'>
+      <li className='project-list-item'>
+        <div className='list-name'>
           <p> {project.name} </p>
         </div>
+
         <div className='project-details'>
           <p>{users[project.ownerId].firstName}</p>
           <p>{project.createdAt.split("T")[0]}</p>
