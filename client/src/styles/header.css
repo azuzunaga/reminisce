@@ -10,6 +10,7 @@
   min-height: 70 px;
   max-height: 70px;
   top: 0;
+  z-index: 1;
 }
 
 .user-info {
@@ -76,11 +77,10 @@ a {
   padding: 10px;
   background: white;
   list-style: none;
-  top: 63px;
   right: 5px;
+  top: 50px;
   text-align: right;
   min-width: 120px;
-  z-index: 10;
 }
 .sign-out a {
 
