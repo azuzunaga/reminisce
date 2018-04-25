@@ -11,6 +11,25 @@
   width: 100vw;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.save-button {
+  background: #EF6F6C;
+  color: white;
+  border: none;
+  padding: 10px;
+  height: 30px;
+  min-width: 120px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .header {
   background: #EF6F6C;
   display: block;
