@@ -10,11 +10,13 @@ class ProjectsListItem extends React.Component {
     return (
       <li>
         <div className='project-name'>
-          <p> {project.name} </p>
+          <Link to={`/projects/${project._id}`}>
+            <p> {project.name} </p>
+          </Link>
         </div>
         <div className='project-details'>
           <p>{users[project.ownerId].firstName}</p>
-          <p>{project.createdAt.split("T")[0]}</p>
+          <p>{project.updatedAt.split("T")[0]}</p>
           <p>{project.modifiedBy}</p>
         </div>
       </li>
