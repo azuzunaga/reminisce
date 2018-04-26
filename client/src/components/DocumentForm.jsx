@@ -5,7 +5,7 @@ import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
-import { fetchRevision } from '../actions/index';
+import { fetchRevision, openModal, closeModal } from '../actions/index';
 import debounce from 'lodash/debounce';
 class DocumentForm extends React.Component {
   constructor(props) {
