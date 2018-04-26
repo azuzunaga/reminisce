@@ -2,14 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { pickBy } from 'lodash';
 
-import { fetchSave } from '../actions';
-import diffSaves from '../utils/diff';
+import { fetchSave } from '../../actions';
+import diffSaves from '../../utils/diff';
+import RevisionDiff from './RevisionDiff';
 
-class Diff extends React.Component {
+class SaveDiff extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: true, activeRevisionIdx: 0 };
   }
+
   componentDidMount() {
     this.props
       .fetchSave(this.props.saveId)
@@ -18,20 +20,26 @@ class Diff extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <div className="loading" />;
+      return <div className="diff-view loading" />;
     }
-    if (!this.props.save) debugger;
-    const { save, prevSave, changedRevisions } = this.props;
+    const { save, changedRevisions } = this.props;
     return (
       <div className="diff-view">
         <h3>Save: {save.name}</h3>
-        <ul>
-          {changedRevisions.map(rev => (
-            <div>
-              {rev.title}: {rev.change}
-            </div>
-          ))}
-        </ul>
+        <div className="diff-table">
+          <ol className="rev-titles">
+            {changedRevisions.map((rev, idx) => (
+              <li
+                onClick={() => this.setState({ activeRevisionIdx: idx })}
+                key={rev._id}
+                className={idx === this.state.activeRevisionIdx ? 'active' : ''}
+                >
+                {rev.title}
+              </li>
+            ))}
+          </ol>
+          <RevisionDiff rev={changedRevisions[this.state.activeRevisionIdx]} />
+        </div>
       </div>
     );
   }
@@ -58,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
   fetchSave: id => dispatch(fetchSave(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Diff);
+export default connect(mapStateToProps, mapDispatchToProps)(SaveDiff);

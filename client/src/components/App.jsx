@@ -7,9 +7,10 @@ import Header from "./Header";
 import Splash from "./Splash";
 import DocumentForm from './DocumentForm';
 import { AuthRoute, ProtectedRoute } from "../utils/authRoutes";
-import Dashboard from "./ProjectsDashboard"
-import Project from "./ProjectShow"
-import CombineDrafts from "./CombineDrafts"
+import Dashboard from "./ProjectsDashboard";
+import Project from "./ProjectShow";
+import CombineDrafts from "./CombineDrafts";
+import SaveDiff from "./diff/SaveDiff";
 const Document = () => <h2>Document</h2>;
 
 class App extends React.Component {
@@ -32,6 +33,9 @@ class App extends React.Component {
             <ProtectedRoute exact path="/documents/:documentId" component={Document} />
             <ProtectedRoute exact path="/document/new" component={DocumentForm} />
             <ProtectedRoute exact path="/projects/:projectId/drafts" component={CombineDrafts} />
+            <ProtectedRoute exact path="/diff-test" component={() => (
+              <div onClick={() => this.props.openModal(<SaveDiff saveId="5ae0c41ef283f979b9bd51ce" />)} ><br /><br /><br />Test</div>
+            )} />
           </div>
         </BrowserRouter>
       </div>

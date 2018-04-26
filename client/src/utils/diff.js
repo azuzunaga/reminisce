@@ -1,3 +1,6 @@
+import { stateToHTML } from 'draft-js-export-html';
+import { convertFromRaw } from 'draft-js';
+
 const shortestEdit = (original, target) => {
   const [n, m] = [original.length, target.length];
   const max = n + m;
@@ -110,9 +113,12 @@ const diffRevisions = (original, target) => {
   return result;
 };
 
+const getRevHTML = rev => (
+  stateToHTML(convertFromRaw(rev.body)).split('\n')
+);
+
 const diffSaves = (original, target, revisions) => {
   const changedRevs = [];
-  debugger;
 
   const originalTitles = original.revisionIds.map(id => revisions[id].title);
   const targetTitles = target.revisionIds.map(id => revisions[id].title);
@@ -120,18 +126,23 @@ const diffSaves = (original, target, revisions) => {
   original.revisionIds.forEach(revId => {
     const rev = revisions[revId];
     if (!targetTitles.includes(rev.title)) {
-      rev.change = "delete";
+      rev.change = 'deleted';
+      rev.diffInfo = diffRevisions(getRevHTML(rev), []);
       changedRevs.push(rev);
     }
   });
   target.revisionIds.forEach(revId => {
     const rev = revisions[revId];
-    if (!originalTitles.includes(rev.title)) {
-      rev.change = "insert";
+    const idx = originalTitles.indexOf(rev.title);
+    if (idx === -1) {
+      rev.change = 'new';
+      rev.diffInfo = diffRevisions([], getRevHTML(rev));
       return changedRevs.push(rev);
     }
     if (!original.revisionIds.includes(revId)) {
-      rev.change = "edit";
+      rev.change = 'edited';
+      const originalRev = revisions[original.revisionIds[idx]];
+      rev.diffInfo = diffRevisions(getRevHTML(originalRev), getRevHTML(rev));
       changedRevs.push(rev);
     }
   });
