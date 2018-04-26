@@ -71,7 +71,7 @@
 
 .sub-header {
   padding: 0px 20px;
-  min-height: 35px;
+  min-height: 40px;
   display: flex;
   justify-content: space-between;
   background: #FAFAFA;
@@ -97,6 +97,5 @@
 }
 
 .scrollable-list {
-  height: 1500px;
   overflow: scroll;
 }
