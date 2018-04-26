@@ -8,7 +8,7 @@ export default function(state={}, action) {
     case FETCH_DRAFT:
       return merge({}, state, action.users);
     case FETCH_PROJECT:
-      return merge({}. state, action.users);
+      return merge({}, state, action.users);
     default:
       return state;
   }
