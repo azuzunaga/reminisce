@@ -4,6 +4,7 @@ const _ = require("lodash");
 const { to } = require("../utils/utils");
 const Draft = mongoose.model("drafts");
 const Save = mongoose.model("saves");
+const User = mongoose.model("users");
 
 module.exports = app => {
   app.post("/api/drafts", async (req, res) => {
@@ -26,6 +27,11 @@ module.exports = app => {
     const savesOp = Save.find({ draftId: req.params.draftId });
     draft = await draftOp;
     saves = await savesOp;
-    res.json({ draft, saves: _.keyBy(saves, "_id") });
+    const users = await User.find({_id: { $in: _.map(saves, "userId") } });
+    res.json({
+       draft,
+       saves: _.keyBy(saves, "_id"),
+       users: _.keyBy(users, "_id")
+      });
   });
 };

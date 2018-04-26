@@ -1,5 +1,4 @@
 import '../styles/newForm.css';
-
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -20,24 +19,36 @@ class NewForm extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
+  checkIfErrors() {
+    if (this.props.errors.length < 1) {
+      this.props.closeModal();
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     if (this.props.formType === "Project") {
       const project = Object.assign({}, this.state);
-      this.props.processForm(project);
-      this.props.closeModal();
+      this.props.clearErrors();
+      this.props.processForm(project).then(this.checkIfErrors.bind(this));
     } else {
       const revision = Object.assign({}, {
         userId: this.state.ownerId, title: this.state.name
       });
-      this.props.processForm(revision).then(this.props.closeModal);
+      this.props.clearErrors();
+      this.props.processForm(revision).then(this.checkIfErrors.bind(this));
     }
   }
 
   renderErrors() {
-    if (this.props.errors) {
+    if (!!this.props.errors) {
+      let errors = this.props.errors.map((error, i) => <li key={i}>{error}</li>);
       return(
-        <h5 className="error-message">{this.props.errors}</h5>
+        <ul className="error-message">{errors}</ul>
       );
     }
 

@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import { newProject, closeModal } from '../actions';
+import { newProject, closeModal, receiveErrors } from '../actions';
 import NewForm from './NewForm';
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = (state) => {
   return {
-    userId: auth._id,
+    userId: state.auth._id,
     formType: "Project",
+    errors: state.errors
   };
 };
 
@@ -13,6 +14,7 @@ const mapDispatchToProps = dispatch => {
   return {
     processForm: project => dispatch(newProject(project)),
     closeModal: () => dispatch(closeModal()),
+    clearErrors: () => dispatch(receiveErrors([]))
   };
 };
 

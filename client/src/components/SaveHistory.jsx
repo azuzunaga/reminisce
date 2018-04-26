@@ -1,86 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions';
+import { fetchDraft } from '../actions/index'
 
 import SaveListItem from'./SaveListItem'
 import '../styles/saveHistory.css'
 
-const saves =  [
-    {
-      ae0bd594104c027b3f22bb6: {
-        previousSaveId: null,
-        isAuto: false,
-        revisionIds: [
-          "5ae0bd594104c027b3f22bb4",
-          "5ae0bd594104c027b3f22bb5"
-          ],
-        createdAt: "2018-04-25T17:39:37.359Z",
-        _id: "5ae0bd594104c027b3f22bb6",
-        comment: "fixed last paragraph",
-        draftId: "5adfcc6a4f29bb8265378684",
-        userId: "5ade8099634c20110b16e92e",
-        projectId: "5adfcc6a4f29bb8265378683",
-        __v: 0
-      }
-    },
-    {
-      ae0bdf84104c027b3f22bb9: {
-        previousSaveId: null,
-        isAuto: false,
-        revisionIds: [
-          "5ae0bd594104c027b3f22bb4",
-          "5ae0bd594104c027b3f22bb5",
-          "5ae0bdf84104c027b3f22bb7",
-          "5ae0bdf84104c027b3f22bb8"
-        ],
-        createdAt: "2018-04-25T17:42:16.734Z",
-        _id: "5ae0bdf84104c027b3f22bb9",
-        comment: "started chapter two",
-        draftId: "5adfcc6a4f29bb8265378684",
-        userId: "5ade8099634c20110b16e92e",
-        projectId: "5adfcc6a4f29bb8265378683",
-        __v: 0
-      }
-    },
-    {
-      ae0bdf84104c027b3f22b234: {
-        previousSaveId: null,
-        isAuto: false,
-        revisionIds: [
-          "5ae0bd594104c027b3f22bb4",
-          "5ae0bd594104c027b3f22bb5",
-          "5ae0bdf84104c027b3f22bb7",
-          "5ae0bdf84104c027b3f22bb8"
-        ],
-          createdAt: "2018-04-25T19:42:16.734Z",
-          _id: "5ae0bdf84104c027b3f22bb9",
-          comment: "completed chapter two",
-          draftId: "5adfcc6a4f29bb8265378684",
-          userId: "5ade8099634c20110b16e92e",
-          projectId: "5adfcc6a4f29bb8265378683",
-          __v: 0
-    }
-  }
-]
-
-const users = {
-  "5ade8099634c20110b16e92e": {
-    firstName: 'Kimberly',
-    lastName: 'Hu',
-    username: 'kimberly.hu@gmail.com'
-  }
-}
-
-
 class SaveHistoryModal extends React.Component {
+  componentDidMount() {
+    this.props.fetchDraft(this.props.draft._id)
+  }
+
+
   renderList() {
+    const { users, saves } = this.props;
+    const reversed = saves.reverse();
     return (
       <ul>
         {
-          saves.map(save => {
+          reversed.map(save => {
             return (
               <SaveListItem
-              save={Object.values(save)}
+              save={save}
               users={users}
               key={save.id} />
             )
@@ -91,36 +32,46 @@ class SaveHistoryModal extends React.Component {
   }
 
   render() {
-    return (
-      <div className='save-history-modal'>
-        <header>
-          <h3>Save History </h3> <span onClick={this.props.closeModal} className="close-x">x</span>
-        </header>
+    const { saves } =  this.props
 
-        <section className='save-history-headers'>
-          <h4>Save Message</h4>
-          <h4>Save Time</h4>
-          <h4>Saved By</h4>
-        </section>
+    if ( saves.length === 0 ) {
+      return <div> </div>
+    } else {
+      return (
+        <div className='save-history-modal'>
+          <header>
+            <h3>Save History </h3> <span onClick={this.props.closeModal} className="close-x">x</span>
+          </header>
 
-        <ul>
-          { this.renderList() }
-        </ul>
-      </div>
-    )
+          <section className='save-history-headers'>
+            <h4>Save Message</h4>
+            <h4>Save Time</h4>
+            <h4>Saved By</h4>
+          </section>
+
+          <ul>
+            { this.renderList() }
+          </ul>
+        </div>
+      )
+    }
   }
 }
 
 
 const mapStateToProps = state => {
   return {
-    modal: state.ui.modal
+    modal: state.ui.modal,
+    draft: Object.values(state.drafts)[0],
+    saves: Object.values(state.saves),
+    users: state.users
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
+    fetchDraft: id => dispatch(fetchDraft(id)),
   };
 };
 
