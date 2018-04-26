@@ -56,11 +56,14 @@ class CombineDrafts extends React.Component {
 
       this.selectedCounter = selected;
       const combineButton = document.getElementById('combine-selected-drafts-button');
-
-      if (this.selectedCounter === 2) {
+      if (this.selectedCounter > 2) {
+        e.preventDefault();
+      } else if (this.selectedCounter === 2) {
         combineButton.classList.add('two-selected');
+        combineButton.disabled = false;
       } else {
         combineButton.classList.remove('two-selected');
+        combineButton.disabled = true;
       }
     }
   }
@@ -75,8 +78,7 @@ class CombineDrafts extends React.Component {
             type="checkbox"
             onClick={this.countSelected()}
              />
-          <label htmlFor={`draft-${draft.id}`} className='checkbox-label'></label>
-          <p> {draft.name} </p>
+          <label htmlFor={`draft-${draft.id}`} className='checkbox-label'> {draft.name} </label>
         </div>
         <div className='draft-list-details'>
           <p>{draft.lastSaved}</p>
@@ -114,7 +116,6 @@ class CombineDrafts extends React.Component {
               </div>
               <div className='sub-header'>
                 <div className='sub-header-left'>
-                  <h4> Select </h4>
                   <h4> Draft Name</h4>
                 </div>
                 <div className='draft-header-right'>

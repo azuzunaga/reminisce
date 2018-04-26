@@ -8,7 +8,6 @@
 
 .sub-header-left {
   display: grid;
-  grid-template-columns: 1fr 7.5fr;
   width: 55%;
 }
 
@@ -24,7 +23,6 @@
 
 .list-left {
   display: grid;
-  grid-template-columns: 1fr 7.5fr;
   width: 55%;
 }
 
@@ -61,10 +59,11 @@
   height: 20px;
   line-height: 20px;
   font-weight: 200px;
-  font-size: 14px;
+  font-size: 16px;
   vertical-align: middle;
   padding-left: 15px;
   padding-top: 13px;
+  color: #666666;
 }
 
 .checkbox-filter + .checkbox-label:before {
@@ -107,4 +106,5 @@
 
 .two-selected {
   background: #CA2E55;
+  cursor: pointer;
 }
