@@ -7,3 +7,5 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 export const FETCH_PROJECTS = "FETCH_PROJECTS";
 
 export const FETCH_SAVE = "FETCH_SAVE";
+
+export const FETCH_PROJECT = "FETCH_PROJECT";

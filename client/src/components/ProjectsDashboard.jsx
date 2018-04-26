@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchProjects: () => dispatch(fetchProjects()),
     openModal: (
       <i
-        class="material-icons"
+        className="material-icons"
         onClick={() => dispatch(openModal(<NewProject />))}
       >
         add_circle_outline
