@@ -5,7 +5,9 @@ const ObjectId = mongoose.Types.ObjectId;
 const { to } = require("../utils/utils");
 const Project = mongoose.model("projects");
 const Draft = mongoose.model("drafts");
+const Revision = mongoose.model("revisions");
 const User = mongoose.model("users");
+const Save = mongoose.model("saves");
 
 module.exports = app => {
   app.get("/api/projects", async (req, res) => {
@@ -59,7 +61,14 @@ module.exports = app => {
   app.get("/api/projects/:id", async (req, res) => {
     const project = await Project.findById(req.params.id);
     const drafts = await Draft.find({ projectId: req.params.id });
-    res.json({ project, drafts: _.keyBy(drafts, "_id") });
+    const activeDraftId = _.find(req.user.projectsActiveDraft, el => (
+      el.projectId.toString() === req.params.id
+    )).draftId;
+    const activeDraft = _.find(drafts, d => d._id.toString() === activeDraftId.toString());
+    const lastSaveId = activeDraft.saveIds[activeDraft.saveIds.length - 1];
+    const lastSave = await Save.findById(lastSaveId);
+    const revisions = lastSave ? await Revision.find({ _id: {$in: lastSave.revisionIds}}) : [];
+    res.json({ project, drafts: _.keyBy(drafts, "_id"), revisions: _.keyBy(revisions, "_id") });
   });
 
   app.delete("/api/projects/:id", async (req, res) => {
