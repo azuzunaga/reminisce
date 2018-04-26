@@ -15,3 +15,5 @@ export const FETCH_SAVE = "FETCH_SAVE";
 export const FORM_ERROR = "FORM_ERROR";
 
 export const FETCH_DRAFT = "FETCH_DRAFT";
+
+export const FETCH_REVISION = "FETCH_REVISION";

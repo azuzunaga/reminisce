@@ -1,6 +1,6 @@
 import { merge, mapValues } from 'lodash';
 
-import { FETCH_SAVE } from '../actions/types';
+import { FETCH_SAVE, FETCH_REVISION } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -12,6 +12,8 @@ export default (state = {}, action) => {
           merge({ body: { entityMap: {} } }, rev)
         )
       );
+    case FETCH_REVISION:
+      return merge({}, state, action.revision);
     default:
       return state;
   }
