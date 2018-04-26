@@ -21,7 +21,7 @@ class ProjectsDashboard extends React.Component {
     if (this.props.projects) {
     const projects = Object.values(this.props.projects);
     return (
-      <ul>
+      <ul className="scrollable-list">
       {
         projects.map(project => {
           return (
@@ -60,9 +60,7 @@ class ProjectsDashboard extends React.Component {
                 <h4>Modified By</h4>
               </div>
             </div>
-            <ul>
               { this.renderList() }
-            </ul>
           </section>
           <aside className='aside-right'>
           </aside>
