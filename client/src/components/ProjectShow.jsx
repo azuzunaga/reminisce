@@ -47,7 +47,7 @@ class Project extends React.Component {
   }
 
   renderList() {
-    debugger
+    debugger;
     return (
       <ul>
       {
@@ -55,7 +55,8 @@ class Project extends React.Component {
           return (
             <DocumentListItem
             doc={doc}
-            key={doc.id}/>
+            user={find(this.props.users, user => user._id === doc.userId)}
+            key={doc._id}/>
           )
         })
       }
@@ -120,6 +121,7 @@ function mapStateToProps(state, ownProps) {
   const activeDraft = state.drafts[activeDraftId];
   const drafts = project.draftIds.map(id => state.drafts[id]);
   const saves = activeDraft.saveIds.map(id => state.saves[id]);
+  const users = saves.map(save => state.users[save.userId]);
   const revisions = saves
     ? saves[saves.length - 1].revisionIds.map(id => state.revisions[id])
     : [];
@@ -127,6 +129,7 @@ function mapStateToProps(state, ownProps) {
     project,
     drafts,
     saves,
+    users,
     revisions
   };
 }

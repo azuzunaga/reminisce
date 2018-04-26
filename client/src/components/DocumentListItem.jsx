@@ -6,7 +6,7 @@ import '../styles/stylingList.css';
 class DocumentListItem extends React.Component {
   render() {
 
-    const { doc } = this.props;
+    const { doc, user } = this.props;
 
     return (
       <li className='list-item'>
@@ -15,7 +15,7 @@ class DocumentListItem extends React.Component {
         </div>
         <div className='doc-list-details'>
           <p>{doc.createdAt}</p>
-          <p>{doc.modifiedBy}</p>
+          <p>{user.username}</p>
         </div>
       </li>
     )
