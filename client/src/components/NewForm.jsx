@@ -39,6 +39,7 @@ class NewForm extends React.Component {
       const revision = Object.assign({}, {
         userId: this.state.ownerId, title: this.state.name
       });
+      this.props.clearErrors();
       this.props.processForm(revision).then(this.checkIfErrors.bind(this));
     }
   }
