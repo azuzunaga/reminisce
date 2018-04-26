@@ -1,16 +1,56 @@
 .diff-view {
   background: white;
   height: 80vh;
-  overflow: scroll;
   width: 1000px;
+  position: relative;
+}
+
+.diff-view p {
+  margin: 0;
+  padding: 10px;
+}
+
+.diff-view li,
+.diff-view ul,
+.diff-view ol {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.diff-view h3 {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 50px;
 }
 
 .diff-table {
   display: flex;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .diff-table .rev-titles {
   width: 100px;
+  padding: 5px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.diff-table .rev-titles li {
+  width: 90px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diff-table .rev-titles li.active {
+  background-color: #eee;
 }
 
 .diff-view .delete {
@@ -19,6 +59,16 @@
 
 .diff-view .insert {
   background-color: #dfd;
+}
+
+.revision-diff {
+  display: flex;
+  height: 100%;
+}
+
+.revision-diff>ol {
+  max-height: 100%;
+  overflow: scroll;
 }
 
 .revision-diff li {
@@ -34,6 +84,28 @@
   flex: 1;
 }
 
-.revision-diff .content p {
+.revision-diff p {
   text-align: left;
+}
+
+.revision-diff .minimap {
+  height: 100%;
+  overflow: scroll;
+  position: relative;
+}
+
+.revision-diff .minimap p {
+  font-size: 5px;
+}
+
+.minimap .container {
+  position: relative;
+}
+
+.minimap .window-sim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  border: 1px solid blue;
 }

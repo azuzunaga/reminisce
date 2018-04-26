@@ -6,7 +6,7 @@ import {
   FETCH_PROJECTS,
   FETCH_PROJECT,
   FETCH_SAVE,
-  FORM_ERROR
+  FORM_ERROR,
   FETCH_SAVES,
   FETCH_DRAFT
 } from './types';

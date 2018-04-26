@@ -26,9 +26,6 @@ class SaveDiff extends React.Component {
     return (
       <div className="diff-view">
         <h3>Save: {save.name}</h3>
-        <header>
-          <div>Title</div>
-        </header>
         <div className="diff-table">
           <ol className="rev-titles">
             {changedRevisions.map((rev, idx) => (
