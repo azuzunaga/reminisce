@@ -36,7 +36,6 @@ const fakeDocs = [
 class Project extends React.Component {
   componentDidMount() {
     this.props.fetchProject(this.props.match.params.projectId)
-    this.props.fetchDraft('5adfcc6a4f29bb8265378684')
   }
 
   componentWillReceiveProps(nextProps) {
