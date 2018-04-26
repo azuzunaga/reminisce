@@ -36,11 +36,27 @@ class NewForm extends React.Component {
       this.props.clearErrors();
       this.props.processForm(project).then(this.checkIfErrors.bind(this));
     } else {
-      const revision = Object.assign({}, {
-        userId: this.state.ownerId, title: this.state.name
+      const save = Object.assign({}, {
+        name: "test", draftId: Object.keys(this.props.drafts)[0], newRevs: [{title:"test", body: {
+          "entityMap":{},
+          "blocks":[
+            {
+              "key":"8shrj",
+              "text":"Hi",
+              "type":"unstyled",
+              "depth":0,
+              "inlineStyleRanges":[],
+              "entityRanges":[],
+              "data":{}
+            }
+          ],
+          "entityRanges":[],
+          "data":{}
+        } }], deletedRevIds: []
       });
+      console.log(save);
       this.props.clearErrors();
-      this.props.processForm(revision).then(this.checkIfErrors.bind(this));
+      this.props.processForm(save).then(this.checkIfErrors.bind(this));
     }
   }
 

@@ -81,6 +81,22 @@ export const fetchSave = id => async dispatch => {
   });
 }
 
+export const createSave = (save) => async dispatch => {
+  const res = await axios.post('/api/saves', {
+    save
+  }).then(function (res) {
+    dispatch({
+      type: FETCH_SAVE,
+      saves: res.data.save
+    })
+  }).catch(function (res) {
+    dispatch({
+      type: FORM_ERROR,
+      errors: res.response.data
+    })
+  });
+};
+
 export const newProject = (project) => async dispatch => {
   const res = await axios.post('/api/projects', {
     project

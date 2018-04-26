@@ -1,19 +1,21 @@
 import { connect } from 'react-redux';
-import { newRevision, closeModal, receiveErrors } from '../actions';
+import { createSave, closeModal, receiveErrors } from '../actions';
 import NewForm from './NewForm';
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = (state) => {
   return {
-    userId: auth._id,
+    userId: state.auth._id,
     formType: "Document",
+    errors: state.errors,
+    drafts: state.drafts,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    processForm: revision => dispatch(newRevision(revision)),
     closeModal: () => dispatch(closeModal()),
-    clearErrors: () => dispatch(receiveErrors([]))
+    clearErrors: () => dispatch(receiveErrors([])),
+    processForm: (save) => dispatch(createSave(save))
   };
 };
 
