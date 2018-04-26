@@ -73,3 +73,7 @@ input.Document {
 input.Project {
   background-color: #17BEBB;
 }
+
+.submit:hover {
+  cursor: pointer;
+}
