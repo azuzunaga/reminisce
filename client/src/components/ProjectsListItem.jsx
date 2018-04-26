@@ -7,6 +7,9 @@ class ProjectsListItem extends React.Component {
   render() {
 
     const { project, users } = this.props;
+    if (Object.keys(users).length === 0) {
+      return <div>Loading...</div>
+    }
     return (
       <li className='list-item'>
         <div className='list-name'>

@@ -8,7 +8,8 @@ import {
   FETCH_SAVE,
   FORM_ERROR,
   FETCH_SAVES,
-  FETCH_DRAFT
+  FETCH_DRAFT,
+  FETCH_REVISION
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -25,6 +26,15 @@ export const fetchProject = id => async dispatch => {
     project: res.data.project,
     drafts: res.data.drafts
   });
+}
+
+export const fetchRevision = id => async dispatch => {
+  const res = await axios.get(`/api/revision/${id}`)
+
+  dispatch({
+    type: FETCH_REVISION,
+    revision: res.data.revision
+  })
 }
 
 export const fetchDraft = id => async dispatch => {
