@@ -11,10 +11,10 @@ class RevisionDiff extends React.Component {
     this.state = { viewTop: 0, viewHeight: 0 };
   }
 
-  // componentDidMount() {
-  //   this.diffRef.addEventListener('scroll', this.handleScroll);
-  //   this.minimapRef.addEventListener('click', this.handleMinimapClick);
-  // }
+  componentDidMount() {
+    // this.diffRef.addEventListener('scroll', this.handleScroll);
+    // this.minimapRef.addEventListener('click', this.handleMinimapClick);
+  }
   //
   // componentWillUnMount() {
   //   this.diffRef.removeEventListener('scroll', this.handleScroll);
@@ -22,12 +22,24 @@ class RevisionDiff extends React.Component {
   // }
 
   handleScroll(e) {
-    const totalHeight = e.target.scrollHeight;
+    const viewTop = e.target.scrollTop / e.target.scrollHeight;
+    const viewHeight = e.target.offsetHeight / e.target.scrollHeight;
     this.setState({
-      viewTop: e.target.scrollTop / totalHeight,
-      viewHeight: e.target.offsetHeight / totalHeight
+      viewTop,
+      viewHeight
     });
-    debugger;
+
+    const minimap = this.minimapRef.current;
+
+    if (viewTop < minimap.scrollTop / minimap.scrollHeight) {
+      minimap.scrollTop = viewTop * minimap.scrollHeight;
+    } else if (
+      viewTop + viewHeight >
+      (minimap.scrollTop + minimap.offsetHeight) / minimap.scrollHeight
+    ) {
+      minimap.scrollTop =
+        (viewTop + viewHeight) * minimap.scrollHeight - minimap.offsetHeight;
+    }
   }
 
   render() {
@@ -66,7 +78,7 @@ class RevisionDiff extends React.Component {
                 top: `${this.state.viewTop * 100}%`,
                 height: `${this.state.viewHeight * 100}%`
               }}
-              className="window-sim"
+              className="window-outline"
             />
           </div>
         </div>

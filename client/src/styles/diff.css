@@ -95,14 +95,14 @@
 }
 
 .revision-diff .minimap p {
-  font-size: 5px;
+  font-size: 4px;
 }
 
 .minimap .container {
   position: relative;
 }
 
-.minimap .window-sim {
+.minimap .window-outline {
   position: absolute;
   left: 0;
   right: 0;
