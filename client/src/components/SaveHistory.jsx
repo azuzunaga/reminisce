@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions';
-
+import { dateTimeFormatter } from '../utils/dateFormatter';
 import SaveListItem from'./SaveListItem'
 import '../styles/saveHistory.css'
 

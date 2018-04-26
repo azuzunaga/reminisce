@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import { closeModal, openModal } from '../actions';
+import { dateTimeFormatter } from '../utils/dateFormatter';
+import { fetchProject } from '../actions/index';
 import SaveHistory from  './SaveHistory';
 import '../styles/project.css';
 import '../styles/stylingMain.css';
 
-const currentProject = {
-  name: 'History of Abraham Lincoln'
-}
 const fakeDocs = [
   {
     id: 1,
@@ -33,7 +32,17 @@ const fakeDocs = [
 ];
 
 
+
 class Project extends React.Component {
+  componentDidMount() {
+    this.props.fetchProject(this.props.match.params.projectId)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
+      this.props.fetchProject(nextProps.match.params.projectId);
+    }
+  }
   renderList() {
     return (
       <ul>
@@ -51,16 +60,20 @@ class Project extends React.Component {
   }
 
   render() {
+    debugger;  
+    const { project } = this.props;
+    const lastSaved = dateTimeFormatter(project.updatedAt);
+
     return (
       <div className='standard-layout'>
         <header className='project-show'>
-          <h2> Project: {currentProject.name} </h2>
+          <h2> Project: { project.name } </h2>
         </header>
         <main className='main'>
           <aside className='aside-left'>
           </aside>
           <section className='main-list'>
-            <h4 className="draft-version">Draft Version: <span>{this.props.save.comment}</span></h4>
+            <h4 className="draft-version">Draft Version: <span></span></h4>
             <div className="project-header">
               <h3>Documents</h3>
               {this.props.newModal}
@@ -77,7 +90,7 @@ class Project extends React.Component {
           <aside className='aside-right save-history'>
             {this.props.saveModal}
             <div className="last-save">
-              <p> Last save: Apr 18, 5:00 PM </p>
+              <p> Last save: { lastSaved } </p>
               <p> Fixed last paragraph </p>
             </div>
           </aside>
@@ -90,13 +103,17 @@ class Project extends React.Component {
 
 
 
-function mapStateToProps(state) {
-  return { document: { name: "Chapter One" },
-          save: {comment: 'Not fact checked'}};
-}
+function mapStateToProps(state, ownProps) {
+  return {
+    project: state.projects[ownProps.match.params.projectId],
+    drafts: state.drafts
+  }
+
+};
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchProject: id => dispatch(fetchProject(id)),
     saveModal: (
       <button onClick={() => dispatch(openModal(<SaveHistory />))}>
         View Save History
