@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
+const { to } = require('../utils/utils');
 const Project = mongoose.model('projects');
 const Draft = mongoose.model('drafts');
 const Revision = mongoose.model('revisions');
@@ -47,13 +48,23 @@ module.exports = app => {
       save.projectId = project.id;
       save.revisionIds = newRevIds;
       save.previousSaveId = prevSave.id;
-
+      const [saveErr] = await to(save.save());
+      if (saveErr) {
+        switch (saveErr.name) {
+        case "ValidationError":
+          return res
+            .status(422)
+            .json(_.map(Object.values(saveErr.errors), "message"));
+        default:
+          return res.status(500).json(["Something went wrong"]);
+        }
+      }
       draft.saveIds.push(save.id);
       draft.updatedAt = Date.now();
       draft.save();
       project.updatedAt = Date.now();
       project.save();
-      res.json(await save.save());
+      res.json(save);
     });
   });
 
@@ -61,7 +72,7 @@ module.exports = app => {
     const save = await Save.findById(req.params.id);
     const prevSave = await Save.findById(save.previousSaveId);
     const revisions = await Revision.find({
-      _id: { $in: save.revisionIds.concat(prevSave.revisionIds || []) }
+      _id: { $in: save.revisionIds.concat(prevSave ? prevSave.revisionIds : []) }
     });
     res.json({
       saves: _.keyBy([save, prevSave], '_id'),
