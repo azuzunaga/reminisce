@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const ObjectId = mongoose.Types.ObjectId;
 
 const { to } = require("../utils/utils");
 const Project = mongoose.model("projects");
@@ -42,10 +43,10 @@ module.exports = app => {
     const activeDrafts = user.projectsActiveDraft;
 
     const existingProject = activeDrafts.findIndex(el =>
-      el.projectId === project.id);
+      el.projectId.toString() === project.id);
 
     if (existingProject > -1) {
-      user.projectsActiveDraft[existingProject].draftId = draft.id;
+      user.projectsActiveDraft[existingProject].draftId = ObjectId(draft.id);
     } else {
       user.projectsActiveDraft.push({projectId: project.id, draftId: draft.id});
     }
