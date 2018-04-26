@@ -37,7 +37,7 @@ const fakeDocs = [
 
 class Project extends React.Component {
   componentDidMount() {
-    this.props.fetchProject(this.props.match.params.projectId)
+    this.props.fetchProject(this.props.match.params.projectId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,7 +64,7 @@ class Project extends React.Component {
   }
 
   render() {
-    if (this.props.project === undefined ) {
+    if (this.props.project === undefined) {
       return <div> </div>
     } else {
 
@@ -113,7 +113,7 @@ class Project extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   const project = state.projects[ownProps.match.params.projectId];
-  if (project === undefined) return {};
+  if (project === undefined || !project.draftIds) return {};
   const activeDraftId = find(state.auth.projectsActiveDraft, el => (
     el.projectId === project._id
   )).draftId;
