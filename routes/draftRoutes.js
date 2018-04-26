@@ -6,6 +6,7 @@ const { to } = require("../utils/utils");
 const Draft = mongoose.model("drafts");
 const Save = mongoose.model("saves");
 const User = mongoose.model("users");
+const Revision = mongoose.model("revisions");
 
 module.exports = app => {
   app.post("/api/drafts", async (req, res) => {
@@ -39,10 +40,9 @@ module.exports = app => {
   });
 
   app.get("/api/drafts/:draftId", async (req, res) => {
-    const draftOp = Draft.findById(req.params.draftId);
-    const savesOp = Save.find({ draftId: req.params.draftId });
-    const draft = await draftOp;
-    const saves = await savesOp;
+    const draft = await Draft.findById(req.params.draftId);
+    const saves = await Save.find({ draftId: req.params.draftId });
+
     const users = await User.find({_id: { $in: _.map(saves, "userId") } });
     res.json({
        draft,
@@ -51,9 +51,16 @@ module.exports = app => {
       });
   });
 
-  app.patch("/api/drafts/:draftId", async (req, res) => {
-    const saves = await Save.find({ draftId: req.params.draftId});
+  app.patch('/api/drafts/:draftId', async (req, res) => {
+    const saves = await Save.find({ draftId: req.params.draftId}).sort({createdAt: 'desc'});
     const users = await User.find({_id: { $in: _.map(saves, 'userId') } });
+    const mostRecentSave = saves[0];
+
+    const revisions = await Revision.find({
+      _id: {
+        $in: _.map(mostRecentSave.revisionIds)
+      }
+    });
 
     const user = await User.findById(req.user.id);
     const draft = await Draft.findById(req.params.draftId);
@@ -73,7 +80,8 @@ module.exports = app => {
     res.json({
       draft,
       saves: _.keyBy(saves, '_id'),
-      users: _.keyBy(users, '_id')
+      users: _.keyBy(users, '_id'),
+      activeRevisions: _.keyBy(revisions, '_id')
     });
   });
 };
