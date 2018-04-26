@@ -4,8 +4,11 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   FETCH_PROJECTS,
+  FETCH_PROJECT,
   FETCH_SAVE,
-  FETCH_PROJECT
+  FORM_ERROR
+  FETCH_SAVES,
+  FETCH_DRAFT
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -13,6 +16,26 @@ export const fetchProjects = () => async dispatch => {
 
   dispatch({ type: FETCH_PROJECTS, projects: res.data.projects, users: res.data.users });
 };
+
+export const fetchProject = id => async dispatch => {
+  const res = await axios.get(`/api/projects/${id}`)
+
+  dispatch({
+    type: FETCH_PROJECT,
+    project: res.data.project,
+    drafts: res.data.drafts
+  });
+}
+
+export const fetchDraft = id => async dispatch => {
+  const res = await axios.get(`/api/drafts/${id}`)
+
+  dispatch({
+    type: FETCH_DRAFT,
+    draft: res.data.draft,
+    saves: res.data.saves
+  })
+}
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user')
@@ -47,12 +70,22 @@ export const fetchSave = id => async dispatch => {
 export const newProject = (project) => async dispatch => {
   const res = await axios.post('/api/projects', {
     project
+  }).then(function(res) {
+    dispatch({
+      type: FETCH_PROJECT,
+      project: res.data.project
+    })
+  }).catch(function(res) {
+    dispatch({
+      type: FORM_ERROR,
+      errors: res.response.data
+    })
   });
-
-  dispatch({
-    type: FETCH_PROJECT,
-    project: res.data.project
-  })
 };
+
+export const receiveErrors =(errors) => ({
+  type: FORM_ERROR,
+  errors
+});
 
 export const newRevision = () => {};
