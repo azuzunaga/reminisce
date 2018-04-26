@@ -4,7 +4,7 @@
   top: 8vh;
 }
 
-h2 {
+.standard-layout h2 {
   color: white;
   padding: 30px 0;
   text-align: center;
@@ -16,17 +16,17 @@ h2 {
   box-shadow: 0px 5px 8px -5px #d8d6d6, 0px -5px 8px -5px #d8d6d6;
 }
 
-main {
+.standard-layout main {
   display: flex;
   flex-direction: row;
 }
 
-main aside {
+.standard-layout main aside {
   width: 17vw;
   background: #FAFAFA;
 }
 
-main section {
+.standard-layout main section {
   width: 66vw;
   height: 100vh;
 }
@@ -78,7 +78,7 @@ main section {
   padding: 0;
 }
 
-ul {
+.standard-layout ul {
   margin: 0;
   padding: 0;
 }
