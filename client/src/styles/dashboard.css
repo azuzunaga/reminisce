@@ -20,6 +20,7 @@
   margin: 0;
 }
 
+
 .add-icon:hover > .new-hidden  {
   cursor: pointer;
   display: inline-block;

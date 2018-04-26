@@ -1,7 +1,8 @@
 .standard-layout {
   position: fixed;
   left: 0;
-  top: 8vh;
+  width: 100vw;
+
 }
 
 .standard-layout h2 {
@@ -12,13 +13,14 @@
   font-family: 'Josefin Sans', sans-serif;
   margin: 0 auto;
   font-weight: 400;
-  width: 100vw;
+
   box-shadow: 0px 5px 8px -5px #d8d6d6, 0px -5px 8px -5px #d8d6d6;
 }
 
 .standard-layout main {
   display: flex;
   flex-direction: row;
+  height: 80vh;
 }
 
 .standard-layout main aside {
@@ -28,7 +30,6 @@
 
 .standard-layout main section {
   width: 66vw;
-  height: 100vh;
 }
 
 .main-list {
@@ -36,6 +37,7 @@
   flex-direction: column;
   box-shadow: 4px 0 8px -5px #d8d6d6, -4px 0 8px -5px #d8d6d6;
   z-index: 5;
+
 }
 
 .main-list h3, .main-list div {
@@ -49,7 +51,17 @@
   margin: 0;
   font-size: 30px;
   font-weight: 400;
-  padding: 15px 20px;
+  padding: 0;
+  padding-left: 20px;
+}
+
+.project-header {
+  min-height: 50px;
+  max-height: 80px;
+}
+
+.project-header i {
+  padding-left: 15px;
 }
 
 .main-list {
@@ -59,6 +71,7 @@
 
 .sub-header {
   padding: 0px 20px;
+  min-height: 35px;
   display: flex;
   justify-content: space-between;
   background: #FAFAFA;
@@ -81,4 +94,9 @@
 .standard-layout ul {
   margin: 0;
   padding: 0;
+}
+
+.scrollable-list {
+  height: 1500px;
+  overflow: scroll;
 }
