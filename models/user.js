@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const activeDraftSchema = new Schema({
   projectId: {type: Schema.Types.ObjectId, ref: "projects", require: true},
-  activeDraftId: {type: Schema.Types.ObjectId, ref: "drafts", require: true}
+  draftId: {type: Schema.Types.ObjectId, ref: "drafts", require: true}
 });
 
 const userSchema = new Schema({

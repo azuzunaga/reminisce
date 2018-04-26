@@ -36,6 +36,22 @@ module.exports = app => {
     }
     const draft = new Draft({ name: "main", projectId: project.id });
     await draft.save();
+
+    const user = await User.findById(req.user.id);
+
+    const activeDrafts = user.projectsActiveDraft;
+
+    const existingProject = activeDrafts.findIndex(el =>
+      el.projectId === project.id);
+
+    if (existingProject > -1) {
+      user.projectsActiveDraft[existingProject].draftId = draft.id;
+    } else {
+      user.projectsActiveDraft.push({projectId: project.id, draftId: draft.id});
+    }
+
+    user.save();
+
     res.json({ project, draft });
   });
 
