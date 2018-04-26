@@ -5,3 +5,20 @@
 .diff-view .insert {
   background-color: #dfd;
 }
+
+.revision-diff li {
+  display: flex;
+  align-items: center;
+}
+
+.revision-diff .line-num {
+  width: 40px;
+}
+
+.revision-diff .content {
+  flex: 1;
+}
+
+.revision-diff .content p {
+  text-align: left;
+}

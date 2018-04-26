@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { pickBy } from 'lodash';
 
-import { fetchSave } from '../actions';
-import diffSaves from '../utils/diff';
+import { fetchSave } from '../../actions';
+import diffSaves from '../../utils/diff';
+import RevisionDiff from "./RevisionDiff";
 
-class Diff extends React.Component {
+class SaveDiff extends React.Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
@@ -20,16 +21,13 @@ class Diff extends React.Component {
     if (this.state.loading) {
       return <div className="loading" />;
     }
-    if (!this.props.save) debugger;
     const { save, prevSave, changedRevisions } = this.props;
     return (
       <div className="diff-view">
         <h3>Save: {save.name}</h3>
         <ul>
           {changedRevisions.map(rev => (
-            <div>
-              {rev.title}: {rev.change}
-            </div>
+            <RevisionDiff key={rev._id} rev={rev} />
           ))}
         </ul>
       </div>
@@ -58,4 +56,4 @@ const mapDispatchToProps = dispatch => ({
   fetchSave: id => dispatch(fetchSave(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Diff);
+export default connect(mapStateToProps, mapDispatchToProps)(SaveDiff);
