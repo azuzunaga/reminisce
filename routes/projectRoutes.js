@@ -65,12 +65,22 @@ module.exports = app => {
       el.projectId.toString() === req.params.id
     )).draftId;
     const activeDraft = _.find(drafts, d => d._id.toString() === activeDraftId.toString());
+    const saves = await Save.find({ _id: { $in: activeDraft.saveIds } })
+    const users = await User.find({ _id: { $in: _.map(saves, "userId") } })
+
     const lastSaveId = activeDraft.saveIds[activeDraft.saveIds.length - 1];
-    const lastSave = await Save.findById(lastSaveId);
+    const lastSave = _.find(saves, save => save._id.toString() === lastSaveId.toString());
+
     const revisions = lastSave ? await Revision.find({ _id: {$in: lastSave.revisionIds}}) : [];
     project = project.toObject()
     project.draftIds = _.map(drafts, "_id");
-    res.json({ project, drafts: _.keyBy(drafts, "_id"), saves: {[lastSave._id]: lastSave}, revisions: _.keyBy(revisions, "_id") });
+    res.json({
+      project,
+      drafts: _.keyBy(drafts, "_id"),
+      saves: _.keyBy(saves, "_id"),
+      revisions: _.keyBy(revisions, "_id"),
+      users: _.keyBy(users, "_id")
+    });
   });
 
   app.delete("/api/projects/:id", async (req, res) => {
