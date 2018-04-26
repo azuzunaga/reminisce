@@ -5,7 +5,7 @@ import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
-import { fetchRevision, openModal, closeModal } from '../actions/index';
+import { fetchRevision, openModal, closeModal, createSave } from '../actions/index';
 import debounce from 'lodash/debounce';
 class DocumentForm extends React.Component {
   constructor(props) {
@@ -27,8 +27,6 @@ class DocumentForm extends React.Component {
     this.saveContent();
     this.setState({editorState});
   }
-
-
 
   componentDidMount () {
     let found = false; //Here we would do the fetchRevision to do this we need the revision id which would be created when we create the empty document
@@ -61,7 +59,7 @@ class DocumentForm extends React.Component {
   }
 
   handleSave() {
-
+    this.props.createSave();
   }
 
   handleBlockClick(type) {
@@ -140,11 +138,19 @@ class DocumentForm extends React.Component {
 
 function mapStateToProps(state) {
   return { document: { name: "Chapter One" },
-          save: {comment: 'Not fact checked'}};
+          save: {comment: 'Not fact checked'},
+          errors: state.errors
+        };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRevision: (id) => dispatch(fetchRevision(id))
+  fetchRevision: (id) => dispatch(fetchRevision(id)),
+  createSave: () => dispatch(createSave({
+    name: "abc",
+    draftId: "5adf71cff326761db0a05d98",
+    newRevs: [],
+    deletedRevIds: []
+  }))
 });
 
-export default connect(mapStateToProps)(DocumentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
