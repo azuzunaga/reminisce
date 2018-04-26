@@ -34,8 +34,8 @@ class App extends React.Component {
             <ProtectedRoute exact path="/document/new" component={DocumentForm} />
             <ProtectedRoute exact path="/projects/:projectId/drafts" component={CombineDrafts} />
             <ProtectedRoute exact path="/diff-test" component={() => (
-                <SaveDiff saveId="5ae0c41ef283f979b9bd51ce" />
-              )} />
+              <div onClick={() => this.props.openModal(<SaveDiff saveId="5ae0c41ef283f979b9bd51ce" />)} ><br /><br /><br />Test</div>
+            )} />
           </div>
         </BrowserRouter>
       </div>

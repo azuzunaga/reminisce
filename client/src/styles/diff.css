@@ -1,3 +1,18 @@
+.diff-view {
+  background: white;
+  height: 80vh;
+  overflow: scroll;
+  width: 1000px;
+}
+
+.diff-table {
+  display: flex;
+}
+
+.diff-table .rev-titles {
+  width: 100px;
+}
+
 .diff-view .delete {
   background-color: #fdd;
 }
