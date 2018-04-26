@@ -9,7 +9,7 @@ class DraftsListItem extends React.Component {
     const { draft } = this.props;
 
     return (
-      <li className='draft-list-item'>
+      <li className='list-item'>
         <div className='list-left'>
           <input type="checkbox" />
           <p> {draft.name} </p>
