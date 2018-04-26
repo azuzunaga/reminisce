@@ -20,8 +20,19 @@
   margin: 0;
 }
 
-i:hover {
+.add-icon:hover > .new-hidden  {
   cursor: pointer;
+  display: inline-block;
+  transition-delay: 1s;
+}
+
+.add-icon:hover > .new-show  {
+  cursor: pointer;
+  display: none;
+}
+
+i.new-hidden {
+  display: none;
 }
 
 .project-header {
