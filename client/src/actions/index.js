@@ -33,7 +33,8 @@ export const fetchDraft = id => async dispatch => {
   dispatch({
     type: FETCH_DRAFT,
     draft: res.data.draft,
-    saves: res.data.saves
+    saves: res.data.saves,
+    users: res.data.users
   })
 }
 
