@@ -5,6 +5,7 @@ import '../styles/stylingList.css';
 import '../styles/combinedrafts.css';
 
 class DraftsListItem extends React.Component {
+  
 
   constructor(props) {
     super(props);

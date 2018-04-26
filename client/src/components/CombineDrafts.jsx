@@ -2,6 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DraftsListItem from './DraftsListItem';
+import { closeModal, openModal } from '../actions';
+import { fetchProject } from '../actions/index'
+import { dateTimeFormatter } from '../utils/dateFormatter';
+import CombineModal from './CombineDraftsModal';
 import '../styles/combinedrafts.css';
 import '../styles/stylingMain.css';
 
@@ -34,39 +38,37 @@ class CombineDrafts extends React.Component {
   constructor(props) {
     super(props);
     this.selectedCounter = 0;
-    this.toggleSelect = this.toggleSelect.bind(this);
+    this.state = {
+      draft1: null,
+      draft2: null,
+      tester: 'hello'
+    }
     this.countSelected = this.countSelected.bind(this);
   }
 
-  toggleSelect() {
-    return e => {
-      this.selectedCounter += 1;
-      console.log(this.selectedCounter);
+  componentDidMount() {
+    this.props.fetchProject(this.props.match.params.projectId)
+  }
+
+
+  countSelected(e) {
+    const checkboxes = Array.from(document.getElementsByClassName('checkbox-filter'));
+    const checked = checkboxes.filter(checkbox => checkbox.checked === true)
+    this.selectedCounter = checked.length;
+    const combineButton = document.getElementById('combine-selected-drafts-button');
+    if (this.selectedCounter > 2) {
+      e.preventDefault();
+    } else if (this.selectedCounter === 2) {
+      combineButton.classList.add('two-selected');
+      combineButton.disabled = false;
+      this.setState({draft1: checked[0].getAttribute('data')});
+      this.setState({draft2: checked[1].getAttribute('data')}, () => console.log(this.state))
+    } else {
+      combineButton.classList.remove('two-selected');
+      combineButton.disabled = true;
     }
   }
 
-  countSelected() {
-    return e => {
-      const checkboxes = Array.from(document.getElementsByClassName('checkbox-filter'));
-      let selected = 0;
-
-      checkboxes.forEach(checkbox => {
-        if (checkbox.checked === true) selected += 1;
-      })
-
-      this.selectedCounter = selected;
-      const combineButton = document.getElementById('combine-selected-drafts-button');
-      if (this.selectedCounter > 2) {
-        e.preventDefault();
-      } else if (this.selectedCounter === 2) {
-        combineButton.classList.add('two-selected');
-        combineButton.disabled = false;
-      } else {
-        combineButton.classList.remove('two-selected');
-        combineButton.disabled = true;
-      }
-    }
-  }
 
   renderListItem(draft) {
     return (
@@ -76,7 +78,8 @@ class CombineDrafts extends React.Component {
             id={`draft-${draft.id}`}
             className='checkbox-filter'
             type="checkbox"
-            onClick={this.countSelected()}
+            onClick={this.countSelected.bind(this)}
+            data={draft.id}
              />
           <label htmlFor={`draft-${draft.id}`} className='checkbox-label'> {draft.name} </label>
         </div>
@@ -124,8 +127,7 @@ class CombineDrafts extends React.Component {
                 </div>
               </div>
                 { this.renderList() }
-              <button id="combine-selected-drafts-button"
-              className='combine-selected-drafts'> Combine Selected Drafts </button>
+                { this.props.combineModal }
             </section>
             <aside className='aside-right'>
             </aside>
@@ -141,4 +143,24 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(CombineDrafts);
+const mapDispatchToProps = dispatch => {
+  return {
+    combineModal: (
+      <button
+        id="combine-selected-drafts-button"
+        className="combine-selected-drafts"
+        onClick={() => {
+          dispatch(openModal(<CombineModal
+            />))
+          }}>
+        Combine Selected Drafts
+      </button>
+    ),
+    closeModal: () => dispatch(closeModal()),
+    fetchProject: id => dispatch(fetchProject(id)),
+
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CombineDrafts);
