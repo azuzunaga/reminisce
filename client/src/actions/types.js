@@ -9,3 +9,5 @@ export const FETCH_PROJECTS = "FETCH_PROJECTS";
 export const FETCH_SAVE = "FETCH_SAVE";
 
 export const FETCH_PROJECT = "FETCH_PROJECT";
+
+export const FORM_ERROR = "FORM_ERROR";
