@@ -96,6 +96,7 @@
 
 .revision-diff .minimap p {
   font-size: 4px;
+  padding: 2px;
 }
 
 .minimap .container {
@@ -108,4 +109,5 @@
   right: 0;
   box-sizing: border-box;
   border: 1px solid blue;
+  pointer-events: none;
 }

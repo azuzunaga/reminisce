@@ -22,7 +22,7 @@ class SaveDiff extends React.Component {
     if (this.state.loading) {
       return <div className="diff-view loading" />;
     }
-    const { save, prevSave, changedRevisions } = this.props;
+    const { save, changedRevisions } = this.props;
     return (
       <div className="diff-view">
         <h3>Save: {save.name}</h3>

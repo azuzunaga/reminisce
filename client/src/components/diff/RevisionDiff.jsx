@@ -9,21 +9,25 @@ class RevisionDiff extends React.Component {
     this.diffRef = React.createRef();
     this.minimapRef = React.createRef();
     this.state = { viewTop: 0, viewHeight: 0 };
+
+    this.adjustWindow = this.adjustWindow.bind(this);
+    this.handleMinimapClick = this.handleMinimapClick.bind(this);
   }
 
   componentDidMount() {
-    // this.diffRef.addEventListener('scroll', this.handleScroll);
-    // this.minimapRef.addEventListener('click', this.handleMinimapClick);
+    this.adjustWindow(this.diffRef.current);
   }
-  //
-  // componentWillUnMount() {
-  //   this.diffRef.removeEventListener('scroll', this.handleScroll);
-  //   this.minimapRef.removeEventListener('click', this.handleMinimapClick);
-  // }
 
-  handleScroll(e) {
-    const viewTop = e.target.scrollTop / e.target.scrollHeight;
-    const viewHeight = e.target.offsetHeight / e.target.scrollHeight;
+  componentDidUpdate(prevProps) {
+    if (prevProps === null || prevProps.rev !== this.props.rev) {
+      this.adjustWindow(this.diffRef.current);
+    }
+  }
+
+  adjustWindow(scrollEl) {
+    console.log(scrollEl)
+    const viewTop = scrollEl.scrollTop / scrollEl.scrollHeight;
+    const viewHeight = scrollEl.offsetHeight / scrollEl.scrollHeight;
     this.setState({
       viewTop,
       viewHeight
@@ -42,6 +46,14 @@ class RevisionDiff extends React.Component {
     }
   }
 
+  handleMinimapClick(e) {
+    const diffEl = this.diffRef.current;
+    diffEl.scrollTop =
+      e.currentTarget.offsetTop /
+      e.currentTarget.parentElement.scrollHeight *
+      diffEl.scrollHeight;
+  }
+
   render() {
     // const added = sumBy(rev.diffInfo, op => op.type === 'insert');
     // const addEl = added ? <span className="add">+{added}</span> : "";
@@ -51,7 +63,7 @@ class RevisionDiff extends React.Component {
     const { rev } = this.props;
     return (
       <div className="revision-diff">
-        <ol ref={this.diffRef} onScroll={this.handleScroll.bind(this)}>
+        <ol ref={this.diffRef} onScroll={e => this.adjustWindow(e.target)}>
           {rev.diffInfo.map(op => (
             <li className={op.type} key={`${op.origIdx}:${op.targetIdx}`}>
               <div
@@ -65,7 +77,11 @@ class RevisionDiff extends React.Component {
           <div className="container">
             <ol>
               {rev.diffInfo.map(op => (
-                <li className={op.type} key={`${op.origIdx}:${op.targetIdx}`}>
+                <li
+                  className={op.type}
+                  key={`${op.origIdx}:${op.targetIdx}`}
+                  onClick={this.handleMinimapClick}
+                >
                   <div
                     className="content"
                     dangerouslySetInnerHTML={{ __html: op.data }}
