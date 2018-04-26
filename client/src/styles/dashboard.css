@@ -20,14 +20,25 @@
   margin: 0;
 }
 
-i:hover {
+.add-icon:hover > .new-hidden  {
   cursor: pointer;
+  display: inline-block;
+  transition-delay: 1s;
+}
+
+.add-icon:hover > .new-show  {
+  cursor: pointer;
+  display: none;
+}
+
+i.new-hidden {
+  display: none;
 }
 
 .project-header {
   display: flex;
   width: 100%;
-  background: #FAFAFA;
+  background: #F7F7F7;
   font-family: 'Josefin Sans', sans-serif;
   color: #434343;
   align-items: center;

@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DocumentListItem from './DocumentListItem';
+import NewDocument from './NewDocument';
 import { closeModal, openModal } from '../actions';
+import { dateTimeFormatter } from '../utils/dateFormatter';
+import { fetchProject, fetchDraft } from '../actions/index';
 import SaveHistory from  './SaveHistory';
 import '../styles/project.css';
 import '../styles/stylingMain.css';
 
-const currentProject = {
-  name: 'History of Abraham Lincoln'
-}
 const fakeDocs = [
   {
     id: 1,
@@ -32,7 +32,18 @@ const fakeDocs = [
 ];
 
 
+
 class Project extends React.Component {
+  componentDidMount() {
+    this.props.fetchProject(this.props.match.params.projectId)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
+      this.props.fetchProject(nextProps.match.params.projectId);
+    }
+  }
+
   renderList() {
     return (
       <ul>
@@ -50,53 +61,80 @@ class Project extends React.Component {
   }
 
   render() {
-    return (
-      <div className='standard-layout'>
-        <header className='project-show'>
-          <h2> Project: {currentProject.name} </h2>
-        </header>
-        <main className='main'>
-          <aside className='aside-left'>
-          </aside>
-          <section className='main-list'>
-            <h4 className="draft-version">Draft Version: <span>{this.props.save.comment}</span></h4>
-            <h3>Documents</h3>
-            <div className='sub-header'>
-              <h4>Document Name</h4>
-              <div className='doc-header-right'>
-                <h4>Last Modified</h4>
-                <h4>Modified By</h4>
+    if (this.props.project === undefined ) {
+      return <div> </div>
+    } else {
+
+      const { project, saves } = this.props;
+      const lastSavedDate = dateTimeFormatter(project.updatedAt);
+
+      return (
+        <div className='standard-layout'>
+          <header className='project-show'>
+            <h2> Project: { project.name } </h2>
+          </header>
+          <main className='main'>
+            <aside className='aside-left'>
+            </aside>
+            <section className='main-list'>
+              <h4 className="draft-version">Draft Version: <span></span></h4>
+              <div className="project-header">
+                <h3>Documents</h3>
+                {this.props.newModal}
               </div>
-            </div>
+              <div className='sub-header'>
+                <h4>Document Name</h4>
+                <div className='doc-header-right'>
+                  <h4>Last Modified</h4>
+                  <h4>Modified By</h4>
+                </div>
+              </div>
               { this.renderList() }
-          </section>
-          <aside className='aside-right save-history'>
-            {this.props.openModal}
-            <div className="last-save">
-              <p> Last save: Apr 18, 5:00 PM </p>
-              <p> Fixed last paragraph </p>
-            </div>
-          </aside>
-        </main>
-        </div>
+            </section>
+            <aside className='aside-right save-history'>
+              {this.props.saveModal}
+              <div className="last-save">
+                <p> Last saved: </p>
+                <p> { lastSavedDate } </p>
+              </div>
+            </aside>
+          </main>
+          </div>
+        )
+      }
+    }
 
-    )
+}
+
+
+
+function mapStateToProps(state, ownProps) {
+
+  return {
+    project: state.projects[ownProps.match.params.projectId],
+    drafts: state.drafts,
+    saves: state.saves
   }
-}
 
-
-
-function mapStateToProps(state) {
-  return { document: { name: "Chapter One" },
-          save: {comment: 'Not fact checked'}};
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    openModal: (
+    fetchProject: id => dispatch(fetchProject(id)),
+    fetchDraft: id => dispatch(fetchDraft(id)),
+    saveModal: (
       <button onClick={() => dispatch(openModal(<SaveHistory />))}>
         View Save History
       </button>
+    ),
+    newModal: (
+      <div
+        className="add-icon"
+        onClick={() => dispatch(openModal(<NewDocument />))}
+      >
+        <i className="material-icons new-show">add_circle_outline</i>
+        <i className="material-icons md-24 new-hidden">add_circle</i>
+      </div>
     ),
     closeModal: () => dispatch(closeModal())
   };
