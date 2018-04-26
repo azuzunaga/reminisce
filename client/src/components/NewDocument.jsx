@@ -6,7 +6,8 @@ const mapStateToProps = (state) => {
   return {
     userId: state.auth._id,
     formType: "Document",
-    errors: state.errors
+    errors: state.errors,
+    drafts: state.drafts,
   };
 };
 
@@ -14,12 +15,7 @@ const mapDispatchToProps = dispatch => {
   return {
     closeModal: () => dispatch(closeModal()),
     clearErrors: () => dispatch(receiveErrors([])),
-    processForm: (revision) => dispatch(createSave({
-      name: "abc",
-      draftId: "5adf71cff326761db0a05d98",
-      newRevs: [],
-      deletedRevIds: []
-    }))
+    processForm: (save) => dispatch(createSave(save))
   };
 };
 
