@@ -1,4 +1,4 @@
-li {
+.list-item {
   list-style: none;
   margin: 0;
   padding: 0px 20px;
@@ -10,7 +10,7 @@ li {
   border-bottom: 1px solid #FAFAFA;
 }
 
-li p {
+.list-item p {
    color: #666666;
    text-align: center;
    font-weight: 400;
