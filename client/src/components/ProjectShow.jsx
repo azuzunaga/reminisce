@@ -47,7 +47,6 @@ class Project extends React.Component {
   }
 
   renderList() {
-    debugger;
     return (
       <ul>
       {
