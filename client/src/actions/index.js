@@ -24,7 +24,10 @@ export const fetchProject = id => async dispatch => {
   dispatch({
     type: FETCH_PROJECT,
     project: res.data.project,
-    drafts: res.data.drafts
+    drafts: res.data.drafts,
+    saves: res.data.saves,
+    revisions: res.data.revisions,
+    users: res.data.users
   });
 }
 

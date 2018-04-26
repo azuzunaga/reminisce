@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { find } from 'lodash';
+
 import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import { closeModal, openModal } from '../actions';
@@ -35,7 +37,7 @@ const fakeDocs = [
 
 class Project extends React.Component {
   componentDidMount() {
-    this.props.fetchProject(this.props.match.params.projectId)
+    this.props.fetchProject(this.props.match.params.projectId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,11 +50,12 @@ class Project extends React.Component {
     return (
       <ul>
       {
-        fakeDocs.map(doc => {
+        this.props.revisions.map(doc => {
           return (
             <DocumentListItem
             doc={doc}
-            key={doc.id}/>
+            user={find(this.props.users, user => user._id === doc.userId)}
+            key={doc._id}/>
           )
         })
       }
@@ -61,7 +64,7 @@ class Project extends React.Component {
   }
 
   render() {
-    if (this.props.project === undefined ) {
+    if (this.props.project === undefined) {
       return <div> </div>
     } else {
 
@@ -109,14 +112,26 @@ class Project extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
-
+  const project = state.projects[ownProps.match.params.projectId];
+  if (project === undefined || !project.draftIds) return {};
+  const activeDraftId = find(state.auth.projectsActiveDraft, el => (
+    el.projectId === project._id
+  )).draftId;
+  const activeDraft = state.drafts[activeDraftId];
+  const drafts = project.draftIds.map(id => state.drafts[id]);
+  const saves = activeDraft.saveIds.map(id => state.saves[id]);
+  const users = saves.map(save => state.users[save.userId]);
+  const revisions = saves
+    ? saves[saves.length - 1].revisionIds.map(id => state.revisions[id])
+    : [];
   return {
-    project: state.projects[ownProps.match.params.projectId],
-    drafts: state.drafts,
-    saves: state.saves
-  }
-
-};
+    project,
+    drafts,
+    saves,
+    users,
+    revisions
+  };
+}
 
 const mapDispatchToProps = dispatch => {
   return {

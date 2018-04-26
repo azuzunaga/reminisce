@@ -6,16 +6,16 @@ import '../styles/stylingList.css';
 class DocumentListItem extends React.Component {
   render() {
 
-    const { doc } = this.props;
+    const { doc, user } = this.props;
 
     return (
       <li className='list-item'>
         <div className='list-name'>
-          <p> {doc.name} </p>
+          <p> {doc.title} </p>
         </div>
         <div className='doc-list-details'>
-          <p>{doc.lastModified}</p>
-          <p>{doc.modifiedBy}</p>
+          <p>{doc.createdAt}</p>
+          <p>{user.username}</p>
         </div>
       </li>
     )
