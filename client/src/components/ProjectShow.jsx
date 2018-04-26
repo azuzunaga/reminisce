@@ -5,7 +5,7 @@ import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import { closeModal, openModal } from '../actions';
 import { dateTimeFormatter } from '../utils/dateFormatter';
-import { fetchProject } from '../actions/index';
+import { fetchProject, fetchDraft } from '../actions/index';
 import SaveHistory from  './SaveHistory';
 import '../styles/project.css';
 import '../styles/stylingMain.css';
@@ -36,6 +36,7 @@ const fakeDocs = [
 class Project extends React.Component {
   componentDidMount() {
     this.props.fetchProject(this.props.match.params.projectId)
+    this.props.fetchDraft('5adfcc6a4f29bb8265378684')
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +44,7 @@ class Project extends React.Component {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }
+
   renderList() {
     return (
       <ul>
@@ -60,53 +62,59 @@ class Project extends React.Component {
   }
 
   render() {
-    debugger;  
-    const { project } = this.props;
-    const lastSaved = dateTimeFormatter(project.updatedAt);
+    if (this.props.project === undefined ) {
+      return <div> </div>
+    } else {
 
-    return (
-      <div className='standard-layout'>
-        <header className='project-show'>
-          <h2> Project: { project.name } </h2>
-        </header>
-        <main className='main'>
-          <aside className='aside-left'>
-          </aside>
-          <section className='main-list'>
-            <h4 className="draft-version">Draft Version: <span></span></h4>
-            <div className="project-header">
-              <h3>Documents</h3>
-              {this.props.newModal}
-            </div>
-            <div className='sub-header'>
-              <h4>Document Name</h4>
-              <div className='doc-header-right'>
-                <h4>Last Modified</h4>
-                <h4>Modified By</h4>
+      const { project, saves } = this.props;
+      const lastSavedDate = dateTimeFormatter(project.updatedAt);
+
+      return (
+        <div className='standard-layout'>
+          <header className='project-show'>
+            <h2> Project: { project.name } </h2>
+          </header>
+          <main className='main'>
+            <aside className='aside-left'>
+            </aside>
+            <section className='main-list'>
+              <h4 className="draft-version">Draft Version: <span></span></h4>
+              <div className="project-header">
+                <h3>Documents</h3>
+                {this.props.newModal}
               </div>
-            </div>
-            { this.renderList() }
-          </section>
-          <aside className='aside-right save-history'>
-            {this.props.saveModal}
-            <div className="last-save">
-              <p> Last save: { lastSaved } </p>
-              <p> Fixed last paragraph </p>
-            </div>
-          </aside>
-        </main>
-        </div>
+              <div className='sub-header'>
+                <h4>Document Name</h4>
+                <div className='doc-header-right'>
+                  <h4>Last Modified</h4>
+                  <h4>Modified By</h4>
+                </div>
+              </div>
+              { this.renderList() }
+            </section>
+            <aside className='aside-right save-history'>
+              {this.props.saveModal}
+              <div className="last-save">
+                <p> Last saved: </p>
+                <p> { lastSavedDate } </p>
+              </div>
+            </aside>
+          </main>
+          </div>
+        )
+      }
+    }
 
-    )
-  }
 }
 
 
 
 function mapStateToProps(state, ownProps) {
+
   return {
     project: state.projects[ownProps.match.params.projectId],
-    drafts: state.drafts
+    drafts: state.drafts,
+    saves: state.saves
   }
 
 };
@@ -114,6 +122,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
+    fetchDraft: id => dispatch(fetchDraft(id)),
     saveModal: (
       <button onClick={() => dispatch(openModal(<SaveHistory />))}>
         View Save History

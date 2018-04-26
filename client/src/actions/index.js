@@ -4,8 +4,10 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   FETCH_PROJECTS,
-  FETCH_SAVE,
   FETCH_PROJECT,
+  FETCH_SAVE,
+  FETCH_SAVES,
+  FETCH_DRAFT,
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -22,6 +24,16 @@ export const fetchProject = id => async dispatch => {
     project: res.data.project,
     drafts: res.data.drafts
   });
+}
+
+export const fetchDraft = id => async dispatch => {
+  const res = await axios.get(`/api/drafts/${id}`)
+
+  dispatch({
+    type: FETCH_DRAFT,
+    draft: res.data.draft,
+    saves: res.data.saves
+  })
 }
 
 export const fetchUser = () => async dispatch => {
