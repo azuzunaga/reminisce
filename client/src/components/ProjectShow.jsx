@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DocumentListItem from './DocumentListItem';
+import NewDocument from './NewDocument';
 import { closeModal, openModal } from '../actions';
 import SaveHistory from  './SaveHistory';
 import '../styles/project.css';
@@ -60,7 +61,10 @@ class Project extends React.Component {
           </aside>
           <section className='main-list'>
             <h4 className="draft-version">Draft Version: <span>{this.props.save.comment}</span></h4>
-            <h3>Documents</h3>
+            <div className="project-header">
+              <h3>Documents</h3>
+              {this.props.newModal}
+            </div>
             <div className='sub-header'>
               <h4>Document Name</h4>
               <div className='doc-header-right'>
@@ -68,10 +72,10 @@ class Project extends React.Component {
                 <h4>Modified By</h4>
               </div>
             </div>
-              { this.renderList() }
+            { this.renderList() }
           </section>
           <aside className='aside-right save-history'>
-            {this.props.openModal}
+            {this.props.saveModal}
             <div className="last-save">
               <p> Last save: Apr 18, 5:00 PM </p>
               <p> Fixed last paragraph </p>
@@ -93,10 +97,19 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    openModal: (
+    saveModal: (
       <button onClick={() => dispatch(openModal(<SaveHistory />))}>
         View Save History
       </button>
+    ),
+    newModal: (
+      <div
+        className="add-icon"
+        onClick={() => dispatch(openModal(<NewDocument />))}
+      >
+        <i className="material-icons new-show">add_circle_outline</i>
+        <i className="material-icons md-24 new-hidden">add_circle</i>
+      </div>
     ),
     closeModal: () => dispatch(closeModal())
   };

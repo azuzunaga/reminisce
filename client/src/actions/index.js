@@ -4,7 +4,8 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   FETCH_PROJECTS,
-  FETCH_SAVE
+  FETCH_SAVE,
+  FETCH_PROJECT
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -43,6 +44,15 @@ export const fetchSave = id => async dispatch => {
   });
 }
 
-export const newProject = () => {};
-export const newRevision = () => {};
+export const newProject = (project) => async dispatch => {
+  const res = await axios.post('/api/projects', {
+    project
+  });
 
+  dispatch({
+    type: FETCH_PROJECT,
+    project: res.data.project
+  })
+};
+
+export const newRevision = () => {};
