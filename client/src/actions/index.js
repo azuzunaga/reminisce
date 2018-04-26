@@ -5,7 +5,8 @@ import {
   CLOSE_MODAL,
   FETCH_PROJECTS,
   FETCH_SAVE,
-  FETCH_PROJECT
+  FETCH_PROJECT,
+  FORM_ERROR
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -47,12 +48,22 @@ export const fetchSave = id => async dispatch => {
 export const newProject = (project) => async dispatch => {
   const res = await axios.post('/api/projects', {
     project
+  }).then(function(res) {
+    dispatch({
+      type: FETCH_PROJECT,
+      project: res.data.project
+    })
+  }).catch(function(res) {
+    dispatch({
+      type: FORM_ERROR,
+      errors: res.response.data
+    })
   });
-
-  dispatch({
-    type: FETCH_PROJECT,
-    project: res.data.project
-  })
 };
+
+export const receiveErrors =(errors) => ({
+  type: FORM_ERROR,
+  errors
+});
 
 export const newRevision = () => {};
