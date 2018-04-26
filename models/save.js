@@ -14,7 +14,7 @@ const saveSchema = new Schema({
   createdAt: { type: Date, default: Date.now, required: true },
   isAuto: { type: Boolean, default: false, required: true },
   revisionIds: {
-    type: [{ type: Schema.Types.ObjectId, ref: "users", required: true }],
+    type: [{ type: Schema.Types.ObjectId, ref: "revisions", required: true }],
     default: [],
     required: true
   }

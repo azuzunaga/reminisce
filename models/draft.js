@@ -5,7 +5,7 @@ const draftSchema = new Schema({
   name: { type: String, required: true },
   projectId: { type: Schema.Types.ObjectId, ref: "projects", required: true },
   saveIds: {
-    type: [{ type: Schema.Types.ObjectId, ref: "users", required: true }],
+    type: [{ type: Schema.Types.ObjectId, ref: "saves", required: true }],
     default: [],
     required: true
   },
