@@ -1,30 +1,44 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
+import { fetchRevision, openModal, closeModal } from '../actions/index';
+import debounce from 'lodash/debounce';
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
+
     this.focus = () => this.refs.editor.focus();
-    this.state = { };
-    this.onChange = (editorState) => this.setState({editorState});
+    this.onChange = this.onChange.bind(this);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onTab = (e) => this._onTab(e);
     this.handleSave = this.handleSave.bind(this);
   }
 
-  // display() {
-  //   let thing = stateToHTML(this.state.editorState.getCurrentContent());
-  // }
+  saveContent = debounce((content) => {
+    console.log("hello");
+  }, 1000);
+
+  onChange(editorState) {
+    this.saveContent();
+    this.setState({editorState});
+  }
+
+
+
   componentDidMount () {
-    let here = "this is set up so we can insert any content we have already into the form";
-    let hi = "so we can reuse this form for editing and possibly making readOnly here";
-    this.setState({
-      editorState: EditorState.createEmpty()
-    });
+    let found = false; //Here we would do the fetchRevision to do this we need the revision id which would be created when we create the empty document
+    if (found) {
+      this.setState({
+        editorState: EditorState.createWithContent(convertFromRaw(found))
+      })
+    } else {
+      this.setState({editorState: EditorState.createEmpty()})
+    }
   }
 
   handleStyleClick(type) {
@@ -47,7 +61,7 @@ class DocumentForm extends React.Component {
   }
 
   handleSave() {
-    let stuff = "happen here set up for doing commits here";
+
   }
 
   handleBlockClick(type) {
@@ -128,5 +142,9 @@ function mapStateToProps(state) {
   return { document: { name: "Chapter One" },
           save: {comment: 'Not fact checked'}};
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchRevision: (id) => dispatch(fetchRevision(id))
+});
 
 export default connect(mapStateToProps)(DocumentForm);
