@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { find } from 'lodash';
+
 import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import { closeModal, openModal } from '../actions';
@@ -45,10 +47,11 @@ class Project extends React.Component {
   }
 
   renderList() {
+    debugger
     return (
       <ul>
       {
-        fakeDocs.map(doc => {
+        this.props.revisions.map(doc => {
           return (
             <DocumentListItem
             doc={doc}
@@ -109,14 +112,24 @@ class Project extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
-
+  const project = state.projects[ownProps.match.params.projectId];
+  if (project === undefined) return {};
+  const activeDraftId = find(state.auth.projectsActiveDraft, el => (
+    el.projectId === project._id
+  )).draftId;
+  const activeDraft = state.drafts[activeDraftId];
+  const drafts = project.draftIds.map(id => state.drafts[id]);
+  const saves = activeDraft.saveIds.map(id => state.saves[id]);
+  const revisions = saves
+    ? saves[saves.length - 1].revisionIds.map(id => state.revisions[id])
+    : [];
   return {
-    project: state.projects[ownProps.match.params.projectId],
-    drafts: state.drafts,
-    saves: state.saves
-  }
-
-};
+    project,
+    drafts,
+    saves,
+    revisions
+  };
+}
 
 const mapDispatchToProps = dispatch => {
   return {

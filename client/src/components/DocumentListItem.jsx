@@ -11,10 +11,10 @@ class DocumentListItem extends React.Component {
     return (
       <li className='list-item'>
         <div className='list-name'>
-          <p> {doc.name} </p>
+          <p> {doc.title} </p>
         </div>
         <div className='doc-list-details'>
-          <p>{doc.lastModified}</p>
+          <p>{doc.createdAt}</p>
           <p>{doc.modifiedBy}</p>
         </div>
       </li>
