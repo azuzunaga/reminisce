@@ -10,8 +10,6 @@ import App from "./components/App";
 const store = configureStore();
 window.axios = require("axios");
 
-window.axios = require("axios");
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
