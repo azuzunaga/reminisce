@@ -39,7 +39,7 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
+    if (this.props.match.params.projectId != nextProps.match.params.projectId) {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }

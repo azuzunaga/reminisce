@@ -8,7 +8,7 @@ class ProjectsListItem extends React.Component {
 
     const { project, users } = this.props;
     return (
-      <li>
+      <li className='list-item'>
         <div className='list-name'>
           <Link to={`/projects/${project._id}`}>
             <p> {project.name} </p>

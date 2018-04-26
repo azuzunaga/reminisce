@@ -9,7 +9,7 @@ class DocumentListItem extends React.Component {
     const { doc } = this.props;
 
     return (
-      <li className='document-list-item'>
+      <li className='list-item'>
         <div className='list-name'>
           <p> {doc.name} </p>
         </div>
