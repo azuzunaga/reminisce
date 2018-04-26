@@ -22,16 +22,16 @@ module.exports = app => {
     const [err] = await to(project.save());
     if (err) {
       switch (err.name) {
-        case "ValidationError":
-          return res
-            .status(422)
-            .json(_.map(Object.values(err.errors), "message"));
-        case "BulkWriteError":
-          return res
-            .status(422)
-            .json("You already have a project with that name");
-        default:
-          return res.status(500).json(["Something went wrong"]);
+      case "ValidationError":
+        return res
+          .status(422)
+          .json(_.map(Object.values(err.errors), "message"));
+      case "BulkWriteError":
+        return res
+          .status(422)
+          .json("You already have a project with that name");
+      default:
+        return res.status(500).json(["Something went wrong"]);
       }
     }
     const draft = new Draft({ name: "main", projectId: project.id });
