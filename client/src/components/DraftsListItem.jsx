@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles/stylingList.css';
+import '../styles/combinedrafts.css';
 
 class DraftsListItem extends React.Component {
   render() {
@@ -11,7 +12,8 @@ class DraftsListItem extends React.Component {
     return (
       <li className='list-item'>
         <div className='list-left'>
-          <input type="checkbox" />
+          <input id={`draft-${draft.id}`}className='checkbox-filter' type="checkbox" />
+          <label htmlFor={`draft-${draft.id}`} className='checkbox-label'></label>
           <p> {draft.name} </p>
         </div>
         <div className='draft-list-details'>

@@ -32,7 +32,7 @@ const fakeDrafts = [
 class CombineDrafts extends React.Component {
   renderList() {
     return (
-      <ul>
+      <ul className="scrollable-list">
       {
         fakeDrafts.map(draft => {
           return (
@@ -56,20 +56,20 @@ class CombineDrafts extends React.Component {
             <aside className='aside-left'>
             </aside>
             <section className='main-list'>
-              <h3>Projects</h3>
-              <div className='sub-header'>
-                <div className='sub-header-left'>
-                  <h4> Select Draft </h4>
-                  <h4> Draft Name</h4>
-                </div>
-                <div className='draft-header-right'>
-                  <h4>Last Saved</h4>
-                  <h4>Saved By</h4>
-                </div>
+              <div className="project-header">
+                <h3>Drafts</h3> <p className='main-header-helper-text'> (Select 2) </p>
               </div>
-              <ul>
+              <div className='sub-header'>
+              <div className='sub-header-left'>
+                <h4> Select Draft </h4>
+                <h4> Draft Name</h4>
+              </div>
+              <div className='draft-header-right'>
+                <h4>Last Saved</h4>
+                <h4>Saved By</h4>
+              </div>
+              </div>
                 { this.renderList() }
-              </ul>
             </section>
             <aside className='aside-right'>
             </aside>
