@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DraftsListItem from './DraftsListItem';
 import { closeModal, openModal } from '../actions';
-import { fetchProject } from '../actions/index'
+import { fetchProject, setDrafts } from '../actions/index'
 import { dateTimeFormatter } from '../utils/dateFormatter';
 import CombineModal from './CombineDraftsModal';
 import '../styles/combinedrafts.css';
@@ -38,11 +38,6 @@ class CombineDrafts extends React.Component {
   constructor(props) {
     super(props);
     this.selectedCounter = 0;
-    this.state = {
-      draft1: null,
-      draft2: null,
-      tester: 'hello'
-    }
     this.countSelected = this.countSelected.bind(this);
   }
 
@@ -61,8 +56,10 @@ class CombineDrafts extends React.Component {
     } else if (this.selectedCounter === 2) {
       combineButton.classList.add('two-selected');
       combineButton.disabled = false;
-      this.setState({draft1: checked[0].getAttribute('data')});
-      this.setState({draft2: checked[1].getAttribute('data')}, () => console.log(this.state))
+      this.props.setDrafts({
+        draft1: checked[0].getAttribute('data'),
+        draft2: checked[1].getAttribute('data')
+      })
     } else {
       combineButton.classList.remove('two-selected');
       combineButton.disabled = true;
@@ -127,7 +124,7 @@ class CombineDrafts extends React.Component {
                 </div>
               </div>
                 { this.renderList() }
-                { this.props.combineModal }
+                { this.props.combineDraftsModal }
             </section>
             <aside className='aside-right'>
             </aside>
@@ -145,19 +142,19 @@ function mapStateToProps({ auth }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    combineModal: (
+    combineDraftsModal: (
       <button
         id="combine-selected-drafts-button"
         className="combine-selected-drafts"
         onClick={() => {
-          dispatch(openModal(<CombineModal
-            />))
+          dispatch(openModal(<CombineModal />))
           }}>
         Combine Selected Drafts
       </button>
     ),
     closeModal: () => dispatch(closeModal()),
     fetchProject: id => dispatch(fetchProject(id)),
+    setDrafts: drafts => dispatch(setDrafts(drafts)),
 
   };
 };

@@ -23,6 +23,7 @@
   margin: 0;
   font-weight: 400;
   background:   #F7F7F7;
+  padding: 15px;
 }
 
 .save-history-modal h4 {
@@ -55,6 +56,11 @@
   cursor: pointer;
 }
 
+.save-list-items {
+  padding-left: 0;
+  margin-left: 0;
+}
+
 .save-list-item {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
@@ -63,7 +69,9 @@
 
 .save-list-item p {
   color: #666666;
+  font-family: 'Josefin Sans', sans-serif;
   text-align: center;
+  border-bottom: 1px solid #FAFAFA;
 }
 
 .save-list-item p:first-of-type {
@@ -72,4 +80,10 @@
 
 .save-list-item p:hover {
   text-decoration: underline;
+}
+
+
+.save-history-modal ul {
+  padding: 0;
+  margin: 0;
 }

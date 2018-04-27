@@ -16,7 +16,7 @@ class SaveHistoryModal extends React.Component {
     const { users, saves } = this.props;
     const reversed = saves.reverse();
     return (
-      <ul>
+      <ul claassName='save-list-items'>
         {
           reversed.map(save => {
             return (
@@ -48,10 +48,7 @@ class SaveHistoryModal extends React.Component {
             <h4>Save Time</h4>
             <h4>Saved By</h4>
           </section>
-
-          <ul>
             { this.renderList() }
-          </ul>
         </div>
       )
     }
