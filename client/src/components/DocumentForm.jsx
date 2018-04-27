@@ -5,7 +5,7 @@ import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
-import { fetchRevision, openModal, closeModal, createSave } from '../actions/index';
+import { openModal, closeModal, createSave } from '../actions/index';
 import debounce from 'lodash/debounce';
 class DocumentForm extends React.Component {
   constructor(props) {
@@ -29,10 +29,10 @@ class DocumentForm extends React.Component {
   }
 
   componentDidMount () {
-    let found = false; //Here we would do the fetchRevision to do this we need the revision id which would be created when we create the empty document
-    if (found) {
+    if (Object.keys(this.props.document).length !== 0) {
+      let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
       this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(found))
+        editorState: EditorState.createWithContent(convertFromRaw(document))
       })
     } else {
       this.setState({editorState: EditorState.createEmpty()})
@@ -72,9 +72,9 @@ class DocumentForm extends React.Component {
     }
     return (
       <div className="standard-layout">
-        <h1 className="header">Document: {this.props.document.name}</h1>
+        <h1 className="header">Document: {this.props.document.title}</h1>
         <div className="header-content">
-        <h3 className="draft-version">Draft Version: {this.props.save.comment}</h3>
+        <h3 className="draft-version">Draft Version: {}</h3>
         <button className="save-button" onClick={this.handleSave}>Save Document</button>
         </div>
         <ul className="toolbar">
@@ -136,15 +136,16 @@ class DocumentForm extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { document: { name: "Chapter One" },
-          save: {comment: 'Not fact checked'},
-          errors: state.errors
+function mapStateToProps(state, ownProps) {
+  return {
+          documentId: ownProps.match.params.documentId,
+          errors: state.errors,
+          document: state.revisions[ownProps.match.params.documentId],
+          draft: Object.values(state.drafts)[0]
         };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRevision: (id) => dispatch(fetchRevision(id)),
   createSave: () => dispatch(createSave({
     name: "abc",
     draftId: "5adf71cff326761db0a05d98",
