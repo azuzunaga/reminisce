@@ -28,14 +28,18 @@ module.exports = app => {
     const user = await User.findById(userId);
     const activeDrafts = user.projectsActiveDraft;
     const existingProject = activeDrafts.findIndex(el =>
-      el.projectId.toString() === projectId);
+      el.projectId.toString() === projectId.toString());
     if (existingProject > -1) {
       user.projectsActiveDraft[existingProject].draftId = ObjectId(draftId);
     } else {
       user.projectsActiveDraft.push({projectId: projectId, draftId: draftId});
     }
+
     user.save();
-    res.json(draft);
+    res.json({
+      draft,
+      auth: user
+    });
   });
 
   app.get("/api/drafts/:draftId", async (req, res) => {
