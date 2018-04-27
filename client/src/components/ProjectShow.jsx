@@ -22,6 +22,10 @@ class Project extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.closeModal();
+  }
+
   renderList() {
     return (
       <ul>
