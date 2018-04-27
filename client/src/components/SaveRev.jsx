@@ -1,5 +1,5 @@
 import React from 'react';
-import { createSave, closeModal } from '../actions';
+import { createSave, closeModal, receiveErrors } from '../actions';
 import { connect } from 'react-redux';
 import '../styles/newForm.css';
 class SaveRev extends React.Component {
@@ -17,7 +17,18 @@ class SaveRev extends React.Component {
     });
   }
 
-  handleSubmit() {
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
+  checkIfErrors() {
+    if (this.props.errors.length < 1) {
+      this.props.closeModal();
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
     const save = Object.assign({}, {
       save: { name: this.state.name,
         draftId: this.props.draftId,
@@ -29,7 +40,19 @@ class SaveRev extends React.Component {
       }],
       deletedRevIds: [this.props.document._id]
     });
-    this.props.createSave(save);
+    this.props.clearErrors();
+    this.props.createSave(save).then(this.checkIfErrors.bind(this));
+  }
+
+  renderErrors() {
+    if (this.props.errors.length > 0) {
+      let errors = this.props.errors.map((error, i) => <li key={i}>{error}</li>);
+      return (
+        <ul className="error-message">{errors}</ul>
+      );
+    }
+
+    return null;
   }
 
   render() {
@@ -41,9 +64,10 @@ class SaveRev extends React.Component {
             id="require-input"
             className="new-form name"
             type="text"
+            placeholder="Enter a message so you can remember what you did"
             onChange={this.update('name')}
           />
-
+          {this.renderErrors()}
           <input
             className={"new-form submit " + "save"}
             type="submit"
@@ -59,14 +83,16 @@ const mapStateToProps = (state, ownProps) => {
   return {
     body: ownProps.body,
     document: ownProps.document,
-    draftId: ownProps.draftId
+    draftId: ownProps.draftId,
+    errors: state.errors
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     closeModal: () => dispatch(closeModal()),
-    createSave: (save) => dispatch(createSave(save))
+    createSave: (save) => dispatch(createSave(save)),
+    clearErrors: () => dispatch(receiveErrors([]))
   };
 };
 
