@@ -70,7 +70,7 @@ export const fetchDraft = id => async dispatch => {
     draft: res.data.draft,
     saves: res.data.saves,
     users: res.data.users,
-    currentRevisions: res.data.currentRevisions
+    revisions: res.data.revisions
   });
 };
 
