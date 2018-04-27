@@ -7,12 +7,17 @@ import '../styles/stylingMain.css';
 import {
   fetchProjects,
   openModal,
+  closeModal
 } from '../actions/index';
 
 class ProjectsDashboard extends React.Component {
 
   componentDidMount() {
     this.props.fetchProjects();
+  }
+
+  componentWillUnmount() {
+    this.props.closeModal();
   }
 
   renderList() {
@@ -85,6 +90,7 @@ const mapDispatchToProps = (dispatch) => ({
         <i className="material-icons md-24 new-hidden">add_circle</i>
       </div>
     ),
+    closeModal: () => dispatch(closeModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsDashboard);
