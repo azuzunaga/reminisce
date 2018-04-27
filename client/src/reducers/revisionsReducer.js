@@ -28,7 +28,7 @@ export default (state = {}, action) => {
       )
     );
   case FETCH_REVISION:
-    fetchedRev = { [action.revision.id]: action.revision };
+    fetchedRev = { [action.revision._id]: action.revision };
     return merge({}, state, fetchedRev);
   case FETCH_PROJECT:
     return merge({}, state, action.revisions);
