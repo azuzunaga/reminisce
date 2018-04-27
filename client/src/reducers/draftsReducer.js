@@ -3,8 +3,8 @@ import { merge } from 'lodash';
 import {
   FETCH_PROJECT,
   CREATE_DRAFT,
-  FETCH_SAVE,
-  CREATE_PROJECT
+  CREATE_PROJECT,
+  CREATE_SAVE
 } from '../actions/types';
 
 export default (state = {}, action) => {
@@ -18,9 +18,9 @@ export default (state = {}, action) => {
   case CREATE_DRAFT:
     newDraft = { [action.draft.id]: action.draft };
     return merge({}, state, newDraft);
-   case FETCH_SAVE:
+   case CREATE_SAVE:
      let newState = Object.assign({}, state);
-     let draft = newState[action.save.draftId];
+     let draft = newState[action.draftId];
      newState[draft._id] = merge({}, draft,
        {saveIds: draft.saveIds.concat([action.save._id])});
      return newState;
