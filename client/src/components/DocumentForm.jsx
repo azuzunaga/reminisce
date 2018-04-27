@@ -7,6 +7,8 @@ import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
 import { openModal, closeModal, createSave } from '../actions/index';
 import debounce from 'lodash/debounce';
+import SaveRev from './SaveRev';
+
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
@@ -83,7 +85,12 @@ class DocumentForm extends React.Component {
         <h1 className="header">Document: {this.props.document.title}</h1>
         <div className="header-content">
         <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
-        <button className="save-button" onClick={this.handleSave}>Save Document</button>
+        <button className="save-button"
+          onClick={() => this.props.openModal(<SaveRev body={convertToRaw(this.state.editorState.getCurrentContent())}
+          draftId={this.props.draft._id} document={this.props.document}
+          />)}>
+          Save Document
+        </button>
         </div>
         <ul className="toolbar">
           <li>
@@ -161,7 +168,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  createSave: (save) => dispatch(createSave(save))
+  createSave: (save) => dispatch(createSave(save)),
+  openModal: (component) => dispatch(openModal(component))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
