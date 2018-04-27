@@ -2,7 +2,8 @@ import {
   FETCH_PROJECTS,
   FETCH_PROJECT,
   CREATE_PROJECT,
-  FETCH_REVISION
+  FETCH_REVISION,
+  CREATE_DRAFT
 } from '../actions/types';
 import merge from 'lodash/merge';
 export default function(state={}, action) {
