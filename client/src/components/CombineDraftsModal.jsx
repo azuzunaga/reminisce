@@ -41,7 +41,7 @@ const draftConflicts = {
     draft1: 'draft1-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     draft2: 'draft2-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     contextAfter:'after context after context after context after context after context  after context after context  after context after context  after context after context',
-    selectedDraft: 12345,
+    selectedDraft: null,
   },
   5: {
     document: 'Chapter Three',
@@ -77,6 +77,7 @@ class CombineDraftsModal extends React.Component {
           onClick={() => this.props.resolveConflictsModal(conflict)}>
           <p>{conflict.id}</p>
           <p>{conflict.document}</p>
+          <p>{conflict.selectedDraft === null ? "" : conflict.selectedDraft } </p>
           <input
             id={`conflict-${conflict.document}-${conflict.id}`}
             className='checkbox-filter'
@@ -114,6 +115,7 @@ class CombineDraftsModal extends React.Component {
             <section className='draft-conflicts-headers'>
               <h4>Conflict</h4>
               <h4>Document</h4>
+              <h4>Draft Version</h4>
               <h4>Resolved</h4>
             </section>
 

@@ -1,5 +1,5 @@
 .draft-conflicts-modal {
-  width: 35vw;
+  width: 50vw;
   height: 65vh;
   background: white;
   display: flex;
@@ -9,7 +9,7 @@
 
 .draft-conflicts-headers {
   display: grid;
-  grid-template-columns:1fr 4fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
   background: #FAFAFA;
   color: #434343;
   font-size: 16px;
@@ -75,7 +75,7 @@
 
 .draft-conflicts-resolve {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
 }
 
 .draft-conflicts-resolve:hover {
