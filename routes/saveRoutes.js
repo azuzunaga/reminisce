@@ -15,7 +15,7 @@ module.exports = app => {
     const draft = await Draft.findById(saveParams.draftId);
     const project = await Project.findById(draft.projectId);
 
-    let prevSave = { revisionIds: [], id: null };
+    let prevSave = { revisionIds: [], id: null, isAuto: false };
     if (draft.saveIds.length) {
       prevSave = await Save.findById(draft.saveIds[draft.saveIds.length - 1]);
     }
@@ -57,6 +57,11 @@ module.exports = app => {
       save.projectId = project.id;
       save.revisionIds = newRevIds;
       save.previousSaveId = prevSave.id;
+      if (prevSave.isAuto) {
+        save.previousManualSaveId = prevSave.previousManualSaveId;
+      } else {
+        save.previousManualSaveId = prevSave.id;
+      }
       const [saveErr] = await to(save.save());
       if (saveErr) {
         switch (saveErr.name) {
@@ -79,7 +84,7 @@ module.exports = app => {
 
   app.get('/api/saves/:id', async (req, res) => {
     const save = await Save.findById(req.params.id);
-    const prevSave = await Save.findById(save.previousSaveId);
+    const prevManualSave = await Save.findById(save.previousManualSaveId);
     const revisions = await Revision.find({
       _id: { $in: save.revisionIds.concat(prevSave ? prevSave.revisionIds : []) }
     });

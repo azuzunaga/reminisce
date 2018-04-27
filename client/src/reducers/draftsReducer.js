@@ -3,6 +3,7 @@ import { merge } from 'lodash';
 import {
   FETCH_PROJECT,
   CREATE_DRAFT,
+  FETCH_SAVE
 } from '../actions/types';
 
 export default (state = {}, action) => {

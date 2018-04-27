@@ -34,22 +34,6 @@ export const fetchProject = id => async dispatch => {
   });
 };
 
-export const newProject = (project) => async dispatch => {
-  const res = await axios.post('/api/projects', {
-    project
-  }).then(function(res) {
-    dispatch({
-      type: CREATE_PROJECT,
-      project: res.data.project,
-      draft: res.data.draft
-    });
-  }).catch(function(res) {
-    dispatch({
-      type: FORM_ERROR,
-      errors: res.response.data
-    });
-  });
-};
 ///////////////////////////////////////////////////////
 
 export const fetchRevision = id => async dispatch => {
