@@ -82,10 +82,10 @@ module.exports = app => {
     const save = await Save.findById(req.params.id);
     const prevManualSave = await Save.findById(save.previousManualSaveId);
     const revisions = await Revision.find({
-      _id: { $in: save.revisionIds.concat(prevSave ? prevSave.revisionIds : []) }
+      _id: { $in: save.revisionIds.concat(prevManualSave ? prevManualSave.revisionIds : []) }
     });
     res.json({
-      saves: _.keyBy([save, prevSave], '_id'),
+      saves: _.keyBy([save, prevManualSave], '_id'),
       revisions: _.keyBy(revisions, '_id')
     });
   });

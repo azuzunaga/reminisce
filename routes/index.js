@@ -4,4 +4,5 @@ module.exports = app => {
   require("./draftRoutes")(app);
   require("./saveRoutes")(app);
   require("./revisionRoutes")(app);
+  require("./mergeRoutes")(app);
 };
