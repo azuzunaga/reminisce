@@ -41,7 +41,7 @@ class SaveRev extends React.Component {
       deletedRevIds: [this.props.document._id]
     });
     this.props.clearErrors();
-    this.props.createSave(save).then(this.checkIfErrors.bind(this));
+    this.props.createSave(save, this.props.draftId).then(this.checkIfErrors.bind(this));
   }
 
   renderErrors() {
