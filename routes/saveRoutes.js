@@ -11,15 +11,12 @@ module.exports = app => {
   app.post('/api/saves', async (req, res) => {
     const saveParams = req.body.save;
     const { newRevs, deletedRevIds } = req.body;
-
     const draft = await Draft.findById(saveParams.draftId);
     const project = await Project.findById(draft.projectId);
-
     let prevSave = { revisionIds: [], id: null, isAuto: false };
     if (draft.saveIds.length) {
       prevSave = await Save.findById(draft.saveIds[draft.saveIds.length - 1]);
     }
-
     if (!project.canUserEdit(req.user.id)) {
       return res
         .status(403)
@@ -27,8 +24,7 @@ module.exports = app => {
     }
 
     let prevRevIds = prevSave.revisionIds;
-    prevRevIds = prevRevIds.filter(id => !deletedRevIds.includes(id));
-
+    prevRevIds = prevRevIds.filter(id => !deletedRevIds.includes(id.toString()));
     prevRevs = await Revision.find({ _id: { $in: prevRevIds } });
     const titles = _.map(prevRevs.concat(newRevs), 'title');
     if (titles.length !== _.uniq(titles).length) {
@@ -86,10 +82,10 @@ module.exports = app => {
     const save = await Save.findById(req.params.id);
     const prevManualSave = await Save.findById(save.previousManualSaveId);
     const revisions = await Revision.find({
-      _id: { $in: save.revisionIds.concat(prevSave ? prevSave.revisionIds : []) }
+      _id: { $in: save.revisionIds.concat(prevManualSave ? prevManualSave.revisionIds : []) }
     });
     res.json({
-      saves: _.keyBy([save, prevSave], '_id'),
+      saves: _.keyBy([save, prevManualSave], '_id'),
       revisions: _.keyBy(revisions, '_id')
     });
   });

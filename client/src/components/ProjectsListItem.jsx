@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles/stylingList.css';
+import { dateTimeFormatter } from '../utils/dateFormatter';
 
 class ProjectsListItem extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class ProjectsListItem extends React.Component {
           <Link to={`/users/${project.ownerId}`}>
             <p>{users[project.ownerId].firstName}</p>
           </Link>
-          <p>{project.updatedAt.split("T")[0]}</p>
+          <p>{dateTimeFormatter(project.updatedAt)}</p>
           <p>{project.modifiedBy}</p>
         </div>
       </li>

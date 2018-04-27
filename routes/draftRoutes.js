@@ -67,8 +67,9 @@ module.exports = app => {
     const projectId = draft.projectId;
 
     const activeDrafts = user.projectsActiveDraft;
-    const existingProject = activeDrafts.findIndex(el =>
-      el.projectId.toString() === projectId.toString());
+    const existingProject = activeDrafts.findIndex(
+      el => el.projectId.toString() === projectId.toString()
+    );
     if (existingProject > -1) {
       user.projectsActiveDraft[existingProject].draftId = ObjectId(draftId);
     } else {
