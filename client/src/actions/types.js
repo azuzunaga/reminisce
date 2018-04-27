@@ -24,3 +24,4 @@ export const CREATE_DRAFT = 'CREATE_DRAFT';
 
 export const SET_DRAFTS = "SET_DRAFTS";
 
+export const CREATE_SAVE = "CREATE_SAVE";
