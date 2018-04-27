@@ -11,7 +11,7 @@ module.exports = app => {
   app.post('/api/saves', async (req, res) => {
     const saveParams = req.body.save;
     const { newRevs, deletedRevIds } = req.body;
-
+    console.log(newRevs);
     const draft = await Draft.findById(saveParams.draftId);
     const project = await Project.findById(draft.projectId);
 
