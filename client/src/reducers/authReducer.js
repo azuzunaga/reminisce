@@ -1,4 +1,4 @@
-import { FETCH_USER, CREATE_PROJECT } from '../actions/types';
+import { FETCH_USER, CREATE_PROJECT, CREATE_DRAFT } from '../actions/types';
 
 export default function(state = null, action) {
   let newProjectsActiveDraft;
@@ -10,6 +10,8 @@ export default function(state = null, action) {
       [{ projectId: action.project._id, draftId: action.draft._id }]
     );
     return Object.assign({}, state, {projectsActiveDraft: newProjectsActiveDraft});
+  case CREATE_DRAFT:
+    return action.auth;
   default:
     return state;
   }
