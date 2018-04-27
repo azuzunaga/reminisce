@@ -35,6 +35,7 @@ class DocumentForm extends React.Component {
         editorState: EditorState.createWithContent(convertFromRaw(document))
       })
     } else {
+      this.props.fetchRevision(this.props.projectId, this.props.documentId);
       this.setState({editorState: EditorState.createEmpty()})
     }
   }
@@ -153,15 +154,17 @@ function mapStateToProps(state, ownProps) {
     draft = Object.values(state.drafts)[0];
   }
   return {
-          documentId,
-          errors: state.errors,
-          document,
-          draft
-        };
+    documentId,
+    errors: state.errors,
+    document,
+    draft,
+    projectId: ownProps.match.params.projectId
+  };
 }
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
+  fetchRevision: (projectId, revisionId) => dispatch(fetchRevision(projectId, revisionId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);

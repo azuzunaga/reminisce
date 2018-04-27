@@ -5,7 +5,7 @@ import DraftsListItem from './DraftsListItem';
 import { closeModal, openModal } from '../actions';
 import { fetchProject, setDrafts } from '../actions/index'
 import { dateTimeFormatter } from '../utils/dateFormatter';
-import CombineModal from './CombineDraftsModal';
+import CombineDraftsModal from './CombineDraftsModal';
 import '../styles/combinedrafts.css';
 import '../styles/stylingMain.css';
 
@@ -39,6 +39,7 @@ class CombineDrafts extends React.Component {
     super(props);
     this.selectedCounter = 0;
     this.countSelected = this.countSelected.bind(this);
+    this.handleCombineModal = this.handleCombineModal.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +51,7 @@ class CombineDrafts extends React.Component {
 
   countSelected(e) {
     const checkboxes = Array.from(document.getElementsByClassName('checkbox-filter'));
-    const checked = checkboxes.filter(checkbox => checkbox.checked === true)
+    const checked = checkboxes.filter(checkbox => checkbox.checked === true);
     this.selectedCounter = checked.length;
     const combineButton = document.getElementById('combine-selected-drafts-button');
     if (this.selectedCounter > 2) {
@@ -60,8 +61,10 @@ class CombineDrafts extends React.Component {
       combineButton.disabled = false;
       this.props.setDrafts({
         draft1: checked[0].getAttribute('data'),
-        draft2: checked[1].getAttribute('data')
+        draft2: checked[1].getAttribute('data'),
+        winningDraft: checked[0].getAttribute('data'),
       })
+      this.render();
     } else {
       combineButton.classList.remove('two-selected');
       combineButton.disabled = true;
@@ -78,7 +81,7 @@ class CombineDrafts extends React.Component {
             className='checkbox-filter'
             type="checkbox"
             onClick={this.countSelected.bind(this)}
-            data={draft.id}
+            data={draft.name}
              />
           <label htmlFor={`draft-${draft.id}`} className='checkbox-label'> {draft.name} </label>
         </div>
@@ -88,6 +91,20 @@ class CombineDrafts extends React.Component {
         </div>
       </li>
     )
+  }
+
+  handleCombineModal(e) {
+    const that = this;
+    const { draft1, draft2 } = this.props.selectedDrafts;
+    const winningDraft = document.getElementById('draft1-option').selected ?
+      draft1 : draft2;
+    e.preventDefault();
+    that.props.setDrafts({
+      draft1: draft1,
+      draft2: draft2,
+      winningDraft: winningDraft,
+    });
+    that.props.combineDraftsModal();
   }
 
   renderList() {
@@ -103,6 +120,7 @@ class CombineDrafts extends React.Component {
   }
 
   render() {
+    const { draft1, draft2 } = this.props.selectedDrafts;
     return (
       <div className='standard-layout'>
         <header className='combine-drafts'>
@@ -118,15 +136,31 @@ class CombineDrafts extends React.Component {
               </div>
               <div className='sub-header'>
                 <div className='sub-header-left'>
-                  <h4> Draft Name</h4>
+                  <h4> Draft Version</h4>
                 </div>
                 <div className='draft-header-right'>
                   <h4>Last Saved</h4>
                   <h4>Saved By</h4>
                 </div>
               </div>
-                { this.renderList() }
-                { this.props.combineDraftsModal }
+              { this.renderList() }
+              <div className='combine-drafts-footer'>
+                <div className='combine-drafts-text'>
+                  <p> Combine drafts into: </p>
+
+                  <select>
+                    <option id='draft1-option' value={draft1} selected>{draft1}</option>
+                    <option id='draft2-option' value={draft2} >{draft2}</option>
+                  </select>
+                </div>
+                  <button
+                    id="combine-selected-drafts-button"
+                    className="combine-selected-drafts"
+                    onClick={this.handleCombineModal}>
+                    Combine
+                  </button>
+              </div>
+
             </section>
             <aside className='aside-right'>
             </aside>
@@ -138,25 +172,20 @@ class CombineDrafts extends React.Component {
 }
 
 
-function mapStateToProps({ auth }) {
-  return { auth };
+const mapStateToProps = state => {
+  return {
+    modal: state.ui.modal,
+    conflicts: state.ui.conflicts,
+    selectedDrafts: state.ui.selectedDrafts,
+   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    combineDraftsModal: (
-      <button
-        id="combine-selected-drafts-button"
-        className="combine-selected-drafts"
-        onClick={() => {
-          dispatch(openModal(<CombineModal />))
-          }}>
-        Combine Selected Drafts
-      </button>
-    ),
     closeModal: () => dispatch(closeModal()),
     fetchProject: id => dispatch(fetchProject(id)),
     setDrafts: drafts => dispatch(setDrafts(drafts)),
+    combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal />)),
 
   };
 };

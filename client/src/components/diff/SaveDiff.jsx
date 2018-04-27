@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { pickBy } from 'lodash';
 
 import { fetchSave } from '../../actions';
-import diffSaves from '../../utils/diff';
+import diffSaves from '../../utils/diffSaves';
 import RevisionDiff from './RevisionDiff';
 
 class SaveDiff extends React.Component {
