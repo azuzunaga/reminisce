@@ -5,7 +5,7 @@ import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
-import { openModal, closeModal, createSave } from '../actions/index';
+import { openModal, closeModal, createSave, fetchRevision } from '../actions/index';
 import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
 
@@ -31,13 +31,16 @@ class DocumentForm extends React.Component {
   }
 
   componentDidMount () {
+    let document;
     if (Object.keys(this.props.document).length !== 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
+      document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
       this.setState({
         editorState: EditorState.createWithContent(convertFromRaw(document))
       })
     } else {
-      this.setState({editorState: EditorState.createEmpty()})
+      this.setState({
+        editorState: EditorState.createEmpty()
+      })
     }
   }
 
@@ -90,9 +93,11 @@ class DocumentForm extends React.Component {
         <div className="header-content">
         <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
         <button className="save-button"
-          onClick={() => this.props.openModal(<SaveRev body={convertToRaw(this.state.editorState.getCurrentContent())}
-          draftId={this.props.draft._id} document={this.props.document}
-          />)}>
+          onClick={() => this.props.openModal(
+            <SaveRev
+              body={convertToRaw(this.state.editorState.getCurrentContent())}
+              draftId={this.props.draft._id} document={this.props.document}
+            />)}>
           Save Document
         </button>
         </div>
@@ -167,14 +172,16 @@ function mapStateToProps(state, ownProps) {
           documentId,
           errors: state.errors,
           document,
-          draft
+          draft,
+          revisions: state.revisions,
         };
 }
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
   openModal: (component) => dispatch(openModal(component)),
-  closeModal: () => dispatch(closeModal())
+  closeModal: () => dispatch(closeModal()),
+  fetchRevision: (id) => dispatch(fetchRevision(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
