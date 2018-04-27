@@ -11,6 +11,7 @@ import {
   FETCH_DRAFT,
   CREATE_DRAFT,
   FETCH_REVISION,
+  CREATE_SAVE,
   SET_DRAFTS
 } from './types';
 
@@ -115,21 +116,22 @@ export const fetchSave = id => async dispatch => {
   });
 };
 
-export const createSave = (save) => async dispatch => {
-  return await axios.post('/api/saves', save)
-    .then(function (res) {
+export const createSave = (payload) => async dispatch => {
+  return await axios.post('/api/saves',
+    payload
+  ).then(function (res) {
       dispatch({
-        type: FETCH_SAVE,
+        type: CREATE_SAVE,
         save: res.data.save,
+        draftId: payload.save.draftId,
         revisions: res.data.revisions
       })
-    }).catch(function (res) {
+    }).catch(function(res) {
       dispatch({
         type: FORM_ERROR,
         errors: res.response.data
-      })
-    }
-  );
+    })
+  })
 };
 
 export const newProject = (project) => async dispatch => {
