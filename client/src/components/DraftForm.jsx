@@ -10,7 +10,7 @@ class DraftForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      projectId: this.props.project.projectId,
+      projectId: this.props.project._id,
       saveIds: this.props.activeDraft.saveIds
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,6 +19,7 @@ class DraftForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.createDraft(this.state);
+    
   }
 
   update(field) {
