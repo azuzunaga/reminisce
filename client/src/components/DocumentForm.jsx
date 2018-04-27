@@ -59,7 +59,14 @@ class DocumentForm extends React.Component {
   }
 
   handleSave() {
-    this.props.createSave();
+    const save = Object.assign({}, {
+      save: { name: 'my-fave',
+        draftId: Object.keys(this.props.draft)[0], isAuto: false},
+        newRevs: [{title: this.props.document.title,
+        body: convertToRaw(this.state.editorState.getCurrentContent())}],
+        deletedRevIds: []
+    });
+    this.props.createSave(save);
   }
 
   handleBlockClick(type) {
@@ -74,7 +81,7 @@ class DocumentForm extends React.Component {
       <div className="standard-layout">
         <h1 className="header">Document: {this.props.document.title}</h1>
         <div className="header-content">
-        <h3 className="draft-version">Draft Version: {}</h3>
+        <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
         <button className="save-button" onClick={this.handleSave}>Save Document</button>
         </div>
         <ul className="toolbar">
@@ -137,21 +144,23 @@ class DocumentForm extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  let draft = {};
+  let document = {};
+  let documentId = ownProps.match.params.documentId;
+  if (Object.keys(state.revisions).length != 0) {
+    document = state.revisions[ownProps.match.params.documentId];
+    draft = Object.values(state.drafts)[0];
+  }
   return {
-          documentId: ownProps.match.params.documentId,
+          documentId,
           errors: state.errors,
-          document: state.revisions[ownProps.match.params.documentId],
-          draft: Object.values(state.drafts)[0]
+          document,
+          draft
         };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  createSave: () => dispatch(createSave({
-    name: "abc",
-    draftId: "5adf71cff326761db0a05d98",
-    newRevs: [],
-    deletedRevIds: []
-  }))
+  createSave: (save) => dispatch(createSave(save))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
