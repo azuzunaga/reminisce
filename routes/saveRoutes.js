@@ -64,7 +64,7 @@ module.exports = app => {
       draft.save();
       project.updatedAt = Date.now();
       project.save();
-      res.json(save);
+      res.json({save, revisions: rev});
     });
   });
 
