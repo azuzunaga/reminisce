@@ -12,7 +12,9 @@ import {
   FETCH_DRAFT,
   CREATE_DRAFT,
   FETCH_REVISION,
-  SET_DRAFTS
+  SET_DRAFTS,
+  SET_ALL_CONFLICTS,
+  UPDATE_CONFLICT_SELECTION,
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -103,6 +105,20 @@ export const setDrafts = drafts => (
   {
     type: SET_DRAFTS,
     drafts
+  }
+)
+
+export const setAllConflicts = conflicts => (
+  {
+    type: SET_ALL_CONFLICTS,
+    conflicts
+  }
+)
+
+export const updateConflictSelection = conflict => (
+  {
+    type: UPDATE_CONFLICT_SELECTION,
+    conflict
   }
 )
 
