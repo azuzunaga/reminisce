@@ -12,7 +12,6 @@ export default (state = {}, action) => {
   let fetchedRev;
   switch (action.type) {
   case CREATE_SAVE:
-    debugger;
     return merge(
       {},
       state,
