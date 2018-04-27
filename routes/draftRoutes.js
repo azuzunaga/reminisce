@@ -81,7 +81,7 @@ module.exports = app => {
       draft,
       saves: _.keyBy(saves, '_id'),
       users: _.keyBy(users, '_id'),
-      activeRevisions: _.keyBy(revisions, '_id')
+      currentRevisions: _.keyBy(revisions, '_id')
     });
   });
 };
