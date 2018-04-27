@@ -33,7 +33,7 @@ class Header extends React.Component {
               <img alt="Arrow Down" src={arrowDown}/>
             </div>
             <span className="sign-out">
-            <a  href="api/logout">Sign Out</a>
+              <a  href="/api/logout">Sign Out</a>
             </span>
           </li>
         </ul>

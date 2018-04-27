@@ -9,16 +9,16 @@ const User = mongoose.model("users");
 const Revision = mongoose.model("revisions");
 
 module.exports = app => {
-  app.post("/api/drafts", async (req, res) => {
+  app.post('/api/drafts', async (req, res) => {
     const [err, draft] = await to(Draft.create(req.body.draft));
     if (err) {
       switch (err.name) {
-        case "ValidationError":
-          return res
-            .status(422)
-            .json(_.map(Object.values(err.errors), "message"));
-        default:
-          return res.status(500).json(["Something went wrong"]);
+      case 'ValidationError':
+        return res
+          .status(422)
+          .json(_.map(Object.values(err.errors), 'message'));
+      default:
+        return res.status(500).json(['Something went wrong']);
       }
     }
 
@@ -81,7 +81,7 @@ module.exports = app => {
       draft,
       saves: _.keyBy(saves, '_id'),
       users: _.keyBy(users, '_id'),
-      activeRevisions: _.keyBy(revisions, '_id')
+      revisions: _.keyBy(revisions, '_id')
     });
   });
 };

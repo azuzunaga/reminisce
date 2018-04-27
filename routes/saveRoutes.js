@@ -30,7 +30,6 @@ module.exports = app => {
     prevRevIds = prevRevIds.filter(id => !deletedRevIds.includes(id));
 
     prevRevs = await Revision.find({ _id: { $in: prevRevIds } });
-    console.log(prevRevs);
     const titles = _.map(prevRevs.concat(newRevs), 'title');
     if (titles.length !== _.uniq(titles).length) {
       return res
