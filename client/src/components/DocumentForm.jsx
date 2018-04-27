@@ -41,6 +41,10 @@ class DocumentForm extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.closeModal();
+  }
+
   handleStyleClick(type) {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, type));
   }
@@ -169,7 +173,8 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
-  openModal: (component) => dispatch(openModal(component))
+  openModal: (component) => dispatch(openModal(component)),
+  closeModal: () => dispatch(closeModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
