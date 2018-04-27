@@ -28,7 +28,7 @@ const mergeRevisions = (mainRev, mergeRev) => {
       chunks.addOps(mergeOps);
     } else if (
       zip(mergeOps, mainOps).every(
-        ([a, b]) => a.type === b.type && a.data === b.data
+        ([a, b]) => a && b && a.type === b.type && a.data === b.data
       )
     ) {
       chunks.addOps(...mainOps);
