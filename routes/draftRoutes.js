@@ -13,10 +13,10 @@ module.exports = app => {
     const [err, draft] = await to(Draft.create(req.body.draft));
     if (err) {
       switch (err.name) {
+      case 'BulkWriteError':
+        return res.status(422).json(['You came up with that name already']);
       case 'ValidationError':
-        return res
-          .status(422)
-          .json(_.map(Object.values(err.errors), 'message'));
+        return res.status(422).json(['Drafts need names, how about \'nobel winner\'?']);
       default:
         return res.status(500).json(['Something went wrong']);
       }
@@ -35,7 +35,6 @@ module.exports = app => {
       user.projectsActiveDraft.push({projectId: projectId, draftId: draftId});
     }
     user.save();
-
     res.json(draft);
   });
 
