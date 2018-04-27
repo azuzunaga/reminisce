@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import '../styles/stylingList.css';
 
 class DocumentListItem extends React.Component {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { find } from 'lodash';
 
 import DocumentListItem from './DocumentListItem';
@@ -18,7 +17,7 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.projectId != nextProps.match.params.projectId) {
+    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }
