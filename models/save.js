@@ -15,7 +15,6 @@ const saveSchema = new Schema({
     default: null
   },
   projectId: { type: Schema.Types.ObjectId, ref: "project", required: true },
-  draftId: { type: Schema.Types.ObjectId, ref: "draft", required: true },
   createdAt: { type: Date, default: Date.now, required: true },
   isAuto: { type: Boolean, default: false, required: true },
   revisionIds: {
