@@ -86,7 +86,8 @@ export const createSave = (save) => async dispatch => {
     .then(function (res) {
       dispatch({
         type: FETCH_SAVE,
-        saves: res.data.save
+        save: res.data.save,
+        revisions: res.data.revisions
       })
     }).catch(function (res) {
       dispatch({
