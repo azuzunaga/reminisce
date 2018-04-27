@@ -24,10 +24,8 @@ export const CREATE_DRAFT = 'CREATE_DRAFT';
 
 export const SET_DRAFTS = "SET_DRAFTS";
 
-<<<<<<< HEAD
 export const CREATE_SAVE = "CREATE_SAVE";
-=======
+
 export const SET_ALL_CONFLICTS = "GET_ALL_CONFLICTS";
 
 export const UPDATE_CONFLICT_SELECTION = "UPDATE_CONFLICT_SELECTION";
->>>>>>> 6777813c9c9368f026f6b66869a294d5f6d41cc7
