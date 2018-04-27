@@ -5,15 +5,6 @@ import { fetchDraft } from '../actions/index';
 import { updateConflictSelection } from '../actions/index';
 import CombineDraftsModal from './CombineDraftsModal';
 
-const drafts = {
-  draft1: {
-    name: 'Fact Checked'
-  },
-  draft2: {
-    name: 'Not Fact Checked'
-  }
-}
-
 class ResolveConflictsModal extends React.Component {
 
   constructor(props) {
@@ -41,7 +32,7 @@ class ResolveConflictsModal extends React.Component {
 
   render() {
 
-    const { conflict } = this.props;
+    const { conflict, drafts } = this.props;
       return (
         <div className='resolve-conflicts-modal'>
           <header className='conflicts-header'>
@@ -49,22 +40,22 @@ class ResolveConflictsModal extends React.Component {
           </header>
           <div className="resolve-comparison-section">
             <section className="conflict-draft-section">
-              <h4> Draft: {drafts.draft1.name}</h4>
+              <h4> Draft: {drafts.draft1}</h4>
               <div className='conflict-text'>
                 <p> {conflict.contextBefore} </p>
                 <p className='draft1 conflict-paragraph'> <mark className='draft1-highlight'> {conflict.draft1} </mark> </p>
                 <p> {conflict.contextAfter} </p>
               </div>
-              <button onClick={this.handleSelection('draft1')} className='draft1-button'>Use Me </button>
+              <button onClick={this.handleSelection(drafts.draft1)} className='draft1-button'>Use Me </button>
             </section>
             <section className="conflict-draft-section">
-              <h4> Draft: {drafts.draft2.name} </h4>
+              <h4> Draft: {drafts.draft2} </h4>
               <div className='conflict-text'>
                 <p> {conflict.contextBefore} </p>
                 <p className='draft2 conflict-paragraph'> <mark className='draft2-highlight'> {conflict.draft2} </mark>  </p>
                 <p> {conflict.contextAfter} </p>
               </div>
-                <button onClick={this.handleSelection('draft2')}  className='draft2-button'>Use Me</button>
+                <button onClick={this.handleSelection(drafts.draft2)}  className='draft2-button'>Use Me</button>
             </section>
           </div>
         </div>
@@ -77,9 +68,10 @@ class ResolveConflictsModal extends React.Component {
 const mapStateToProps = state => {
   return {
     modal: state.ui.modal,
-    draft: Object.values(state.drafts)[0],
+    drafts: state.ui.selectedDrafts,
     saves: Object.values(state.saves),
     users: state.users
+
   };
 };
 
