@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../styles/stylingList.css';
+import { dateTimeFormatter } from '../utils/dateFormatter';
 
 class DocumentListItem extends React.Component {
   render() {
@@ -10,11 +11,13 @@ class DocumentListItem extends React.Component {
     return (
       <li className='list-item'>
         <div className='list-name'>
-          <p> {doc.title} </p>
+          <Link to={`/document/${doc._id}`}>
+            <p> {doc.title} </p>
+          </Link>
         </div>
         <div className='doc-list-details'>
-          <p>{doc.createdAt}</p>
-          <p>{user.username}</p>
+          <p>{dateTimeFormatter(doc.createdAt)}</p>
+          <p>{user.firstName}</p>
         </div>
       </li>
     )
