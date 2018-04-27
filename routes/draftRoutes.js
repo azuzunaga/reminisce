@@ -85,25 +85,4 @@ module.exports = app => {
       revisions: _.keyBy(revisions, '_id')
     });
   });
-
-  app.get("/api/drafts/merge", async (req, res) => {
-    const mainDraft = await Draft.findById(req.body.mainDraftId);
-    const mergeDraft = await Draft.findById(req.body.mergeDraftId);
-    const minLength = Math.min(
-      mainDraft.saveIds.length,
-      mergeDraft.saveIds.length
-    );
-    let i = 0;
-    while (i < minLength && mainDraft[i] != mergeDraft[i]) {
-      i++;
-    }
-    if (i === 0) {
-      return res
-        .status(422)
-        .send(["Can't merge drafts with unrelated histories"]);
-    }
-
-    const parentDraft = await Draft.findById(mainDraft.saveIds[i - 1]);
-    res.json({ mainDraft, mergeDraft, parentDraft });
-  });
 };
