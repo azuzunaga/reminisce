@@ -66,7 +66,7 @@ export const createDraft = draft => async dispatch => {
   }).then(function (res) {
     dispatch({
       type: CREATE_DRAFT,
-      draft: draft
+      draft: res.data
     });
   }).catch(function (res) {
     dispatch({
