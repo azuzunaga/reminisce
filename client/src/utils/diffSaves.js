@@ -89,7 +89,7 @@ const diffRevisions = (original, target) => {
       result.push({
         type: 'insert',
         data: target[prevTargetIdx],
-        origIdx: null,
+        origIdx: originalIdx,
         targetIdx: prevTargetIdx + 1
       });
     } else if (targetIdx === prevTargetIdx) {
@@ -97,7 +97,7 @@ const diffRevisions = (original, target) => {
         type: 'delete',
         data: original[prevOriginalIdx],
         origIdx: prevOriginalIdx + 1,
-        targetIdx: null
+        targetIdx: targetIdx
       });
     } else {
       result.push({

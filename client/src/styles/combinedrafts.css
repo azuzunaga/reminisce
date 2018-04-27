@@ -108,3 +108,37 @@
   background: #CA2E55;
   cursor: pointer;
 }
+
+
+select {
+  width: 250px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  color: #434343;
+  border: none;
+  background: #F7F7F7;
+
+}
+
+option {
+  color: #CA2E55;
+  padding: 10px;
+}
+
+
+.combine-drafts-text {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+  line-height: 14px;
+}
+
+.combine-drafts-text > * {
+  padding: 0px 15px;
+}
+
+.combine-drafts-text > p {
+  padding-top: 10px;
+}

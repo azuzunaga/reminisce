@@ -73,6 +73,10 @@ input.Project {
   background-color: #17BEBB;
 }
 
+input.save {
+  background-color: #EF6F6C;
+}
+
 .submit:hover {
   cursor: pointer;
 }

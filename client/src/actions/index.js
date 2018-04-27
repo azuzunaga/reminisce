@@ -11,7 +11,9 @@ import {
   FETCH_DRAFT,
   CREATE_DRAFT,
   FETCH_REVISION,
-  SET_DRAFTS
+  SET_DRAFTS,
+  SET_ALL_CONFLICTS,
+  UPDATE_CONFLICT_SELECTION,
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -35,12 +37,14 @@ export const fetchProject = id => async dispatch => {
 
 ///////////////////////////////////////////////////////
 
-export const fetchRevision = id => async dispatch => {
-  const res = await axios.get(`/api/revisions/${id}`);
+export const fetchRevision = (projectId, revisionId) => async dispatch => {
+  const res = await axios.get(`/api/projects/${projectId}/revisions/${revisionId}`);
 
   dispatch({
     type: FETCH_REVISION,
-    revision: res.data.revision
+    revision: res.data.revision,
+    project: res.data.project,
+    draft: res.data.draft
   });
 };
 
@@ -103,6 +107,20 @@ export const setDrafts = drafts => (
   {
     type: SET_DRAFTS,
     drafts
+  }
+)
+
+export const setAllConflicts = conflicts => (
+  {
+    type: SET_ALL_CONFLICTS,
+    conflicts
+  }
+)
+
+export const updateConflictSelection = conflict => (
+  {
+    type: UPDATE_CONFLICT_SELECTION,
+    conflict
   }
 )
 
