@@ -40,7 +40,8 @@ module.exports = app => {
 
     const save = new Save({
       name: "Project created",
-      projectId: project.id
+      projectId: project.id,
+      userId: req.user.id
     });
     save.save();
 
@@ -72,8 +73,8 @@ module.exports = app => {
       el.projectId.toString() === req.params.id
     )).draftId;
     const activeDraft = _.find(drafts, d => d._id.toString() === activeDraftId.toString());
-    const saves = await Save.find({ _id: { $in: activeDraft.saveIds } })
-    const users = await User.find({ _id: { $in: _.map(saves, "userId") } })
+    const saves = await Save.find({ _id: { $in: activeDraft.saveIds } });
+    const users = await User.find({ _id: { $in: _.map(saves, "userId") } });
 
     const lastSaveId = activeDraft.saveIds[activeDraft.saveIds.length - 1];
     const lastSave = _.find(saves, save => save._id.toString() === lastSaveId.toString());
