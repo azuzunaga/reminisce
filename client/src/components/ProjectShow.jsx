@@ -35,6 +35,7 @@ class Project extends React.Component {
             <DocumentListItem
             doc={doc}
             user={find(this.props.users, user => user._id === doc.userId)}
+            projectId={this.props.project._id}
             key={doc._id}/>
           )
         })
