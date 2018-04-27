@@ -4,12 +4,15 @@ import {
   FETCH_PROJECT,
   CREATE_DRAFT,
   FETCH_SAVE,
-  CREATE_PROJECT
+  CREATE_PROJECT,
+  FETCH_REVISION
 } from '../actions/types';
 
 export default (state = {}, action) => {
   let newDraft;
   switch (action.type) {
+  case FETCH_REVISION:
+    return merge({}. state, { [action.draft._id]: action.draft });
   case FETCH_PROJECT:
     return merge({}, state, action.drafts);
   case CREATE_PROJECT:
