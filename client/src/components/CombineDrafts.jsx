@@ -43,6 +43,8 @@ class CombineDrafts extends React.Component {
 
   componentDidMount() {
     this.props.fetchProject(this.props.match.params.projectId)
+    const combineButton = document.getElementById('combine-selected-drafts-button');
+    combineButton.disabled = true;
   }
 
 
