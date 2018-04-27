@@ -4,10 +4,13 @@ import { find } from 'lodash';
 
 import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
+import SaveHistory from  './SaveHistory';
+import DraftForm from './DraftForm';
+
 import { closeModal, openModal } from '../actions';
 import { dateTimeFormatter } from '../utils/dateFormatter';
 import { fetchProject, fetchDraft } from '../actions/index';
-import SaveHistory from  './SaveHistory';
+
 import '../styles/project.css';
 import '../styles/stylingMain.css';
 
@@ -56,7 +59,17 @@ class Project extends React.Component {
             <aside className='aside-left'>
             </aside>
             <section className='main-list'>
-              <h4 className="draft-version">Draft Version: <span>{this.props.activeDraft.name}</span></h4>
+              <div className='draft-drop-down-header'>
+                <h4 className="draft-version">
+                  Draft Version:
+                </h4>
+                <div className="draft-drop-down-button">
+                  <h4>
+                    {this.props.activeDraft.name}
+                  </h4>
+                  <i className="material-icons">arrow_drop_down</i>
+                </div>
+              </div>
               <div className="project-header">
                 <h3>Documents</h3>
                 {this.props.newModal}
@@ -69,6 +82,11 @@ class Project extends React.Component {
                 </div>
               </div>
               { this.renderList() }
+              <DraftForm
+                activeDraft={this.props.activeDraft}
+                project={this.props.project}
+                drafts={this.props.drafts}
+              />
             </section>
             <aside className='aside-right save-history'>
               {this.props.saveModal}
@@ -78,10 +96,10 @@ class Project extends React.Component {
               </div>
             </aside>
           </main>
-          </div>
-        )
-      }
+        </div>
+      );
     }
+  }
 
 }
 
