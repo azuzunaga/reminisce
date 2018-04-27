@@ -20,7 +20,7 @@ const projectSchema = new Schema({
   description: String
 });
 
-projectSchema.index({ owner: 1, name: 1 }, { unique: true });
+projectSchema.index({ ownerId: 1, name: 1 }, { unique: true });
 
 projectSchema.methods.canUserEdit = function canUserEdit(userId) {
   return (

@@ -32,7 +32,7 @@ module.exports = app => {
       case "BulkWriteError":
         return res
           .status(422)
-          .json("You already have a project with that name");
+          .json(["You already have a project with that name"]);
       default:
         return res.status(500).json(["Something went wrong"]);
       }

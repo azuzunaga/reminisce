@@ -8,7 +8,6 @@ import {
   CREATE_PROJECT,
   FETCH_SAVE,
   FORM_ERROR,
-  FETCH_SAVES,
   FETCH_DRAFT,
   CREATE_DRAFT,
   FETCH_REVISION,
@@ -138,8 +137,9 @@ export const newProject = (project) => async dispatch => {
     project
   }).then(function(res) {
     dispatch({
-      type: FETCH_PROJECT,
-      project: res.data.project
+      type: CREATE_PROJECT,
+      project: res.data.project,
+      draft: res.data.draft
     })
   }).catch(function(res) {
     dispatch({
