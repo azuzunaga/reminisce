@@ -12,29 +12,6 @@ import SaveHistory from  './SaveHistory';
 import '../styles/project.css';
 import '../styles/stylingMain.css';
 
-const fakeDocs = [
-  {
-    id: 1,
-    name: 'Chapter One',
-    lastModified: 'Today, 4:00 PM',
-    modifiedBy: 'Gabriel',
-  },
-  {
-    id: 2,
-    name: 'Chapter Two',
-    lastModified: 'Apr 21, 5:00 PM',
-    modifiedBy: 'Gabriel',
-  },
-  {
-    id: 3,
-    name: 'Chapter Three',
-    lastModified: 'Mar 18, 5:00 PM',
-    modifiedBy: 'me',
-  },
-];
-
-
-
 class Project extends React.Component {
   componentDidMount() {
     this.props.fetchProject(this.props.match.params.projectId);
@@ -80,7 +57,7 @@ class Project extends React.Component {
             <aside className='aside-left'>
             </aside>
             <section className='main-list'>
-              <h4 className="draft-version">Draft Version: <span></span></h4>
+              <h4 className="draft-version">Draft Version: <span>{this.props.activeDraft.name}</span></h4>
               <div className="project-header">
                 <h3>Documents</h3>
                 {this.props.newModal}
@@ -129,6 +106,7 @@ function mapStateToProps(state, ownProps) {
     drafts,
     saves,
     users,
+    activeDraft,
     revisions
   };
 }

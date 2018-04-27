@@ -21,3 +21,6 @@ export const FETCH_DRAFT = "FETCH_DRAFT";
 export const FETCH_REVISION = "FETCH_REVISION";
 
 export const CREATE_DRAFT = 'CREATE_DRAFT';
+
+export const SET_DRAFTS = "SET_DRAFTS";
+

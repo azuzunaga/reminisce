@@ -41,6 +41,16 @@ module.exports = app => {
 
     newRevs.forEach(rev => (rev.userId = req.user.id));
     Revision.create(newRevs, async (err, revs) => {
+      if (err) {
+        switch (err.name) {
+        case "ValidationError":
+          return res
+            .status(422)
+            .json(_.map(Object.values(err.errors), "message"));
+        default:
+          return res.status(500).json(["Something went wrong"]);
+        }
+      }
       newRevIds = prevRevIds.concat(_.map(revs, 'id'));
       const save = new Save(saveParams);
       save.userId = req.user.id;
@@ -63,7 +73,7 @@ module.exports = app => {
       draft.save();
       project.updatedAt = Date.now();
       project.save();
-      res.json(save);
+      res.json({save, revisions: _.keyBy(revs, "_id")});
     });
   });
 

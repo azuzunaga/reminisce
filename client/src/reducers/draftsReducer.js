@@ -13,7 +13,13 @@ export default (state = {}, action) => {
   case CREATE_DRAFT:
     newDraft = { [action.draft.id]: action.draft };
     return merge({}, state, newDraft);
-  default:
-    return state;
+   case FETCH_SAVE:
+     let newState = Object.assign({}, state);
+     let draft = newState[action.save.draftId];
+     newState[draft._id] = merge({}, draft,
+       {saveIds: draft.saveIds.concat([action.save._id])});
+     return newState;
+   default:
+     return state;
   }
 };

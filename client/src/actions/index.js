@@ -11,7 +11,8 @@ import {
   FETCH_SAVES,
   FETCH_DRAFT,
   CREATE_DRAFT,
-  FETCH_REVISION
+  FETCH_REVISION,
+  SET_DRAFTS
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -101,6 +102,25 @@ export const fetchUser = () => async dispatch => {
 };
 
 ///////////////////////////////////////////////////////
+export const openModal = modal => (
+  {
+    type: OPEN_MODAL,
+    modal
+  }
+)
+
+export const closeModal = () => (
+  {
+    type: CLOSE_MODAL
+  }
+)
+
+export const setDrafts = drafts => (
+  {
+    type: SET_DRAFTS,
+    drafts
+  }
+)
 
 export const fetchSave = id => async dispatch => {
   const res = await axios.get(`/api/saves/${id}`);
@@ -113,35 +133,39 @@ export const fetchSave = id => async dispatch => {
 };
 
 export const createSave = (save) => async dispatch => {
-  const res = await axios.post('/api/saves', {
-    save
-  }).then(function (res) {
+  return await axios.post('/api/saves', save)
+    .then(function (res) {
+      dispatch({
+        type: FETCH_SAVE,
+        save: res.data.save,
+        revisions: res.data.revisions
+      })
+    }).catch(function (res) {
+      dispatch({
+        type: FORM_ERROR,
+        errors: res.response.data
+      })
+    }
+  );
+};
+
+export const newProject = (project) => async dispatch => {
+  return await axios.post('/api/projects', {
+    project
+  }).then(function(res) {
     dispatch({
-      type: FETCH_SAVE,
-      saves: res.data.save
-    });
-  }).catch(function (res) {
+      type: FETCH_PROJECT,
+      project: res.data.project
+    })
+  }).catch(function(res) {
     dispatch({
       type: FORM_ERROR,
       errors: res.response.data
-    });
+    })
   });
 };
-///////////////////////////////////////////////////////
+
 export const receiveErrors =(errors) => ({
   type: FORM_ERROR,
   errors
 });
-///////////////////////////////////////////////////////
-export const openModal = modal => (
-  {
-    type: OPEN_MODAL,
-    modal
-  }
-);
-
-export const closeModal = () => (
-  {
-    type: CLOSE_MODAL
-  }
-);
