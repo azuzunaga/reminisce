@@ -37,8 +37,19 @@ module.exports = app => {
         return res.status(500).json(["Something went wrong"]);
       }
     }
-    const draft = new Draft({ name: "main", projectId: project.id });
-    await draft.save();
+
+    const save = new Save({
+      name: "Project created",
+      projectId: project.id
+    });
+    save.save();
+
+    const draft = new Draft({
+      name: "main",
+      projectId: project.id,
+      saveIds: [save.id]
+    });
+    draft.save();
 
     const user = await User.findById(req.user.id);
     const activeDrafts = user.projectsActiveDraft;
