@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import '../styles/dashboard.css';
@@ -8,7 +7,6 @@ import '../styles/stylingMain.css';
 import {
   fetchProjects,
   openModal,
-  closeModal
 } from '../actions/index';
 
 class ProjectsDashboard extends React.Component {

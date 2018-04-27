@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import '../styles/stylingList.css';
 import '../styles/combinedrafts.css';
 
 class DraftsListItem extends React.Component {
-  
+
 
   constructor(props) {
     super(props);
