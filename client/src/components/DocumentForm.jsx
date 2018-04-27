@@ -59,12 +59,13 @@ class DocumentForm extends React.Component {
   }
 
   handleSave() {
+    let body = convertToRaw(this.state.editorState.getCurrentContent());
     const save = Object.assign({}, {
       save: { name: 'my-fave',
-        draftId: Object.keys(this.props.draft)[0], isAuto: false},
+        draftId: this.props.draft._id, isAuto: false},
         newRevs: [{title: this.props.document.title,
-        body: convertToRaw(this.state.editorState.getCurrentContent())}],
-        deletedRevIds: []
+        body: body}],
+        deletedRevIds: [this.props.document._id]
     });
     this.props.createSave(save);
   }
