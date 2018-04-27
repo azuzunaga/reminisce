@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import '../styles/stylingList.css';
 import { dateTimeFormatter } from '../utils/dateFormatter';
+import { Link } from 'react-router-dom';
 
 class DocumentListItem extends React.Component {
   render() {
