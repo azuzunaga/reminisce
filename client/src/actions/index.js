@@ -9,7 +9,8 @@ import {
   FORM_ERROR,
   FETCH_SAVES,
   FETCH_DRAFT,
-  FETCH_REVISION
+  FETCH_REVISION,
+  SET_DRAFTS
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -67,6 +68,13 @@ export const openModal = modal => (
 export const closeModal = () => (
   {
     type: CLOSE_MODAL
+  }
+)
+
+export const setDrafts = drafts => (
+  {
+    type: SET_DRAFTS,
+    drafts
   }
 )
 

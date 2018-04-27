@@ -2,6 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DraftsListItem from './DraftsListItem';
+import { closeModal, openModal } from '../actions';
+import { fetchProject, setDrafts } from '../actions/index'
+import { dateTimeFormatter } from '../utils/dateFormatter';
+import CombineModal from './CombineDraftsModal';
 import '../styles/combinedrafts.css';
 import '../styles/stylingMain.css';
 
@@ -30,16 +34,66 @@ const fakeDrafts = [
 ];
 
 class CombineDrafts extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.selectedCounter = 0;
+    this.countSelected = this.countSelected.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchProject(this.props.match.params.projectId)
+  }
+
+
+  countSelected(e) {
+    const checkboxes = Array.from(document.getElementsByClassName('checkbox-filter'));
+    const checked = checkboxes.filter(checkbox => checkbox.checked === true)
+    this.selectedCounter = checked.length;
+    const combineButton = document.getElementById('combine-selected-drafts-button');
+    if (this.selectedCounter > 2) {
+      e.preventDefault();
+    } else if (this.selectedCounter === 2) {
+      combineButton.classList.add('two-selected');
+      combineButton.disabled = false;
+      this.props.setDrafts({
+        draft1: checked[0].getAttribute('data'),
+        draft2: checked[1].getAttribute('data')
+      })
+    } else {
+      combineButton.classList.remove('two-selected');
+      combineButton.disabled = true;
+    }
+  }
+
+
+  renderListItem(draft) {
+    return (
+      <li className='list-item'>
+        <div className='list-left'>
+          <input
+            id={`draft-${draft.id}`}
+            className='checkbox-filter'
+            type="checkbox"
+            onClick={this.countSelected.bind(this)}
+            data={draft.id}
+             />
+          <label htmlFor={`draft-${draft.id}`} className='checkbox-label'> {draft.name} </label>
+        </div>
+        <div className='draft-list-details'>
+          <p>{draft.lastSaved}</p>
+          <p>{draft.savedBy}</p>
+        </div>
+      </li>
+    )
+  }
+
   renderList() {
     return (
-      <ul>
+      <ul className="scrollable-list">
       {
         fakeDrafts.map(draft => {
-          return (
-            <DraftsListItem
-            draft={draft}
-            key={draft.id}/>
-          )
+          return ( this.renderListItem(draft) )
         })
       }
       </ul>
@@ -56,10 +110,12 @@ class CombineDrafts extends React.Component {
             <aside className='aside-left'>
             </aside>
             <section className='main-list'>
-              <h3>Projects</h3>
+              <div className="project-header">
+                <h3>Drafts</h3>
+                <p className='main-header-helper-text'> (Select 2) </p>
+              </div>
               <div className='sub-header'>
                 <div className='sub-header-left'>
-                  <h4> Select Draft </h4>
                   <h4> Draft Name</h4>
                 </div>
                 <div className='draft-header-right'>
@@ -67,9 +123,8 @@ class CombineDrafts extends React.Component {
                   <h4>Saved By</h4>
                 </div>
               </div>
-              <ul>
                 { this.renderList() }
-              </ul>
+                { this.props.combineDraftsModal }
             </section>
             <aside className='aside-right'>
             </aside>
@@ -85,4 +140,24 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(CombineDrafts);
+const mapDispatchToProps = dispatch => {
+  return {
+    combineDraftsModal: (
+      <button
+        id="combine-selected-drafts-button"
+        className="combine-selected-drafts"
+        onClick={() => {
+          dispatch(openModal(<CombineModal />))
+          }}>
+        Combine Selected Drafts
+      </button>
+    ),
+    closeModal: () => dispatch(closeModal()),
+    fetchProject: id => dispatch(fetchProject(id)),
+    setDrafts: drafts => dispatch(setDrafts(drafts)),
+
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CombineDrafts);

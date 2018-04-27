@@ -17,3 +17,5 @@ export const FORM_ERROR = "FORM_ERROR";
 export const FETCH_DRAFT = "FETCH_DRAFT";
 
 export const FETCH_REVISION = "FETCH_REVISION";
+
+export const SET_DRAFTS = "SET_DRAFTS";

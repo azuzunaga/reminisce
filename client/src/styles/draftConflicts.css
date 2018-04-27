@@ -1,0 +1,81 @@
+.draft-conflicts-modal {
+  width: 35vw;
+  height: 65vh;
+  background: white;
+}
+
+.draft-conflicts-headers {
+  display: grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  background: #FAFAFA;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Josefin Sans', sans-serif;
+  padding: 15px;
+}
+
+
+.draft-conflicts-modal header {
+  display: flex;
+  justify-content: space-between;
+  background:   #F7F7F7;
+  color: #434343;
+  font-size: 24px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+
+.draft-conflicts-modal span {
+  padding: 15px 20px;
+}
+
+.draft-conflicts-modal header h3 {
+  margin: 0;
+  font-weight: 400;
+  background:   #F7F7F7;
+  padding: 15px;
+}
+
+.draft-conflicts-modal h4 {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 0;
+  text-align: center;
+}
+
+.draft-conflicts-modal h4:first-of-type {
+  text-align: left;
+}
+
+.draft-conflicts-modal ul {
+  margin: 0;
+  padding: 0;
+  overflow: scroll;
+}
+
+.draft-conflicts-modal li {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  margin-left: 15px;
+  box-sizing: border-box;
+}
+
+.draft-conflicts-list-item {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.draft-conflicts-list-item p, .draft-conflicts-list-item input {
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #666666;
+}
+
+
+.draft-conflicts-list-item p:first-of-type {
+  text-align: left;
+}
