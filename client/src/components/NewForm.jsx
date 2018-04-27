@@ -60,7 +60,7 @@ class NewForm extends React.Component {
   }
 
   renderErrors() {
-    if (!!this.props.errors) {
+    if (this.props.errors.length > 0) {
       let errors = this.props.errors.map((error, i) => <li key={i}>{error}</li>);
       return(
         <ul className="error-message">{errors}</ul>
