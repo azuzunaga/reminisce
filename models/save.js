@@ -9,6 +9,11 @@ const saveSchema = new Schema({
     ref: "saves",
     default: null
   },
+  previousManualSaveId: {
+    type: Schema.Types.ObjectId,
+    ref: "saves",
+    default: null
+  },
   projectId: { type: Schema.Types.ObjectId, ref: "project", required: true },
   draftId: { type: Schema.Types.ObjectId, ref: "draft", required: true },
   createdAt: { type: Date, default: Date.now, required: true },
