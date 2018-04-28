@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import DraftsListItem from './DraftsListItem';
 import { closeModal, openModal } from '../actions';
 import { fetchProject, setDrafts, fetchMerge } from '../actions/index'
+import mergeSaves from '../utils/mergeSaves';
 import { dateTimeFormatter } from '../utils/dateFormatter';
 import CombineDraftsModal from './CombineDraftsModal';
 import '../styles/combinedrafts.css';
@@ -90,11 +91,18 @@ class CombineDrafts extends React.Component {
       draft2: draft2,
       winningDraft: winningDraft,
     });
+
     that.props.combineDraftsModal();
+
     that.props.fetchMerge({
       mainDraftId: winningDraft,
       mergeDraftId: losingDraft,
+    }).then(merge => {
+      const res = mergeSaves(merge.data.mainSave, merge.data.mergeSave, merge.data.parentSave, merge.data.revisions)
+      console.log(res);
     })
+
+
 
   }
 
@@ -177,6 +185,7 @@ const mapStateToProps = state => {
     drafts: state.drafts,
     saves: state.saves,
     users: state.users,
+    merge: state.ui.merge,
    };
 }
 

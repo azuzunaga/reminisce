@@ -181,8 +181,8 @@ export const fetchMerge = params => async dispatch => {
   return await axios.get('/api/merge', {
     params
   }).then(function(res) {
-    dispatch({
-      type: FETCH_MERGE, 
+    return dispatch({
+      type: FETCH_MERGE,
       data: res.data
     })
   })
