@@ -14,4 +14,6 @@ const draftSchema = new Schema({
   updatedAt: { type: Date, default: Date.now, required: true }
 });
 
+draftSchema.index({ name: 1, projectId: 1 }, { unique: true });
+
 mongoose.model("drafts", draftSchema);

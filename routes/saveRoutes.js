@@ -74,7 +74,11 @@ module.exports = app => {
       draft.save();
       project.updatedAt = Date.now();
       project.save();
-      res.json({save, revisions: _.keyBy(revs, "_id")});
+      res.json({
+        save,
+        revisions: _.keyBy(revs, "_id"),
+        draftId: draft._id
+      });
     });
   });
 

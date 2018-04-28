@@ -27,11 +27,9 @@
   background: white;
   padding: 0;
   margin: 15px 20px;
+  margin-right: 0;
   color:  #434343;
-}
-
-.draft-version span {
-  color: #666666;
+  display: inline-block;
 }
 
 .save-history {
@@ -90,4 +88,27 @@ i.new-hidden {
   font-family: 'Josefin Sans', sans-serif;
   color: #434343;
   align-items: center;
+}
+
+.draft-drop-down-header {
+  display: flex;
+  align-items: center;
+}
+
+.main-list .draft-drop-down-button {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: #666666;
+}
+
+.draft-drop-down-button:hover {
+  cursor: pointer;
+  color: #CA2E55;
+}
+
+.draft-drop-down-button h4 {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
 }

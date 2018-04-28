@@ -1,4 +1,9 @@
-import { FETCH_PROJECTS, FETCH_DRAFT, FETCH_PROJECT } from '../actions/types';
+import {
+  FETCH_PROJECTS,
+  FETCH_DRAFT,
+  FETCH_PROJECT,
+  CREATE_PROJECT
+} from '../actions/types';
 import merge from 'lodash/merge';
 
 export default function(state={}, action) {
@@ -8,6 +13,8 @@ export default function(state={}, action) {
     case FETCH_DRAFT:
       return merge({}, state, action.users);
     case FETCH_PROJECT:
+      return merge({}, state, action.users);
+    case CREATE_PROJECT:
       return merge({}, state, action.users);
     default:
       return state;
