@@ -21,11 +21,11 @@ export default (state = {}, action) => {
     draft = { [action.draft._id]: action.draft };
     return merge({}, state, draft);
   case CREATE_DRAFT:
-     draft = { [action.draft._id]: action.draft };
-     return merge({}, state, draft);
+    draft = { [action.draft._id]: action.draft };
+    return merge({}, state, draft);
    case CREATE_SAVE:
-     let newState = Object.assign({}, state);
-     let draft = newState[action.draftId];
+     newState = Object.assign({}, state);
+     draft = newState[action.draftId];
      newState[draft._id] = merge({}, draft,
        {saveIds: draft.saveIds.concat([action.save._id])});
      return newState;

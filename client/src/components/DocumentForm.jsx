@@ -24,11 +24,12 @@ class DocumentForm extends React.Component {
   }
 
   saveContent = debounce((content) => {
-    console.log("hello");
-  }, 1000);
+    this.handleSave();
+  }, 15000);
+
 
   onChange(editorState) {
-    this.saveContent();
+    this.saveContent(editorState);
     this.setState({editorState});
   }
 
@@ -78,13 +79,15 @@ class DocumentForm extends React.Component {
   handleSave() {
     let body = convertToRaw(this.state.editorState.getCurrentContent());
     const save = Object.assign({}, {
-      save: { name: 'my-fave',
-        draftId: this.props.draft._id, isAuto: false},
+      save: { name: 'auto-save',
+        draftId: this.props.draft._id, isAuto: true},
         newRevs: [{title: this.props.document.title,
         body: body}],
         deletedRevIds: [this.props.document._id]
     });
-    this.props.createSave(save);
+    this.props.createSave(save).then((payload) => {
+      this.props.history.replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+    });
   }
 
   handleBlockClick(type) {
