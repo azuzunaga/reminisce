@@ -13,7 +13,8 @@ class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      title: this.props.document.title
     };
 
     this.focus = () => this.refs.editor.focus();
@@ -21,6 +22,7 @@ class DocumentForm extends React.Component {
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onTab = (e) => this._onTab(e);
     this.handleSave = this.handleSave.bind(this);
+    this.update = this.update.bind(this);
   }
 
   saveContent = debounce((content) => {
@@ -48,7 +50,8 @@ class DocumentForm extends React.Component {
     if (Object.keys(newProps.document).length != 0) {
       let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
       this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document))
+        editorState: EditorState.createWithContent(convertFromRaw(document)),
+        title: newProps.document.title
       });
     }
   }
@@ -77,21 +80,35 @@ class DocumentForm extends React.Component {
   }
 
   handleSave() {
+    let docu = this.state.editorState;
     let body = convertToRaw(this.state.editorState.getCurrentContent());
     const save = Object.assign({}, {
       save: { name: 'auto-save',
         draftId: this.props.draft._id, isAuto: true},
-        newRevs: [{title: this.props.document.title,
+        newRevs: [{title: this.state.title,
         body: body}],
         deletedRevIds: [this.props.document._id]
     });
     this.props.createSave(save).then((payload) => {
       this.props.history.replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+    }).catch( () => {
+      alert(this.props.errors);
+      this.setState({
+        editorState: docu
+      })
     });
   }
 
   handleBlockClick(type) {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, type));
+  }
+
+  update(field) {
+
+    return e =>
+      this.setState({
+        [field]: e.currentTarget.value
+    });
   }
 
   render () {
@@ -100,13 +117,15 @@ class DocumentForm extends React.Component {
     }
     return (
       <div className="standard-layout">
-        <h1 className="header">Document: {this.props.document.title}</h1>
+        <input input='text' onChange={this.update('title')}
+          className="header" value={this.state.title}/>
         <div className="header-content">
         <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
         <button className="save-button" onClick={() => this.props.openModal(
           <SaveRev
             projectId={this.props.match.params.projectId}
             document={this.props.document}
+            title={this.state.title}
             draftId={this.props.draft._id}
             body={convertToRaw(this.state.editorState.getCurrentContent())}
           />
