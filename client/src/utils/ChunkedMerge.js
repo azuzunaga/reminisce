@@ -43,7 +43,7 @@ class ChunkedMerge {
   }
 
   resolveConflicts(newChunks) {
-    const body = [];
+    const blocks = [];
     if (newChunks.length !== Math.floor(this.chunks.length / 2)) {
       throw Error(`Wrong number of resolved chunks.
 Expected: ${Math.floor(this.chunks.length / 2)}
@@ -51,12 +51,15 @@ Passed: ${newChunks.length}`);
     }
     for (let i = 0; i < this.chunks.length; i++) {
       if (i % 2 === 0) {
-        body.push(...this.chunks[i]);
+        blocks.push(...this.chunks[i]);
       } else {
-        body.push(...newChunks[Math.floor(i / 2)]);
+        blocks.push(...newChunks[Math.floor(i / 2)]);
       }
     }
-    return {title: this.title, body};
+    return {title: this.title, body: {
+      entityMap: {},
+      blocks: blocks.map(block => block.data)
+    }};
   }
 }
 
