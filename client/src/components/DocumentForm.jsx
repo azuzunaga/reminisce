@@ -178,8 +178,12 @@ function mapStateToProps(state, ownProps) {
   let document = {};
   let documentId = ownProps.match.params.documentId;
   if (Object.keys(state.revisions).length != 0) {
+    let activeDraftArr = state.auth.projectsActiveDraft;
+    let idx = activeDraftArr.findIndex(el =>
+      { return el.projectId === ownProps.match.params.projectId});
+      let draftId = activeDraftArr[idx].draftId;
     document = state.revisions[ownProps.match.params.documentId];
-    draft = Object.values(state.drafts)[0];
+    draft = state.drafts[draftId];
   }
   return {
     documentId,
