@@ -4,12 +4,21 @@ import {
   FETCH_SAVE,
   FETCH_REVISION,
   FETCH_PROJECT,
-  FETCH_DRAFT
+  FETCH_DRAFT,
+  CREATE_SAVE
 } from '../actions/types';
 
 export default (state = {}, action) => {
   let fetchedRev;
   switch (action.type) {
+  case CREATE_SAVE:
+    return merge(
+      {},
+      state,
+      mapValues(action.revisions, rev =>
+        merge({ body: { entityMap: {} } }, rev)
+      )
+    );
   case FETCH_SAVE:
     return merge(
       {},
