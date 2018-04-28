@@ -15,6 +15,7 @@ import {
   SET_DRAFTS,
   SET_ALL_CONFLICTS,
   UPDATE_CONFLICT_SELECTION,
+  FETCH_MERGE,
 
 } from './types';
 
@@ -174,3 +175,15 @@ export const receiveErrors =(errors) => ({
   type: FORM_ERROR,
   errors
 });
+
+
+export const fetchMerge = params => async dispatch => {
+  return await axios.get('/api/merge', {
+    params
+  }).then(function(res) {
+    dispatch({
+      type: FETCH_MERGE, 
+      data: res.data
+    })
+  })
+}

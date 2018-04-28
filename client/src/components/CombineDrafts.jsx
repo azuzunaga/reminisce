@@ -3,35 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DraftsListItem from './DraftsListItem';
 import { closeModal, openModal } from '../actions';
-import { fetchProject, setDrafts } from '../actions/index'
+import { fetchProject, setDrafts, fetchMerge } from '../actions/index'
 import { dateTimeFormatter } from '../utils/dateFormatter';
 import CombineDraftsModal from './CombineDraftsModal';
 import '../styles/combinedrafts.css';
 import '../styles/stylingMain.css';
-
-const fakeDrafts = [
-  {
-    id: 1,
-    name: 'Fact Checked',
-    description: 'Fully fact checked draft',
-    lastSaved: 'Today, 4:00 PM',
-    savedBy: 'Gabriel',
-  },
-  {
-    id: 2,
-    name: 'Alternate Ending',
-    description: 'Where Abraham Lincoln did not die by assasination and lived a long healthy life.',
-    lastSaved: 'Apr 21, 5:00 PM',
-    savedBy: 'me',
-  },
-  {
-    id: 3,
-    name: 'Not Fact Checked',
-    description: 'Churned out a lot of chapters without fact checking them.',
-    lastSaved: 'Mar 18, 5:00 PM',
-    savedBy: 'Americo',
-  },
-];
 
 class CombineDrafts extends React.Component {
 
@@ -59,6 +35,7 @@ class CombineDrafts extends React.Component {
     } else if (this.selectedCounter === 2) {
       combineButton.classList.add('two-selected');
       combineButton.disabled = false;
+
       this.props.setDrafts({
         draft1: checked[0].getAttribute('data'),
         draft2: checked[1].getAttribute('data'),
@@ -73,21 +50,27 @@ class CombineDrafts extends React.Component {
 
 
   renderListItem(draft) {
+    const { saves, users } = this.props;
+    const lastSaved = dateTimeFormatter(draft.updatedAt);
+    const savedByUserId = Object.values(saves).reverse()[0].userId;
+    const savedByUserName = users[savedByUserId].firstName
+
     return (
       <li className='list-item'>
         <div className='list-left'>
           <input
-            id={`draft-${draft.id}`}
+            id={`draft-${draft._id}`}
             className='checkbox-filter'
             type="checkbox"
             onClick={this.countSelected.bind(this)}
-            data={draft.name}
+            data={draft._id}
+            key={draft._id}
              />
-          <label htmlFor={`draft-${draft.id}`} className='checkbox-label'> {draft.name} </label>
+          <label htmlFor={`draft-${draft._id}`} className='checkbox-label'> {draft.name} </label>
         </div>
         <div className='draft-list-details'>
-          <p>{draft.lastSaved}</p>
-          <p>{draft.savedBy}</p>
+          <p>{lastSaved}</p>
+          <p>{savedByUserName}</p>
         </div>
       </li>
     )
@@ -98,6 +81,9 @@ class CombineDrafts extends React.Component {
     const { draft1, draft2 } = this.props.selectedDrafts;
     const winningDraft = document.getElementById('draft1-option').selected ?
       draft1 : draft2;
+
+    const losingDraft = document.getElementById('draft1-option').selected ?
+      draft2 : draft1;
     e.preventDefault();
     that.props.setDrafts({
       draft1: draft1,
@@ -105,14 +91,21 @@ class CombineDrafts extends React.Component {
       winningDraft: winningDraft,
     });
     that.props.combineDraftsModal();
+    that.props.fetchMerge({
+      mainDraftId: winningDraft,
+      mergeDraftId: losingDraft,
+    })
+
   }
 
   renderList() {
+    const { drafts } = this.props;
+    const draftKeys = Object.keys(drafts)
     return (
       <ul className="scrollable-list">
       {
-        fakeDrafts.map(draft => {
-          return ( this.renderListItem(draft) )
+        draftKeys.map( draftId => {
+          return ( this.renderListItem(drafts[draftId]) )
         })
       }
       </ul>
@@ -120,7 +113,11 @@ class CombineDrafts extends React.Component {
   }
 
   render() {
+    const { drafts } = this.props;
     const { draft1, draft2 } = this.props.selectedDrafts;
+    const draft1Name = drafts[draft1] ? drafts[draft1].name : "";
+    const draft2Name = drafts[draft2] ? drafts[draft2].name : "";
+
     return (
       <div className='standard-layout'>
         <header className='combine-drafts'>
@@ -149,8 +146,8 @@ class CombineDrafts extends React.Component {
                   <p> Combine drafts into: </p>
 
                   <select>
-                    <option id='draft1-option' value={draft1} selected>{draft1}</option>
-                    <option id='draft2-option' value={draft2} >{draft2}</option>
+                    <option id='draft1-option' value={draft1} selected>{draft1Name}</option>
+                    <option id='draft2-option' value={draft2} >{draft2Name}</option>
                   </select>
                 </div>
                   <button
@@ -177,6 +174,9 @@ const mapStateToProps = state => {
     modal: state.ui.modal,
     conflicts: state.ui.conflicts,
     selectedDrafts: state.ui.selectedDrafts,
+    drafts: state.drafts,
+    saves: state.saves,
+    users: state.users,
    };
 }
 
@@ -186,7 +186,7 @@ const mapDispatchToProps = dispatch => {
     fetchProject: id => dispatch(fetchProject(id)),
     setDrafts: drafts => dispatch(setDrafts(drafts)),
     combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal />)),
-
+    fetchMerge: params => dispatch(fetchMerge(params)),
   };
 };
 
