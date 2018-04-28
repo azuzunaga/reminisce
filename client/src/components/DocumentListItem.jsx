@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 class DocumentListItem extends React.Component {
   render() {
 
-    const { doc, user } = this.props;
+    const { doc, user, projectId } = this.props;
 
     return (
       <li className='list-item'>
         <div className='list-name'>
-          <Link to={`/document/${doc._id}`}>
+          <Link to={`/project/${projectId}/document/${doc._id}`}>
             <p> {doc.title} </p>
           </Link>
         </div>

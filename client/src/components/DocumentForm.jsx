@@ -5,14 +5,16 @@ import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
-import { openModal, closeModal, createSave } from '../actions/index';
+import { openModal, closeModal, createSave, fetchRevision } from '../actions/index';
 import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
 
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      editorState: EditorState.createEmpty()
+    };
 
     this.focus = () => this.refs.editor.focus();
     this.onChange = this.onChange.bind(this);
@@ -31,14 +33,27 @@ class DocumentForm extends React.Component {
   }
 
   componentDidMount () {
-    if (Object.keys(this.props.document).length !== 0) {
+    if (Object.keys(this.props.document).length != 0) {
       let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
       this.setState({
         editorState: EditorState.createWithContent(convertFromRaw(document))
       })
     } else {
-      this.setState({editorState: EditorState.createEmpty()})
+      this.props.fetchRevision(this.props.projectId, this.props.documentId);
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (Object.keys(newProps.document).length != 0) {
+      let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
+      this.setState({
+        editorState: EditorState.createWithContent(convertFromRaw(document))
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.closeModal();
   }
 
   handleStyleClick(type) {
@@ -85,10 +100,13 @@ class DocumentForm extends React.Component {
         <h1 className="header">Document: {this.props.document.title}</h1>
         <div className="header-content">
         <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
-        <button className="save-button"
-          onClick={() => this.props.openModal(<SaveRev body={convertToRaw(this.state.editorState.getCurrentContent())}
-          draftId={this.props.draft._id} document={this.props.document}
-          />)}>
+        <button className="save-button" onClick={() => this.props.openModal(
+          <SaveRev
+            document={this.props.document}
+            draftId={this.props.draft._id}
+            body={convertToRaw(this.state.editorState.getCurrentContent())}
+          />
+        )}>
           Save Document
         </button>
         </div>
@@ -160,16 +178,19 @@ function mapStateToProps(state, ownProps) {
     draft = Object.values(state.drafts)[0];
   }
   return {
-          documentId,
-          errors: state.errors,
-          document,
-          draft
-        };
+    documentId,
+    errors: state.errors,
+    draft,
+    document,
+    projectId: ownProps.match.params.projectId
+  };
 }
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
-  openModal: (component) => dispatch(openModal(component))
+  fetchRevision: (projectId, revisionId) => dispatch(fetchRevision(projectId, revisionId)),
+  openModal: (component) => dispatch(openModal(component)),
+  closeModal: () => dispatch(closeModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);

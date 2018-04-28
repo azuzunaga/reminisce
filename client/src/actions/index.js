@@ -11,9 +11,11 @@ import {
   FETCH_DRAFT,
   CREATE_DRAFT,
   FETCH_REVISION,
+  CREATE_SAVE,
   SET_DRAFTS,
   SET_ALL_CONFLICTS,
   UPDATE_CONFLICT_SELECTION,
+
 } from './types';
 
 export const fetchProjects = () => async dispatch => {
@@ -134,22 +136,22 @@ export const fetchSave = id => async dispatch => {
   });
 };
 
-export const createSave = (save) => async dispatch => {
-  return await axios.post('/api/saves', save)
-    .then(function (res) {
-      dispatch({
-        type: FETCH_SAVE,
+export const createSave = (payload) => async dispatch => {
+  return await axios.post('/api/saves',
+    payload
+  ).then(function (res) {
+      return dispatch({
+        type: CREATE_SAVE,
         save: res.data.save,
         revisions: res.data.revisions,
         draftId: res.data.draftId
       })
-    }).catch(function (res) {
+    }).catch(function(res) {
       dispatch({
         type: FORM_ERROR,
         errors: res.response.data
-      })
-    }
-  );
+    })
+  })
 };
 
 export const newProject = (project) => async dispatch => {
