@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import '../styles/stylingList.css';
 import { dateTimeFormatter } from '../utils/dateFormatter';
 import { Link } from 'react-router-dom';
-
+import { openModal } from '../actions';
+import TitleEditForm from './TitleEditForm';
+import pencil from '../assets/pencil-edit-button.png';
 class DocumentListItem extends React.Component {
   render() {
 
@@ -13,8 +15,18 @@ class DocumentListItem extends React.Component {
       <li className='list-item'>
         <div className='list-name'>
           <Link to={`/project/${projectId}/document/${doc._id}`}>
-            <p> {doc.title} </p>
+            <p>{doc.title}</p>
           </Link>
+          <button className="edit-button-pencil"
+            onClick={() =>
+              this.props.openModal(
+                <TitleEditForm
+                  document={doc}
+                  projectId={projectId}
+                />
+              )}>
+            <img className="pencil" src={pencil} alt="Edit Title"/>
+          </button>
         </div>
         <div className='doc-list-details'>
           <p>{dateTimeFormatter(doc.createdAt)}</p>
@@ -31,4 +43,8 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(DocumentListItem);
+const mapDispatchToProps = (dispatch) => ({
+  openModal: (component) => dispatch(openModal(component))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentListItem);
