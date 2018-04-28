@@ -102,6 +102,7 @@ class DocumentForm extends React.Component {
         <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
         <button className="save-button" onClick={() => this.props.openModal(
           <SaveRev
+            projectId={this.props.match.params.projectId}
             document={this.props.document}
             draftId={this.props.draft._id}
             body={convertToRaw(this.state.editorState.getCurrentContent())}

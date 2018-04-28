@@ -42,10 +42,13 @@ class SaveRev extends React.Component {
       deletedRevIds: [this.props.document._id]
     });
     this.props.clearErrors();
+    // debugger
     this.props.createSave(save, this.props.draftId).then((payload) => {
       this.checkIfErrors();
-      this.props.history
-        .push(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+      if (payload) {
+        this.props.history
+        .replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+      }
     });
   }
 
