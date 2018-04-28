@@ -1,12 +1,16 @@
 import { zip, keyBy, uniq } from 'lodash';
 
-import { diffSaves } from './diffSaves';
+import diffSaves from './diffSaves';
 import ChunkedMerge from './ChunkedMerge';
 
 const byParentLine = diff => {
   const result = [];
   diff.forEach(operation => {
-    if (operation.type === 'delete' || operation.type === 'none') {
+    if (
+      operation.type === 'delete' ||
+      operation.type === 'none' ||
+      result.length === 0
+    ) {
       result.push([operation]);
     } else {
       result[result.length - 1].push(operation);
@@ -16,10 +20,10 @@ const byParentLine = diff => {
 };
 
 const mergeRevisions = (mainRev, mergeRev) => {
-  const mainByParentLine = byParentLine(mainRev);
-  const mergeByParentLine = byParentLine(mergeRev);
+  const mainByParentLine = byParentLine(mainRev.diffInfo);
+  const mergeByParentLine = byParentLine(mergeRev.diffInfo);
 
-  const chunks = new ChunkedMerge();
+  const chunks = new ChunkedMerge(mainRev.title);
 
   for (const [mainOps, mergeOps] of zip(mainByParentLine, mergeByParentLine)) {
     if (mergeOps.length === 1 && mergeOps[0].type === 'none') {
@@ -31,9 +35,9 @@ const mergeRevisions = (mainRev, mergeRev) => {
         ([a, b]) => a && b && a.type === b.type && a.data === b.data
       )
     ) {
-      chunks.addOps(...mainOps);
+      chunks.addOps(mainOps);
     } else {
-      chunks.addConflictingOps({
+      chunks.addConflictOps({
         mainOps,
         mergeOps
       });
@@ -42,15 +46,15 @@ const mergeRevisions = (mainRev, mergeRev) => {
   return chunks;
 };
 
-const mergeSaves = (mainSave, mergeSave, parentSave) => {
-  const mainRevs = keyBy(diffSaves(parentSave, mainSave), 'title');
-  const mergeRevs = keyBy(diffSaves(parentSave, mergeSave), 'title');
+const mergeSaves = (mainSave, mergeSave, parentSave, revisions) => {
+  const mainRevs = keyBy(diffSaves(parentSave, mainSave, revisions), 'title');
+  const mergeRevs = keyBy(diffSaves(parentSave, mergeSave, revisions), 'title');
 
   const titles = uniq([...Object.keys(mainRevs), ...Object.keys(mergeRevs)]);
 
   return titles.map(title => {
     const mainRev = mainRevs[title];
-    const mergeRev = mainRevs[title];
+    const mergeRev = mergeRevs[title];
     if (!mergeRev) return mainRev;
     if (!mainRev) return mergeRev;
     return mergeRevisions(mainRev, mergeRev);

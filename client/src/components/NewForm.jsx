@@ -37,7 +37,7 @@ class NewForm extends React.Component {
       this.props.processForm(project).then(this.checkIfErrors.bind(this));
     } else {
       const save = Object.assign({}, {
-        save: { name: "auto-save", draftId: Object.keys(this.props.drafts)[0], isAuto: true}, newRevs: [{title:this.state.name, body: {
+        save: { name: "auto-save", draftId: this.props.draftId, isAuto: true}, newRevs: [{title:this.state.name, body: {
           entityMap:{},
           blocks:[
             {
