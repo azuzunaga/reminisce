@@ -86,7 +86,7 @@ class DocumentForm extends React.Component {
         deletedRevIds: [this.props.document._id]
     });
     this.props.createSave(save).then((payload) => {
-      this.props.history.push(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+      this.props.history.replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
     });
   }
 
