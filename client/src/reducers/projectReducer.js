@@ -2,10 +2,12 @@ import {
   FETCH_PROJECTS,
   FETCH_PROJECT,
   CREATE_PROJECT,
-  FETCH_REVISION
+  FETCH_REVISION,
+  CREATE_DRAFT
 } from '../actions/types';
 import merge from 'lodash/merge';
 export default function(state={}, action) {
+  let project;
   switch (action.type) {
     case FETCH_REVISION:
       return merge({}, state, {[action.project._id]: action.project});
@@ -14,7 +16,12 @@ export default function(state={}, action) {
     case FETCH_PROJECT:
       return merge({}, state, {[action.project._id]: action.project});
     case CREATE_PROJECT:
-    return merge({}, state, {[action.project._id]: action.project});
+      return merge({}, state, {[action.project._id]: action.project});
+    case CREATE_DRAFT:
+      project = merge({}, state[action.draft.projectId]);
+      project.draftIds.push(action.draft._id);
+      return merge({}, state, {[project._id]: project});
+      break;
     default:
       return state;
   }

@@ -10,16 +10,18 @@ import {
 } from '../actions/types';
 
 export default (state = {}, action) => {
-  let newDraft;
+  let draft;
+  let newState;
   switch (action.type) {
   case FETCH_REVISION:
     return merge({}. state, { [action.draft._id]: action.draft });
   case FETCH_PROJECT:
     return merge({}, state, action.drafts);
   case CREATE_PROJECT:
-    newDraft = { [action.draft.id]: action.draft };
-    return merge({}, state, newDraft);
+    draft = { [action.draft._id]: action.draft };
+    return merge({}, state, draft);
   case CREATE_DRAFT:
+<<<<<<< HEAD
     newDraft = { [action.draft.id]: action.draft };
     return merge({}, state, newDraft);
    case CREATE_SAVE:
@@ -30,5 +32,17 @@ export default (state = {}, action) => {
      return newState;
    default:
      return state;
+=======
+    draft = { [action.draft._id]: action.draft };
+    return merge({}, state, draft);
+  case FETCH_SAVE:
+    newState = Object.assign({}, state);
+    draft = newState[action.draftId];
+    newState[draft._id] = merge({}, draft,
+      {saveIds: draft.saveIds.concat([action.save._id])});
+    return newState;
+  default:
+    return state;
+>>>>>>> de12639619c01a811ad0f4725964ec6a63c7f6f1
   }
 };
