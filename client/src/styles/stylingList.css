@@ -23,3 +23,18 @@
   padding: 0;
   margin: 0;
 }
+
+.list-name {
+  display: flex;
+}
+
+.edit-button-pencil {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.pencil {
+  height: 10px;
+}
