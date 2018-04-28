@@ -52,7 +52,7 @@ module.exports = app => {
     });
     draft.save();
 
-    const user = await User.findById(req.user.id);
+    const user = req.user;
     const activeDrafts = user.projectsActiveDraft;
     const existingProject = activeDrafts.findIndex(el =>
       el.projectId.toString() === project.id);
@@ -63,7 +63,11 @@ module.exports = app => {
     }
     user.save();
 
-    res.json({ project, draft });
+    res.json({
+      project,
+      draft,
+      users: _.keyBy([user], '_id')
+    });
   });
 
   app.get("/api/projects/:id", async (req, res) => {

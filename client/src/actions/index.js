@@ -158,14 +158,13 @@ export const newProject = (project) => async dispatch => {
   }).then(function(res) {
     dispatch({
       type: CREATE_PROJECT,
-      project: res.data.project,
-      draft: res.data.draft
-    })
+      ...res.data
+    });
   }).catch(function(res) {
     dispatch({
       type: FORM_ERROR,
       errors: res.response.data
-    })
+    });
   });
 };
 
