@@ -24,7 +24,7 @@ export default (state = {}, action) => {
     return merge({}, state, draft);
   case FETCH_SAVE:
     newState = Object.assign({}, state);
-    draft = newState[action.save.draftId];
+    draft = newState[action.draftId];
     newState[draft._id] = merge({}, draft,
       {saveIds: draft.saveIds.concat([action.save._id])});
     return newState;
