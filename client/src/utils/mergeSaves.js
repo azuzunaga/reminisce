@@ -1,4 +1,4 @@
-import { zip, keyBy, uniq } from 'lodash';
+import { zip, pickBy, keyBy, uniq } from 'lodash';
 
 import diffSaves from './diffSaves';
 import ChunkedMerge from './ChunkedMerge';
@@ -38,8 +38,8 @@ const mergeRevisions = (mainRev, mergeRev) => {
       chunks.addOps(mainOps);
     } else {
       chunks.addConflictOps({
-        mainOps,
-        mergeOps
+        mainOps: mainOps.filter(op => op.type !== 'delete'),
+        mergeOps: mergeOps.filter(op => op.type !== 'delete')
       });
     }
   }
@@ -58,6 +58,11 @@ const mergeSaves = (mainSave, mergeSave, parentSave, revisions) => {
     if (!mergeRev) return mainRev;
     if (!mainRev) return mergeRev;
     return mergeRevisions(mainRev, mergeRev);
+    // let merge = mergeRevisions(mainRev, mergeRev);
+    // if (merge.getConflicts().length === 0) {
+    //   merge = merge.resolveConflicts([]);
+    // }
+    // return merge;
   });
 };
 

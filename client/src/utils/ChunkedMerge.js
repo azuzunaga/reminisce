@@ -7,21 +7,24 @@ class ChunkedMerge {
   }
 
   addOps(ops) {
+    const lines = ops.map(op => op.data);
     if (this.inConflict) {
-      this.chunks.push(ops);
+      this.chunks.push(lines);
     } else {
-      this.chunks[this.chunks.length - 1].push(...ops);
+      this.chunks[this.chunks.length - 1].push(...lines);
     }
     this.inConflict = false;
   }
 
   addConflictOps({ mainOps, mergeOps }) {
+    const mainLines = mainOps.map(op => op.data);
+    const mergeLines = mergeOps.map(op => op.data);
     if (this.inConflict) {
       const chunk = this.chunks[this.chunks.length - 1];
-      chunk.mainOps.push(mainOps);
-      chunk.mergeOps.push(mergeOps);
+      chunk.mainLines.push(mainLines);
+      chunk.mergeLines.push(mergeLines);
     } else {
-      this.chunks.push({ mainOps, mergeOps });
+      this.chunks.push({ mainLines, mergeLines });
     }
     this.inConflict = true;
   }
@@ -33,10 +36,12 @@ class ChunkedMerge {
       const prevChunk = this.chunks[i - 1];
       const nextChunk = this.chunks[i + 1] || [];
       conflicts.push({
-        contextBefore: prevChunk.slice(prevChunk.length - this.contextLength),
-        contextAfter: nextChunk.slice(0, this.contextLength),
-        mainDraft: this.chunks[i].mainOps,
-        mergeDraft: this.chunks[i].mergeOps
+        contextBefore: prevChunk
+          .slice(prevChunk.length - this.contextLength)
+          .join(),
+        contextAfter: nextChunk.slice(0, this.contextLength).join(''),
+        mainDraft: this.chunks[i].mainLines.join(''),
+        mergeDraft: this.chunks[i].mergeLines.join('')
       });
     }
     return conflicts;
@@ -56,10 +61,10 @@ Passed: ${newChunks.length}`);
         blocks.push(...newChunks[Math.floor(i / 2)]);
       }
     }
-    return {title: this.title, body: {
-      entityMap: {},
-      blocks: blocks.map(block => block.data)
-    }};
+    return {
+      title: this.title,
+      bodyHTML: blocks.join('')
+    };
   }
 }
 
