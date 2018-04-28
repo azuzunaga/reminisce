@@ -63,7 +63,8 @@ export const fetchDraft = id => async dispatch => {
     draft: res.data.draft,
     saves: res.data.saves,
     users: res.data.users,
-    revisions: res.data.revisions
+    revisions: res.data.revisions,
+    auth: res.data.auth
   });
 };
 
