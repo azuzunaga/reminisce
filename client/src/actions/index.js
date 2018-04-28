@@ -139,7 +139,7 @@ export const createSave = (payload) => async dispatch => {
   return await axios.post('/api/saves',
     payload
   ).then(function (res) {
-      dispatch({
+      return dispatch({
         type: CREATE_SAVE,
         save: res.data.save,
         draftId: payload.save.draftId,

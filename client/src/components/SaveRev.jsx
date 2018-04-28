@@ -2,6 +2,7 @@ import React from 'react';
 import { createSave, closeModal, receiveErrors } from '../actions';
 import { connect } from 'react-redux';
 import '../styles/newForm.css';
+import { withRouter } from 'react-router-dom';
 class SaveRev extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +42,11 @@ class SaveRev extends React.Component {
       deletedRevIds: [this.props.document._id]
     });
     this.props.clearErrors();
-    this.props.createSave(save, this.props.draftId).then(this.checkIfErrors.bind(this));
+    this.props.createSave(save, this.props.draftId).then((payload) => {
+      this.checkIfErrors();
+      this.props.history
+        .push(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+    });
   }
 
   renderErrors() {
@@ -96,4 +101,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SaveRev);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SaveRev));
