@@ -37,7 +37,7 @@ const mergeRevisions = (mainRev, mergeRev) => {
     ) {
       chunks.addOps(mainOps);
     } else {
-      chunks.addConflictingOps({
+      chunks.addConflictOps({
         mainOps,
         mergeOps
       });
@@ -54,7 +54,7 @@ const mergeSaves = (mainSave, mergeSave, parentSave, revisions) => {
 
   return titles.map(title => {
     const mainRev = mainRevs[title];
-    const mergeRev = mainRevs[title];
+    const mergeRev = mergeRevs[title];
     if (!mergeRev) return mainRev;
     if (!mainRev) return mergeRev;
     return mergeRevisions(mainRev, mergeRev);
