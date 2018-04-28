@@ -70,7 +70,8 @@ export const createDraft = draft => async dispatch => {
   }).then(function (res) {
     dispatch({
       type: CREATE_DRAFT,
-      draft: draft
+      draft: res.data.draft,
+      auth: res.data.auth
     });
   }).catch(function (res) {
     dispatch({
@@ -139,7 +140,8 @@ export const createSave = (save) => async dispatch => {
       dispatch({
         type: FETCH_SAVE,
         save: res.data.save,
-        revisions: res.data.revisions
+        revisions: res.data.revisions,
+        draftId: res.data.draftId
       })
     }).catch(function (res) {
       dispatch({
