@@ -143,13 +143,8 @@ export const createSave = (payload) => async dispatch => {
       return dispatch({
         type: CREATE_SAVE,
         save: res.data.save,
-<<<<<<< HEAD
-        draftId: payload.save.draftId,
-        revisions: res.data.revisions
-=======
         revisions: res.data.revisions,
         draftId: res.data.draftId
->>>>>>> 7b36fad89823eddebc92c0c6a0a6e3c2c0fc144b
       })
     }).catch(function(res) {
       dispatch({

@@ -21,19 +21,11 @@ export default (state = {}, action) => {
     draft = { [action.draft._id]: action.draft };
     return merge({}, state, draft);
   case CREATE_DRAFT:
-<<<<<<< HEAD
     draft = { [action.draft._id]: action.draft };
     return merge({}, state, draft);
    case CREATE_SAVE:
      newState = Object.assign({}, state);
      draft = newState[action.draftId];
-=======
-     draft = { [action.draft._id]: action.draft };
-     return merge({}, state, draft);
-   case CREATE_SAVE:
-     let newState = Object.assign({}, state);
-     let draft = newState[action.draftId];
->>>>>>> 7b36fad89823eddebc92c0c6a0a6e3c2c0fc144b
      newState[draft._id] = merge({}, draft,
        {saveIds: draft.saveIds.concat([action.save._id])});
      return newState;
