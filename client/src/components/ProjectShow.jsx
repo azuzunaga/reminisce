@@ -133,7 +133,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     fetchDraft: id => dispatch(fetchDraft(id)),
@@ -145,7 +145,7 @@ const mapDispatchToProps = dispatch => {
     newModal: (
       <div
         className="add-icon"
-        onClick={() => dispatch(openModal(<NewDocument />))}
+        onClick={() => dispatch(openModal(<NewDocument projectId={ownProps.match.params.projectId} />))}
       >
         <i className="material-icons new-show">add_circle_outline</i>
         <i className="material-icons md-24 new-hidden">add_circle</i>

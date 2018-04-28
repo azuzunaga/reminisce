@@ -2,12 +2,16 @@ import { connect } from 'react-redux';
 import { createSave, closeModal, receiveErrors } from '../actions';
 import NewForm from './NewForm';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const draftId = state.auth.projectsActiveDraft.find(
+    el => el.projectId === ownProps.projectId
+  ).draftId;
+
   return {
     userId: state.auth._id,
     formType: "Document",
     errors: state.errors,
-    drafts: state.drafts,
+    draftId
   };
 };
 

@@ -89,7 +89,7 @@ const diffRevisions = (original, target) => {
       result.push({
         type: 'insert',
         data: target[prevTargetIdx],
-        origIdx: originalIdx,
+        origIdx: originalIdx - 1,
         targetIdx: prevTargetIdx + 1
       });
     } else if (targetIdx === prevTargetIdx) {
@@ -97,7 +97,7 @@ const diffRevisions = (original, target) => {
         type: 'delete',
         data: original[prevOriginalIdx],
         origIdx: prevOriginalIdx + 1,
-        targetIdx: targetIdx
+        targetIdx: targetIdx - 1
       });
     } else {
       result.push({
@@ -114,7 +114,7 @@ const diffRevisions = (original, target) => {
 };
 
 const getRevHTML = rev => (
-  stateToHTML(convertFromRaw(rev.body)).split('\n')
+  stateToHTML(convertFromRaw(Object.assign(rev.body, {entityMap: {}}))).split('\n')
 );
 
 const diffSaves = (original, target, revisions) => {

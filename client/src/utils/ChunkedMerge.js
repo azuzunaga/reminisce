@@ -1,5 +1,6 @@
 class ChunkedMerge {
-  constructor() {
+  constructor(title) {
+    this.title = title;
     this.chunks = [[]];
     this.inConflict = false;
     this.contextLength = 3;
@@ -42,7 +43,7 @@ class ChunkedMerge {
   }
 
   resolveConflicts(newChunks) {
-    const result = [];
+    const blocks = [];
     if (newChunks.length !== Math.floor(this.chunks.length / 2)) {
       throw Error(`Wrong number of resolved chunks.
 Expected: ${Math.floor(this.chunks.length / 2)}
@@ -50,12 +51,15 @@ Passed: ${newChunks.length}`);
     }
     for (let i = 0; i < this.chunks.length; i++) {
       if (i % 2 === 0) {
-        result.push(...this.chunks[i]);
+        blocks.push(...this.chunks[i]);
       } else {
-        result.push(...newChunks[Math.floor(i / 2)]);
+        blocks.push(...newChunks[Math.floor(i / 2)]);
       }
     }
-    return result;
+    return {title: this.title, body: {
+      entityMap: {},
+      blocks: blocks.map(block => block.data)
+    }};
   }
 }
 
