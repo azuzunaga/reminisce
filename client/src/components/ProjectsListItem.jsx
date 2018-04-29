@@ -12,21 +12,16 @@ class ProjectsListItem extends React.Component {
       return <div>Loading...</div>
     }
     return (
-      <li className='list-item'>
+      <li className='list-item project'>
         <div className='list-name'>
           <Link to={`/projects/${project._id}`}>
             <p> {project.name} </p>
           </Link>
-
         </div>
-
-        <div className='project-details'>
-          <Link to={`/users/${project.ownerId}`}>
-            <p>{users[project.ownerId].firstName}</p>
-          </Link>
-          <p>{dateTimeFormatter(project.updatedAt)}</p>
-          <p>{project.modifiedBy}</p>
-        </div>
+        <Link to={`/users/${project.ownerId}`}>
+          <p>{users[project.ownerId].firstName}</p>
+        </Link>
+        <p>{dateTimeFormatter(project.updatedAt)}</p>
       </li>
     )
   }

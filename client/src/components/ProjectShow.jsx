@@ -79,10 +79,10 @@ class Project extends React.Component {
                 <h3>Documents</h3>
                 {this.props.newModal}
               </div>
-              <div className='sub-header'>
+              <div className='sub-header project-show'>
                 <h4>Document Name</h4>
                 <h4>Last Modified</h4>
-                <h4>Modified By</h4>
+                <h4> Modified By </h4>
               </div>
               { this.renderList() }
               <DraftForm

@@ -111,7 +111,7 @@ i.new-hidden {
 }
 
 
-.sub-header {
+.sub-header.project-show {
   display: grid;
   grid-template-columns: 6.4fr 3fr 3fr
 }

@@ -134,9 +134,68 @@ class DocumentForm extends React.Component {
     return (
       <div className="standard-layout">
         <input input='text' onChange={this.update('title')}
-          className="header" value={this.state.title}/>
-        <div className="header-content">
-        <h3 className="draft-version">Draft Version: {this.props.draft.name}</h3>
+          className="header doc-form" value={this.state.title}/>
+
+        <main className='main'>
+        <aside className='aside-left'>
+        </aside>
+        <section className='editor-main'>
+          <ul className="toolbar">
+            <li>
+              <button className="bold" onMouseDown={(e)=> e.preventDefault()} onClick={() => this.handleStyleClick('BOLD')}>
+                B
+              </button>
+            </li>
+            <li>
+            <button className="italics" onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('ITALIC')}>
+            I
+            </button>
+            </li>
+            <li>
+              <button className="underline" onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('UNDERLINE')}>
+                U
+              </button>
+            </li>
+
+            <li>
+              <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-one')}>
+                H1
+              </button>
+            </li>
+
+            <li>
+              <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-two')}>
+                H2
+              </button>
+            </li>
+
+            <li>
+              <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-three')}>
+                H3
+              </button>
+            </li>
+
+            <li>
+              <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-four')}>
+                H4
+              </button>
+            </li>
+            <li>
+              <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick("unordered-list-item")}>
+                <img className="ul" src={ul} alt="list"/>
+              </button>
+            </li>
+          </ul>
+          <div className="editor">
+            <Editor editorState={this.state.editorState}
+              onChange={this.onChange}
+              handleKeyCommand={this.handleKeyCommand}
+              onTab={this.onTab}
+              spellCheck={!this.spellCheck}
+              />
+          </div>
+        </section>
+        <aside className='aside-right'>
         <button className="save-button" onClick={() => this.props.openModal(
           <SaveRev
             projectId={this.props.match.params.projectId}
@@ -148,62 +207,9 @@ class DocumentForm extends React.Component {
         )}>
           Save Document
         </button>
-        </div>
-        <ul className="toolbar">
-          <li>
-            <button className="bold" onMouseDown={(e)=> e.preventDefault()} onClick={() => this.handleStyleClick('BOLD')}>
-              B
-            </button>
-          </li>
-          <li>
-          <button className="italics" onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('ITALIC')}>
-          I
-          </button>
-          </li>
-          <li>
-            <button className="underline" onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleStyleClick('UNDERLINE')}>
-              U
-            </button>
-          </li>
-
-          <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-one')}>
-              H1
-            </button>
-          </li>
-
-          <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-two')}>
-              H2
-            </button>
-          </li>
-
-          <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-three')}>
-              H3
-            </button>
-          </li>
-
-          <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick('header-four')}>
-              H4
-            </button>
-          </li>
-          <li>
-            <button onMouseDown={(e) => e.preventDefault()} onClick={() => this.handleBlockClick("unordered-list-item")}>
-              <img className="ul" src={ul} alt="list"/>
-            </button>
-          </li>
-        </ul>
-        <div className="editor">
-        <Editor editorState={this.state.editorState}
-          onChange={this.onChange}
-          handleKeyCommand={this.handleKeyCommand}
-          onTab={this.onTab}
-          spellCheck={!this.spellCheck}
-          />
-        </div>
-      </div>
+        </aside>
+      </main>
+    </div>
     );
   }
 }
