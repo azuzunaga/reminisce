@@ -49,11 +49,10 @@
 
 .draft-version {
   font-weight: normal;
-  font-size: 24px;
+  font-size: 20px;
   font-family: 'Josefin Sans', sans-serif;
-  background: white;
   padding: 0;
-  margin: 15px 20px;
+  margin: 15px 10px;
   margin-right: 0;
   color:  #434343;
   display: inline-block;
@@ -67,9 +66,10 @@
 .draft-drop-down-header {
   display: flex;
   align-items: center;
+  background-color: #F7F7F7;
 }
 
-.main-list .draft-drop-down-button {
+.draft-drop-down-button {
   display: flex;
   align-items: center;
   padding: 0 10px;
@@ -82,7 +82,8 @@
 }
 
 .draft-drop-down-button h4 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   margin: 0;
+  display: inline;
 }
