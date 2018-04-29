@@ -55,7 +55,9 @@ module.exports = app => {
   });
 
   app.patch('/api/drafts/:draftId', async (req, res) => {
-    const saves = await Save.find({ draftId: req.params.draftId}).sort({createdAt: 'desc'});
+    const draft = await Draft.findById(req.params.draftId);
+    const saves = await Save.find({ _id: { $in: _.map(draft.saveIds)}})
+      .sort({createdAt: 'desc'});
     const users = await User.find({_id: { $in: _.map(saves, 'userId') } });
     const mostRecentSave = saves[0];
 
@@ -64,9 +66,7 @@ module.exports = app => {
         $in: _.map(mostRecentSave.revisionIds)
       }
     });
-
-    const user = await User.findById(req.user.id);
-    const draft = await Draft.findById(req.params.draftId);
+    const user = req.user;
     const draftId = draft.id;
     const projectId = draft.projectId;
 
@@ -85,7 +85,8 @@ module.exports = app => {
       draft,
       saves: _.keyBy(saves, '_id'),
       users: _.keyBy(users, '_id'),
-      revisions: _.keyBy(revisions, '_id')
+      revisions: _.keyBy(revisions, '_id'),
+      auth: user
     });
   });
 };

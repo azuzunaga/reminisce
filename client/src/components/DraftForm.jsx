@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { createDraft } from '../actions';
+import { createDraft, fetchDraft } from '../actions';
 
 import '../styles/draftForm.css';
 
@@ -11,15 +11,21 @@ class DraftForm extends React.Component {
     this.state = {
       name: '',
       projectId: this.props.project._id,
-      saveIds: this.props.activeDraft.saveIds
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createDraft(this.state);
-    
+    let draft = {
+      name: this.state.name,
+      projectId: this.props.project._id,
+      saveIds: this.props.activeDraft.saveIds
+    };
+
+    this.props.createDraft(draft);
+
   }
 
   update(field) {
@@ -28,12 +34,17 @@ class DraftForm extends React.Component {
     });
   }
 
+  handleClick(e) {
+    let draftId = e.target.id;
+    this.props.fetchDraft(draftId);
+  }
+
   drafts(draftsArray) {
     return (
       <ul>
         {draftsArray.map(draft => {
           return (
-            <li key={draft._id}>
+            <li key={draft._id} onClick={this.handleClick} id={draft._id}>
               {draft.name}
             </li>
           );
@@ -78,7 +89,8 @@ const mapStateToProps= ({ auth }) => (
 
 const  mapDispatchToProps = dispatch => (
   {
-    createDraft: draft => dispatch(createDraft(draft))
+    createDraft: draft => dispatch(createDraft(draft)),
+    fetchDraft: draftId => dispatch(fetchDraft(draftId))
   }
 );
 
