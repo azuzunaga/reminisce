@@ -26,6 +26,13 @@
 
 .list-name {
   display: flex;
+  align-items: center;
+}
+
+.list-item .wrap {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
 }
 
 .edit-button-pencil {
@@ -44,4 +51,12 @@
 
 .edit-button-pencil i:hover {
   color: #666666;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 20px;
 }
