@@ -61,3 +61,27 @@ h6 {
   font-weight: 400;
   font-size: 16px;
 }
+
+h4 {
+  display: inline-block;
+  font-weight: 400;
+  margin: 0;
+}
+
+.folder-header a {
+  margin: 5px 0;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.folder-header a:hover {
+  color: #226CE0;
+}
+
+.current-doc {
+  display: flex;
+  align-items: center;
+  color: #EF6F6C;
+}
