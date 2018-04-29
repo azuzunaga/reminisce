@@ -13,20 +13,20 @@ class About extends React.Component {
           About Us
         </h1>
         <ul className="dev-list">
-          <li className="kimberly">
-            <h3>Kimberly Allgeier</h3>
+          <li className="gabriel">
+            <h3>Gabriel Talavera</h3>
             <p>Bio</p>
             <ul className="contact-info">
               <li>
-                <a href="https://github.com/youknowhu"
+                <a href="https://github.com/gabrieltal"
                   target="_blank" rel="noopener noreferrer">
                   <img src={ghBlack}
                     onMouseOver={e => e.currentTarget.src=ghWhite}
                     onMouseOut={e => e.currentTarget.src=ghBlack}/>
-                </a>
+              </a>
               </li>
               <li>
-              <a href="https://www.linkedin.com/in/kimberly-hu/"
+              <a href="https://www.linkedin.com/in/gvtalavera/"
                 target="_blank" rel="noopener noreferrer">
                 <img src={lnBlack}
                   onMouseOver={e => e.currentTarget.src=lnWhite}
@@ -35,6 +35,8 @@ class About extends React.Component {
               </li>
             </ul>
           </li>
+
+
 
           <li className="ian">
             <h3>Ian MacLeod</h3>
@@ -82,20 +84,22 @@ class About extends React.Component {
             </ul>
           </li>
 
-          <li className="gabriel">
-            <h3>Gabriel Talavera</h3>
+
+
+          <li className="kimberly">
+            <h3>Kimberly Allgeier</h3>
             <p>Bio</p>
             <ul className="contact-info">
               <li>
-                <a href="https://github.com/gabrieltal"
+                <a href="https://github.com/youknowhu"
                   target="_blank" rel="noopener noreferrer">
                   <img src={ghBlack}
                     onMouseOver={e => e.currentTarget.src=ghWhite}
                     onMouseOut={e => e.currentTarget.src=ghBlack}/>
-              </a>
+                </a>
               </li>
               <li>
-              <a href="https://www.linkedin.com/in/gvtalavera/"
+              <a href="https://www.linkedin.com/in/kimberly-hu/"
                 target="_blank" rel="noopener noreferrer">
                 <img src={lnBlack}
                   onMouseOver={e => e.currentTarget.src=lnWhite}
@@ -104,6 +108,8 @@ class About extends React.Component {
               </li>
             </ul>
           </li>
+
+
         </ul>
       </div>
     )
