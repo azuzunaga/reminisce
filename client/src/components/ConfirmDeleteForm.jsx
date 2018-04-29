@@ -12,14 +12,8 @@ class ConfirmDeleteForm extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    const save = Object.assign({}, {
-      save: { name: `Delete Document: ${this.props.revision.title}`,
-        draftId: this.props.draftId, isAuto: false },
-        newRevs: [],
-        deletedRevIds: [this.props.revision._id]
-    });
+    this.props.action().then(this.checkErrors.bind(this));
     this.props.clearErrors();
-    this.props.createSave(save).then(this.checkErrors.bind(this));
   }
 
   renderErrors() {
@@ -41,7 +35,7 @@ class ConfirmDeleteForm extends React.Component {
     return (
       <div className="new-form-container">
         <form onSubmit={this.handleSubmit} className="new-form">
-          <h3 className="new-form title">Are you sure you want to delete this document?</h3>
+          <h3 className="new-form title">{this.props.message}</h3>
           {this.renderErrors()}
           <div class="buttons-holder">
             <button className="cancel-button" onClick={this.props.closeModal}>Cancel</button>
@@ -57,21 +51,9 @@ class ConfirmDeleteForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  let activeDraftArr = state.auth.projectsActiveDraft;
-  let idx = activeDraftArr.findIndex(
-    el => el.projectId === ownProps.projectId
-  );
-  let draftId = activeDraftArr[idx].draftId;
-  return {
-      draftId,
-      errors: state.errors,
-      revision: state.revisions[ownProps.revisionId]
-  };
-};
+const mapStateToProps = ({errors}) => ({ errors });
 
 const mapDispatchToProps = (dispatch) => ({
-  createSave: (save) => dispatch(createSave(save)),
   closeModal: () => dispatch(closeModal()),
   clearErrors: () => dispatch(receiveErrors([]))
 });
