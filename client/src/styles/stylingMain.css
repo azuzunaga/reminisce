@@ -84,6 +84,11 @@
   text-align: center;
 }
 
+.sub-header h4:first-of-type {
+  text-align: left;
+}
+
+
 .sub-header-right {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;

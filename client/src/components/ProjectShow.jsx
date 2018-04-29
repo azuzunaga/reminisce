@@ -81,10 +81,8 @@ class Project extends React.Component {
               </div>
               <div className='sub-header'>
                 <h4>Document Name</h4>
-                <div className='doc-header-right'>
-                  <h4>Last Modified</h4>
-                  <h4>Modified By</h4>
-                </div>
+                <h4>Last Modified</h4>
+                <h4>Modified By</h4>
               </div>
               { this.renderList() }
               <DraftForm
