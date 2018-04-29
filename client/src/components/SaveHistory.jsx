@@ -7,14 +7,34 @@ import SaveListItem from'./SaveListItem'
 import '../styles/saveHistory.css'
 
 class SaveHistoryModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.hideAutoSaves = true;
+    this.handleShowAutos = this.handleShowAutos.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchDraft(this.props.draft._id)
+  }
+
+  handleShowAutos() {
+    this.hideAutoSaves = !this.hideAutoSaves;
+    this.renderList();
+    this.render();
+
   }
 
 
   renderList() {
     const { users, saves } = this.props;
-    const reversed = saves.reverse();
+    let reversed = saves.slice(1).reverse();
+    debugger;
+
+    if (this.hideAutoSaves) {
+      reversed = reversed.filter( save => !save.isAuto)
+      debugger;
+    }
+
     return (
       <ul className='save-list-items scrollable-list'>
         {
@@ -33,6 +53,7 @@ class SaveHistoryModal extends React.Component {
 
   render() {
     const { saves } =  this.props
+    const autoSaveText = this.hideAutoSaves ? "Show Auto-Saves" : "Hide Auto-Saves";
 
     if ( saves.length === 0 ) {
       return <div> </div>
@@ -49,6 +70,11 @@ class SaveHistoryModal extends React.Component {
             <h4>Saved By</h4>
           </section>
             { this.renderList() }
+          <footer>
+            <p className='show-auto-saves'
+              onClick={() => this.handleShowAutos()}
+            > {autoSaveText}</p>
+          </footer>
         </div>
       )
     }
