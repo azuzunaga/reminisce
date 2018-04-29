@@ -16,7 +16,7 @@ class SaveHistoryModal extends React.Component {
     const { users, saves } = this.props;
     const reversed = saves.reverse();
     return (
-      <ul claassName='save-list-items'>
+      <ul className='save-list-items scrollable-list'>
         {
           reversed.map(save => {
             return (
