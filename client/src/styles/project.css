@@ -6,20 +6,6 @@
   text-decoration: underline #226CE0;
 }
 
-
-.doc-header-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 45%;
-}
-
-.doc-list-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 45%;
-}
-
-
 .save-history {
   font-family: 'Josefin Sans', sans-serif;
   text-align: center;
@@ -76,4 +62,47 @@ i.new-hidden {
   font-family: 'Josefin Sans', sans-serif;
   color: #434343;
   align-items: center;
+}
+
+.draft-drop-down-header {
+  display: flex;
+  align-items: center;
+}
+
+.main-list .draft-drop-down-button {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: #666666;
+}
+
+.draft-drop-down-button:hover {
+  cursor: pointer;
+  color: #CA2E55;
+}
+
+.draft-drop-down-button h4 {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.list-item.document {
+  display: grid;
+  grid-template-columns: 0.4fr 12fr;
+}
+
+.list-item.document a {
+  display: grid;
+  grid-template-columns: 6fr 3fr 3fr;
+}
+
+
+.sub-header.project-show {
+  display: grid;
+  grid-template-columns: 6.4fr 3fr 3fr
+}
+
+.document .doc-title {
+  text-align: left;
 }
