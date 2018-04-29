@@ -5,7 +5,8 @@ import {
   FETCH_REVISION,
   FETCH_PROJECT,
   FETCH_DRAFT,
-  CREATE_SAVE
+  CREATE_SAVE,
+  FETCH_MERGE
 } from '../actions/types';
 
 export default (state = {}, action) => {
@@ -34,6 +35,8 @@ export default (state = {}, action) => {
     return merge({}, state, action.revisions);
   case FETCH_DRAFT:
     return merge({}, state, action.revisions);
+  case FETCH_MERGE:
+    return merge({}, state, action.data.revisions);
   default:
     return state;
   }
