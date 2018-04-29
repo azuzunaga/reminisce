@@ -16,6 +16,7 @@ import {
   SET_ALL_CONFLICTS,
   UPDATE_CONFLICT_SELECTION,
   FETCH_MERGE,
+  DELETE_PROJECT,
 
 } from './types';
 
@@ -170,6 +171,21 @@ export const newProject = (project) => async dispatch => {
       errors: res.response.data
     });
   });
+};
+
+export const deleteProject = id => async dispatch => {
+  return await axios.delete(`/api/projects/${id}`)
+    .then(function(res) {
+      dispatch({
+        type: DELETE_PROJECT,
+        ...res.data
+      });
+    }).catch(function(res) {
+      dispatch({
+        type: FORM_ERROR,
+        errors: res.response.data
+      });
+    });
 };
 
 export const receiveErrors =(errors) => ({
