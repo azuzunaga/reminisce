@@ -65,7 +65,7 @@ class Project extends React.Component {
             <aside className='aside-left'>
               <LeftSidebar
                 activeDraft={this.props.activeDraft}
-                project={this.props.project}
+                projectId={this.props.project._id}
                 drafts={this.props.drafts}
                 view="ProjectShow"
                 revisions={this.props.revisions}

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/projectFileTree.css';
 
 class ProjectFileTree extends React.Component {
+
   menu() {
     if (this.props.view === 'DocumentForm') {
       return (
@@ -34,7 +35,7 @@ class ProjectFileTree extends React.Component {
         <header>
           <Link to="/dashboard">
             <h5>To Projects Dashboard</h5>
-            <i class="material-icons">chevron_left</i>
+            <i className="material-icons">chevron_left</i>
           </Link>
         </header>
         <div>

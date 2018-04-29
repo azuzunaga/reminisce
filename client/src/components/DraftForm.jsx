@@ -11,7 +11,6 @@ class DraftForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      projectId: this.props.project._id,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -21,7 +20,7 @@ class DraftForm extends React.Component {
     e.preventDefault();
     let draft = {
       name: this.state.name,
-      projectId: this.props.project._id,
+      projectId: this.props.projectId,
       saveIds: this.props.activeDraft.saveIds
     };
 

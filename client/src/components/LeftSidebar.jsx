@@ -10,7 +10,7 @@ class LeftSidebar extends React.Component {
         <div>
           <DraftForm
             activeDraft={this.props.activeDraft}
-            project={this.props.project}
+            projectId={this.props.projectId}
             drafts={this.props.drafts}
           />
         </div>
@@ -18,7 +18,7 @@ class LeftSidebar extends React.Component {
     } else {
       return (
         <ProjectFileTree
-          project={this.props.project}
+          projectId={this.props.projectId}
           revisions={this.props.revisions}
         />
       );
