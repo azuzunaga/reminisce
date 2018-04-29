@@ -9,8 +9,6 @@ module.exports = app => {
   app.get("/api/merge", async (req, res) => {
     const mainDraft = await Draft.findById(req.query.mainDraftId);
     const mergeDraft = await Draft.findById(req.query.mergeDraftId);
-    console.log(mainDraft);
-    console.log(mergeDraft);
     const minLength = Math.min(
       mainDraft.saveIds.length,
       mergeDraft.saveIds.length
