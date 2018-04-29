@@ -46,7 +46,7 @@ module.exports = app => {
     save.save();
 
     const draft = new Draft({
-      name: "main",
+      name: "Main",
       projectId: project.id,
       saveIds: [save.id]
     });
