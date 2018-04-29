@@ -8,13 +8,14 @@ import ul from '../assets/ul-icon.png';
 import { openModal, closeModal, createSave, fetchRevision } from '../actions/index';
 import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
-
+import TitleErrorModal from './TitleErrorModal';
 class DocumentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
-      title: this.props.document.title
+      title: this.props.document.title,
+      body: ''
     };
 
     this.focus = () => this.refs.editor.focus();
@@ -23,15 +24,20 @@ class DocumentForm extends React.Component {
     this.onTab = (e) => this._onTab(e);
     this.handleSave = this.handleSave.bind(this);
     this.update = this.update.bind(this);
+    this.makeSaveReq = this.makeSaveReq.bind(this);
+    this.createSave = this.createSave.bind(this);
   }
 
-  saveContent = debounce((content) => {
-    this.handleSave();
+  saveTitle = debounce(() => {
+    this.handleSave('title-change');
+  }, 3000);
+
+  saveContent = debounce(() => {
+    this.handleSave('auto-save');
   }, 15000);
 
-
   onChange(editorState) {
-    this.saveContent(editorState);
+    this.saveContent();
     this.setState({editorState});
   }
 
@@ -79,24 +85,33 @@ class DocumentForm extends React.Component {
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
 
-  handleSave() {
-    let docu = this.state.editorState;
+  makeSaveReq(typeofSave) {
+    let auto = typeofSave === 'auto-save' ? true : false;
+    this.setState({body: this.state.editorState});
     let body = convertToRaw(this.state.editorState.getCurrentContent());
-    const save = Object.assign({}, {
-      save: { name: 'auto-save',
-        draftId: this.props.draft._id, isAuto: true},
-        newRevs: [{title: this.state.title,
-        body: body}],
-        deletedRevIds: [this.props.document._id]
+    return Object.assign({}, {
+      save: {name: typeofSave,
+        draftId: this.props.draft._id, isAuto: auto},
+      newRevs: [{title: this.state.title,
+      body: body}],
+      deletedRevIds: [this.props.document._id]
     });
+  }
+
+  createSave(save) {
     this.props.createSave(save).then((payload) => {
       this.props.history.replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
     }).catch( () => {
-      alert(this.props.errors);
+      this.props.openModal(<TitleErrorModal />)
       this.setState({
-        editorState: docu
-      })
+        editorState: this.state.body
+      });
     });
+  }
+
+  handleSave(typeofSave) {
+    let save = this.makeSaveReq(typeofSave);
+    this.createSave(save);
   }
 
   handleBlockClick(type) {
@@ -104,11 +119,12 @@ class DocumentForm extends React.Component {
   }
 
   update(field) {
-
-    return e =>
+    return e => {
       this.setState({
         [field]: e.currentTarget.value
-    });
+      });
+      this.saveTitle();
+    }
   }
 
   render () {
