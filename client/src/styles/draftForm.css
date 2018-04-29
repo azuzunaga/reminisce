@@ -103,8 +103,12 @@ ul {
   color: #666666;
 }
 
-.list-item {
-  padding: 5px 0;
+.draft-list .list-item {
+  padding: 10px 20px;
+}
+
+.list-item.draft {
+  padding-left: 20;
 }
 
 .draft-menu.hidden {

@@ -44,16 +44,16 @@ class DraftForm extends React.Component {
     const draftMenu = document.getElementsByClassName('draft-menu')[0];
     const icon = document.getElementsByClassName('material-icons')[0];
 
-    icon.innerHTML = icon.innerHTML === 'arrow_drop_down'
-      ? 'arrow_drop_up'
-      : 'arrow_drop_down';
+    icon.innerHTML = icon.innerHTML === 'expand_more'
+      ? 'expand_less'
+      : 'expand_more';
 
     draftMenu.classList.toggle('hidden');
   }
 
   drafts(draftsArray) {
     return (
-      <ul>
+      <ul className="draft-list">
         {draftsArray.map(draft => {
           return (
             <li key={draft._id}
@@ -85,7 +85,7 @@ class DraftForm extends React.Component {
             <h4>
               {this.props.activeDraft.name}
             </h4>
-            <i className="material-icons">arrow_drop_down</i>
+            <i className="material-icons">expand_more</i>
           </div>
         </div>
         <div className="draft-menu hidden">
