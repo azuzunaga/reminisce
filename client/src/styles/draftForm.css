@@ -25,14 +25,18 @@
 }
 
 .draft-form form {
-  width: 100%
+  width: 100%;
 }
 
 .draft-form.text {
+  padding: 5px 0;
   padding-left: 10px;
   border: 1px solid lightgray;
   border-left: none;
   border-right: none;
+  font-size: 16px;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #666666;
 }
 
 .draft-form.submit {
@@ -86,4 +90,19 @@
   font-weight: 400;
   margin: 0;
   display: inline;
+}
+
+.list-item:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: #FAFAFA;
+}
+
+ul {
+  background-color: white;
+  color: #666666;
+}
+
+.list-item {
+  padding: 5px 0;
 }
