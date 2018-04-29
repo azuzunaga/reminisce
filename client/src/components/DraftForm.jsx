@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createDraft, fetchDraft } from '../actions';
 
 import '../styles/draftForm.css';
+import '../styles/stylingList.css';
 
 class DraftForm extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class DraftForm extends React.Component {
     };
 
     this.props.createDraft(draft);
-
+    this.setState({name: ''});
   }
 
   update(field) {
@@ -44,7 +45,11 @@ class DraftForm extends React.Component {
       <ul>
         {draftsArray.map(draft => {
           return (
-            <li key={draft._id} onClick={this.handleClick} id={draft._id}>
+            <li key={draft._id}
+              onClick={this.handleClick}
+              id={draft._id}
+              className="list-item draft"
+            >
               {draft.name}
             </li>
           );
@@ -77,6 +82,7 @@ class DraftForm extends React.Component {
               placeholder="New Draft"
               onChange={this.update('name')}
               className="draft-form text"
+              value={this.state.name}
             />
             <input
               className="draft-form submit "
