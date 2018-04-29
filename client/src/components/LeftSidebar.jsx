@@ -13,6 +13,7 @@ class LeftSidebar extends React.Component {
           drafts={this.props.drafts}
         />
         <ProjectFileTree
+          project={this.props.project}
           view={this.props.view}
           revisions={this.props.revisions}
         />
