@@ -1,12 +1,19 @@
+//libraries
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import DraftsListItem from './DraftsListItem';
+
+//utils & actions
 import { closeModal, openModal } from '../actions';
-import { fetchProject, setDrafts, fetchMerge } from '../actions/index'
+import { fetchProject, setDrafts, fetchMerge, setAllConflicts } from '../actions/index'
 import mergeSaves from '../utils/mergeSaves';
 import { dateTimeFormatter } from '../utils/dateFormatter';
+
+//components
+import DraftsListItem from './DraftsListItem';
 import CombineDraftsModal from './CombineDraftsModal';
+
+//styles
 import '../styles/combinedrafts.css';
 import '../styles/stylingMain.css';
 
@@ -98,12 +105,26 @@ class CombineDrafts extends React.Component {
       mainDraftId: winningDraft,
       mergeDraftId: losingDraft,
     }).then(merge => {
-      const res = mergeSaves(merge.data.mainSave, merge.data.mergeSave, merge.data.parentSave, merge.data.revisions)
-      console.log(res);
+      const response = mergeSaves(merge.data.mainSave, merge.data.mergeSave, merge.data.parentSave, merge.data.revisions)
+      const conflicts = {};
+      let counter = 1;
+      response.forEach(doc => {
+        if (doc.chunks) {
+          const docConflicts = doc.getConflicts();
+          docConflicts.forEach(conflict => {
+            conflicts[counter] = {
+              id: counter,
+              name: doc.title,
+              body: conflict,
+              selectedDraft: null,
+            }
+            counter += 1;
+          })
+        }
+      })
+
+      this.props.setAllConflicts(conflicts);
     })
-
-
-
   }
 
   renderList() {
@@ -196,6 +217,7 @@ const mapDispatchToProps = dispatch => {
     setDrafts: drafts => dispatch(setDrafts(drafts)),
     combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal />)),
     fetchMerge: params => dispatch(fetchMerge(params)),
+    setAllConflicts: conflicts => dispatch(setAllConflicts(conflicts)),
   };
 };
 

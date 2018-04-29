@@ -32,30 +32,36 @@ class ResolveConflictsModal extends React.Component {
 
   render() {
 
-    const { conflict, drafts } = this.props;
+    const { drafts } = this.props;
+    const { body } = this.props.conflict;
+    const { draft1, draft2, winningDraft } = this.props.selectedDrafts;
+    const losingDraft = draft1 === winningDraft ? draft2 : draft1;
+    const mainDraft = draft1 === winningDraft ? drafts[draft1].name : drafts[draft2].name;
+    const mergeDraft = draft1 === winningDraft ? drafts[draft2].name : drafts[draft1].name;
+
       return (
         <div className='resolve-conflicts-modal'>
           <header className='conflicts-header'>
-            <h3>Resolve Conflict: {conflict.document} </h3> <span onClick={() => this.props.combineDraftsModal()} className="close-x">x</span>
+            <h3>Resolve Conflict: {body.document} </h3> <span onClick={() => this.props.combineDraftsModal()} className="close-x">x</span>
           </header>
           <div className="resolve-comparison-section">
             <section className="conflict-draft-section">
-              <h4> Draft: {drafts.draft1}</h4>
+              <h4> Draft: {mainDraft}</h4>
               <div className='conflict-text'>
-                <p> {conflict.contextBefore} </p>
-                <p className='draft1 conflict-paragraph'> <mark className='draft1-highlight'> {conflict.draft1} </mark> </p>
-                <p> {conflict.contextAfter} </p>
+                <p> <div dangerouslySetInnerHTML={{__html: body.contextBefore}} /> </p>
+                <p className='conflict-paragraph-mainDraft'> <div dangerouslySetInnerHTML={{__html: body.mainDraft}} /></p>
+                <p> <div dangerouslySetInnerHTML={{__html: body.contextAfter}} /> </p>
               </div>
-              <button onClick={this.handleSelection(drafts.draft1)} className='draft1-button'>Use Me </button>
+              <button onClick={this.handleSelection(winningDraft)} className='draft1-button'>Use Me </button>
             </section>
             <section className="conflict-draft-section">
-              <h4> Draft: {drafts.draft2} </h4>
+              <h4> Draft: {mergeDraft} </h4>
               <div className='conflict-text'>
-                <p> {conflict.contextBefore} </p>
-                <p className='draft2 conflict-paragraph'> <mark className='draft2-highlight'> {conflict.draft2} </mark>  </p>
-                <p> {conflict.contextAfter} </p>
+                <p> <div dangerouslySetInnerHTML={{__html: body.contextBefore}} /> </p>
+                <p className='conflict-paragraph-mergeDraft'> <div dangerouslySetInnerHTML={{__html: body.mergeDraft}} />  </p>
+                <p> <div dangerouslySetInnerHTML={{__html: body.contextAfter}} /> </p>
               </div>
-                <button onClick={this.handleSelection(drafts.draft2)}  className='draft2-button'>Use Me</button>
+                <button onClick={this.handleSelection(losingDraft)}  className='draft2-button'>Use Me</button>
             </section>
           </div>
         </div>
@@ -68,7 +74,8 @@ class ResolveConflictsModal extends React.Component {
 const mapStateToProps = state => {
   return {
     modal: state.ui.modal,
-    drafts: state.ui.selectedDrafts,
+    selectedDrafts: state.ui.selectedDrafts,
+    drafts: state.drafts,
     saves: Object.values(state.saves),
     users: state.users
 
