@@ -26,6 +26,7 @@
 
 .list-name {
   display: flex;
+  align-items: center;
 }
 
 .edit-button-pencil {
@@ -37,4 +38,12 @@
 
 .pencil {
   height: 10px;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 20px;
 }
