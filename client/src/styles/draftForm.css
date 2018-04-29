@@ -3,7 +3,7 @@
 .draft-form-container {
   display: flex;
   flex-direction: column;
-  border: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
   font-family: 'Josefin Sans', sans-serif;
 }
 
