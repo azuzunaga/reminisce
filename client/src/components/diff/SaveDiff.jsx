@@ -48,13 +48,14 @@ class SaveDiff extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const save = state.saves[ownProps.saveId];
   if (!save) return {};
+
   const prevSave = state.saves[save.previousSaveId] || { revisionIds: [] };
-  const revisions = pickBy(
-    state.revisions,
-    (rev, id) =>
-      prevSave.revisionIds.includes(id) || save.revisionIds.includes(id)
-  );
-  const changedRevisions = diffSaves(prevSave, save, revisions);
+  if (!prevSave) return {};
+
+  const revisionIds = save.revisionIds.concat(prevSave.revisionIds);
+  if (!revisionIds.every( id => state.revisions[id])) return {};
+
+  const changedRevisions = diffSaves(prevSave, save, state.revisions);
   return {
     save,
     prevSave,

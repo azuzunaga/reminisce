@@ -29,14 +29,6 @@ export default (state = {}, action) => {
      newState[draft._id] = merge({}, draft,
        {saveIds: draft.saveIds.concat([action.save._id])});
      return newState;
-  case FETCH_SAVE:
-    newState = Object.assign({}, state);
-    const saveId = Object.keys(action.saves)[0];
-    const draftId = action.saves[saveId].draftId;
-    draft = newState[action.draftId];
-    newState[draftId] = merge({}, draft,
-      {saveIds: draft.saveIds.concat([action.save._id])});
-    return newState;
   default:
     return state;
   }
