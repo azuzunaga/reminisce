@@ -99,6 +99,7 @@ input.save {
   font-size: 18px;
   color: white;
   background-color: #999;
+  border: none;
 }
 
 .new-form .cancel-button:hover {
