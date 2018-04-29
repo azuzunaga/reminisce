@@ -70,17 +70,6 @@ class Project extends React.Component {
               />
             </aside>
             <section className='main-list'>
-              <div className='draft-drop-down-header'>
-                <h4 className="draft-version">
-                  Draft Version:
-                </h4>
-                <div className="draft-drop-down-button">
-                  <h4>
-                    {this.props.activeDraft.name}
-                  </h4>
-                  <i className="material-icons">arrow_drop_down</i>
-                </div>
-              </div>
               <div className="project-header">
                 <h3>Documents</h3>
                 {this.props.newModal}
