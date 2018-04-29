@@ -6,6 +6,9 @@ import { fetchSave } from '../../actions';
 import diffSaves from '../../utils/diffSaves';
 import RevisionDiff from './RevisionDiff';
 
+import { dateTimeFormatter } from '../../utils/dateFormatter';
+
+
 class SaveDiff extends React.Component {
   constructor(props) {
     super(props);
@@ -23,21 +26,12 @@ class SaveDiff extends React.Component {
       return <div className="diff-view loading" />;
     }
     const { save, changedRevisions } = this.props;
+    const saveTime = dateTimeFormatter(save.createdAt)
     return (
       <div className="diff-view">
-        <h3>Save: {save.name}</h3>
+        <h3>Document: {changedRevisions[0].title} <span> (changes since previous save) </span></h3>
+        <h4>Save:  {save.name} | {saveTime}  </h4>
         <div className="diff-table">
-          <ol className="rev-titles">
-            {changedRevisions.map((rev, idx) => (
-              <li
-                onClick={() => this.setState({ activeRevisionIdx: idx })}
-                key={rev._id}
-                className={idx === this.state.activeRevisionIdx ? 'active' : ''}
-                >
-                {rev.title}
-              </li>
-            ))}
-          </ol>
           <RevisionDiff rev={changedRevisions[this.state.activeRevisionIdx]} />
         </div>
       </div>

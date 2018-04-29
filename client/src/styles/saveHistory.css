@@ -1,10 +1,10 @@
 .save-history-modal {
-  width: 60vw;
-  min-height: 67vh;
-  max-height: 67vh;
   background: white;
   overflow: scroll;
   display: flex;
+  width: 50vw;
+  min-height: 67vh;
+  max-height: 67vh;
   flex-direction: column;
   justify-content: space-between;
 }

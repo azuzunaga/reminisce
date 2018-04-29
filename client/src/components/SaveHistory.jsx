@@ -28,11 +28,8 @@ class SaveHistoryModal extends React.Component {
   renderList() {
     const { users, saves } = this.props;
     let reversed = saves.slice(1).reverse();
-    debugger;
-
     if (this.hideAutoSaves) {
       reversed = reversed.filter( save => !save.isAuto)
-      debugger;
     }
 
     return (
