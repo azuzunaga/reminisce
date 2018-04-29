@@ -97,6 +97,7 @@ class CombineDrafts extends React.Component {
       draft1: draft1,
       draft2: draft2,
       winningDraft: winningDraft,
+      losingDraft: losingDraft,
     });
 
     that.props.combineDraftsModal();

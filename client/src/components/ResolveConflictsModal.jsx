@@ -34,10 +34,9 @@ class ResolveConflictsModal extends React.Component {
 
     const { drafts } = this.props;
     const { body } = this.props.conflict;
-    const { draft1, draft2, winningDraft } = this.props.selectedDrafts;
-    const losingDraft = draft1 === winningDraft ? draft2 : draft1;
-    const mainDraft = draft1 === winningDraft ? drafts[draft1].name : drafts[draft2].name;
-    const mergeDraft = draft1 === winningDraft ? drafts[draft2].name : drafts[draft1].name;
+    const { draft1, draft2, winningDraft, losingDraft } = this.props.selectedDrafts;
+    const mainDraft =  drafts[winningDraft].name;
+    const mergeDraft = drafts[losingDraft].name;
 
       return (
         <div className='resolve-conflicts-modal'>
