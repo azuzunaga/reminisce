@@ -13,6 +13,13 @@ class LeftSidebar extends React.Component {
             projectId={this.props.projectId}
             drafts={this.props.drafts}
           />
+          <ProjectFileTree
+            projectId={this.props.projectId}
+            revisions={this.props.revisions}
+            view={this.props.view}
+            projectName={this.props.projectName}
+            documentId={this.props.documentId}
+          />
         </div>
       );
     } else {
@@ -20,6 +27,9 @@ class LeftSidebar extends React.Component {
         <ProjectFileTree
           projectId={this.props.projectId}
           revisions={this.props.revisions}
+          view={this.props.view}
+          projectName={this.props.projectName}
+          documentId={this.props.documentId}
         />
       );
     }
