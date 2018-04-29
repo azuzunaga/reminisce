@@ -12,7 +12,10 @@ class LeftSidebar extends React.Component {
           project={this.props.project}
           drafts={this.props.drafts}
         />
-        <ProjectFileTree />
+        <ProjectFileTree
+          view={this.props.view}
+          revisions={this.props.revisions}
+        />
       </div>
     );
   }

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
+
+
+.project-file-tree {
+  font-family: 'Josefin Sans', sans-serif;
+  padding-left: 10px;
+}
+
+.project-file-tree header {
+  background-color: #F7F7F7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+a:hover {
+  /* text-decoration: underline; */
+  color: #17BEBB;
+}
+
+h5 {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 15px 0;
+  padding: 5px 0;
+}
+
+/* i:hover {
+  text-decoration: none;
+} */

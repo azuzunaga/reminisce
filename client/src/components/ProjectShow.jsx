@@ -67,6 +67,8 @@ class Project extends React.Component {
                 activeDraft={this.props.activeDraft}
                 project={this.props.project}
                 drafts={this.props.drafts}
+                view="DocumentForm"
+                revisions={this.props.revisions}
               />
             </aside>
             <section className='main-list'>
