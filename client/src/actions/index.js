@@ -115,10 +115,11 @@ export const setDrafts = drafts => (
   }
 )
 
-export const setAllConflicts = conflicts => (
+export const setAllConflicts = (conflicts, revisions) => (
   {
     type: SET_ALL_CONFLICTS,
-    conflicts
+    conflicts,
+    revisions
   }
 )
 
