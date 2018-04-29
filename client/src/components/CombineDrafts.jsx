@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 //utils & actions
 import { closeModal, openModal } from '../actions';
-import { fetchProject, setDrafts, fetchMerge, setAllConflicts } from '../actions/index'
+import { fetchProject, setDrafts, fetchMerge, setAllConflicts } from '../actions/index';
 import mergeSaves from '../utils/mergeSaves';
 import { dateTimeFormatter } from '../utils/dateFormatter';
 
@@ -106,8 +106,9 @@ class CombineDrafts extends React.Component {
       mainDraftId: winningDraft,
       mergeDraftId: losingDraft,
     }).then(merge => {
-      const response = mergeSaves(merge.data.mainSave, merge.data.mergeSave, merge.data.parentSave, merge.data.revisions)
+      const response = mergeSaves(merge.data.mainSave, merge.data.mergeSave, merge.data.parentSave, merge.data.revisions);
       const conflicts = {};
+      const revisions = [];
       let counter = 1;
       response.forEach(doc => {
         if (doc.chunks) {
@@ -118,28 +119,30 @@ class CombineDrafts extends React.Component {
               name: doc.title,
               body: conflict,
               selectedDraft: null,
-            }
+            };
             counter += 1;
-          })
+          });
+        } else {
+          revisions.push(doc);
         }
-      })
+      });
 
-      this.props.setAllConflicts(conflicts);
-    })
+      this.props.setAllConflicts(conflicts, revisions);
+    });
   }
 
   renderList() {
     const { drafts } = this.props;
-    const draftKeys = Object.keys(drafts)
+    const draftKeys = Object.keys(drafts);
     return (
       <ul className="scrollable-list">
       {
         draftKeys.map( draftId => {
-          return ( this.renderListItem(drafts[draftId]) )
+          return ( this.renderListItem(drafts[draftId]) );
         })
       }
       </ul>
-    )
+    );
   }
 
   render() {
@@ -190,7 +193,7 @@ class CombineDrafts extends React.Component {
           </main>
         </div>
 
-    )
+    );
   }
 }
 
@@ -205,7 +208,7 @@ const mapStateToProps = state => {
     users: state.users,
     merge: state.ui.merge,
    };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -214,7 +217,9 @@ const mapDispatchToProps = dispatch => {
     setDrafts: drafts => dispatch(setDrafts(drafts)),
     combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal />)),
     fetchMerge: params => dispatch(fetchMerge(params)),
-    setAllConflicts: conflicts => dispatch(setAllConflicts(conflicts)),
+    setAllConflicts: (conflicts, revisions) => (
+      dispatch(setAllConflicts(conflicts, revisions))
+    )
   };
 };
 

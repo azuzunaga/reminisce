@@ -40,6 +40,7 @@ class CombineDraftsModal extends React.Component {
     return e => {
       e.preventDefault();
       console.log('combineeeee baby')
+
     }
   }
 
@@ -98,6 +99,7 @@ class CombineDraftsModal extends React.Component {
   }
 
   render() {
+    debugger
     const { draft1, draft2, winningDraft } = this.props.selectedDrafts;
       return (
         <div className='draft-conflicts-modal'>
@@ -146,12 +148,21 @@ class CombineDraftsModal extends React.Component {
 
 
 const mapStateToProps = state => {
+  const mainSave = state.ui.merge.mainSave;
+  let lastSaveRevisions = [];
+  if (mainSave) {
+    lastSaveRevisions = mainSave.revisionIds.map(
+      id => state.revisions[id]
+    );
+  }
   return {
     selectedDrafts: state.ui.selectedDrafts,
     drafts: state.drafts,
     saves: Object.values(state.saves),
     users: state.users,
     conflicts: state.ui.conflicts,
+    lastSaveRevisions,
+    mergeRevisions: state.ui.merge.revisions
   };
 };
 
