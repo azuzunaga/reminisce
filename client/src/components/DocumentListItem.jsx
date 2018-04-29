@@ -13,6 +13,7 @@ class DocumentListItem extends React.Component {
     const { doc, user, projectId, draftId } = this.props;
 
     return (
+<<<<<<< HEAD
       <li className='list-item'>
         <div className='list-name'>
           <Link to={`/project/${projectId}/document/${doc._id}`}>
@@ -41,9 +42,24 @@ class DocumentListItem extends React.Component {
           </button>
         </div>
         <div className='doc-list-details'>
+=======
+      <li className='list-item document'>
+        <button className="edit-button-pencil"
+          onClick={() =>
+            this.props.openModal(
+              <TitleEditForm
+                document={doc}
+                projectId={projectId}
+              />
+            )}>
+            <i className="fa fa-pencil"></i>
+        </button>
+        <Link to={`/project/${projectId}/document/${doc._id}`}>
+          <p className='doc-title'> {doc.title}</p>
+>>>>>>> cf8934048d9ae2553cdfb77433086f09bf5ef3ec
           <p>{dateTimeFormatter(doc.createdAt)}</p>
           <p>{user.firstName}</p>
-        </div>
+        </Link>
       </li>
     );
   }

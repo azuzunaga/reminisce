@@ -6,11 +6,6 @@
   text-decoration: underline #17BEBB;
 }
 
-.project-details {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  width: 45%;
-}
 
 .project-details > * {
   text-align: center;
@@ -43,4 +38,14 @@ i.new-hidden {
   font-family: 'Josefin Sans', sans-serif;
   color: #434343;
   align-items: center;
+}
+
+.sub-header.project-dashboard {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr;
+}
+
+.list-item.project {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr;
 }
