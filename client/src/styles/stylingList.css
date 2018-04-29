@@ -29,6 +29,12 @@
   align-items: center;
 }
 
+.list-item .wrap {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
 .edit-button-pencil {
   width: 30px;
   background: none;
