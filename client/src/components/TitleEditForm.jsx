@@ -3,7 +3,7 @@ import { createSave, closeModal, receiveErrors } from '../actions';
 import '../styles/newForm.css';
 import React from 'react';
 
-class TitleErrorModal extends React.Component {
+class TitleEditForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -92,4 +92,4 @@ const mapDispatchToProps = (dispatch) => ({
   clearErrors: () => dispatch(receiveErrors([]))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TitleErrorModal);
+export default connect(mapStateToProps, mapDispatchToProps)(TitleEditForm);
