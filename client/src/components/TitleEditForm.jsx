@@ -15,6 +15,10 @@ class TitleEditForm extends React.Component {
     this.update = this.update.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
   update(field) {
     return e =>
       this.setState({
@@ -30,7 +34,6 @@ class TitleEditForm extends React.Component {
         newRevs: [{title: this.state.title, body: this.props.document.body}],
         deletedRevIds: [this.props.document._id]
     });
-    console.log(save);
     this.props.clearErrors();
     this.props.createSave(save).then(this.checkErrors.bind(this));
   }
@@ -58,8 +61,8 @@ class TitleEditForm extends React.Component {
           <input id="required-input"
             className="new-form name"
             type="text"
-            placeholder={this.state.title}
             onChange={this.update('title')}
+            value={this.state.title}
           />
           {this.renderErrors()}
           <input
