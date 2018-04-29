@@ -7,7 +7,7 @@ class SaveRev extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { name: '', title: this.props.title };
+    this.state = { name: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,7 +36,7 @@ class SaveRev extends React.Component {
         isAuto: false
       },
       newRevs: [{
-        title: this.state.title,
+        title: this.props.document.title,
         body: this.props.body
       }],
       deletedRevIds: [this.props.document._id]
@@ -92,7 +92,6 @@ const mapStateToProps = (state, ownProps) => {
     document: ownProps.document,
     draftId: ownProps.draftId,
     errors: state.errors,
-    title: ownProps.title
   };
 };
 
