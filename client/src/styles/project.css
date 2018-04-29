@@ -7,19 +7,6 @@
 }
 
 
-.doc-header-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 45%;
-}
-
-.doc-list-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 45%;
-}
-
-
 .draft-version {
   font-weight: normal;
   font-size: 24px;
@@ -111,4 +98,24 @@ i.new-hidden {
   font-size: 24px;
   font-weight: 400;
   margin: 0;
+}
+
+.list-item.document {
+  display: grid;
+  grid-template-columns: 0.4fr 12fr;
+}
+
+.list-item.document a {
+  display: grid;
+  grid-template-columns: 6fr 3fr 3fr;
+}
+
+
+.sub-header.project-show {
+  display: grid;
+  grid-template-columns: 6.4fr 3fr 3fr
+}
+
+.document .doc-title {
+  text-align: left;
 }

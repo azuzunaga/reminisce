@@ -15,7 +15,6 @@ class DraftsListItem extends React.Component {
   toggleSelect() {
     return e => {
       this.selectedCounter += 1;
-      console.log(this.selectedCounter);
     }
   }
   render() {

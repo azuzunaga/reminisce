@@ -14,11 +14,8 @@
 .sub-header-left h4 {
   text-align: left;
 }
-
-.draft-header-right {
-  width: 45%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.draft-header-right h4 {
+  text-align: center;
 }
 
 .list-left {
@@ -42,7 +39,10 @@
 }
 
 
-
+.sub-header.drafts {
+  display: grid;
+  grid-template-columns:  11fr 4.5fr 4.5fr;
+}
 .checkbox-filter {
   opacity: 0;
   position: absolute;

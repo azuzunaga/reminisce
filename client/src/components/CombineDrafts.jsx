@@ -161,14 +161,10 @@ class CombineDrafts extends React.Component {
                 <h3>Drafts</h3>
                 <p className='main-header-helper-text'> (Select 2) </p>
               </div>
-              <div className='sub-header'>
-                <div className='sub-header-left'>
-                  <h4> Draft Version</h4>
-                </div>
-                <div className='draft-header-right'>
-                  <h4>Last Saved</h4>
-                  <h4>Saved By</h4>
-                </div>
+              <div className='sub-header drafts'>
+                <h4> Draft Version</h4>
+                <h4>Last Saved</h4>
+                <h4>Saved By</h4>
               </div>
               { this.renderList() }
               <div className='combine-drafts-footer'>

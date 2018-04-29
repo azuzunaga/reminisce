@@ -8,7 +8,6 @@ class SaveListItem extends React.Component {
   render() {
 
     const { save, users } = this.props;
-    console.log(save);
     const saveTime = dateTimeFormatter(save.createdAt)
 
     return (
