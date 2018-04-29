@@ -90,3 +90,7 @@ i.new-hidden {
 .document .doc-title {
   text-align: left;
 }
+
+.aside-left {
+  overflow: scroll;
+}
