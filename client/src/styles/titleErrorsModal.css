@@ -1,0 +1,15 @@
+.title-change-errors {
+  background: #EF6F6C;
+  min-height: 400px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.title-change-errors li {
+  color: white;
+  padding: 0 15px;
+  list-style: none;
+}
