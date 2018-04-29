@@ -1,7 +1,9 @@
 .save-history-modal {
   width: 60vw;
-  height: 67vh;
+  min-height: 67vh;
+  max-height: 67vh;
   background: white;
+  overflow: scroll;
 }
 
 .save-history-modal header {
@@ -13,6 +15,9 @@
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
   margin: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .save-history-modal span {
@@ -39,6 +44,11 @@
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
   padding: 15px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 50px;
+  width: 100%;
+
 }
 
 
@@ -65,6 +75,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
   padding: 0px 15px;
+  cursor: pointer;
 }
 
 .save-list-item p {
@@ -86,4 +97,5 @@
 .save-history-modal ul {
   padding: 0;
   margin: 0;
+  margin-top: 100px;
 }

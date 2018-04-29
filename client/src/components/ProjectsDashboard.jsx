@@ -55,13 +55,10 @@ class ProjectsDashboard extends React.Component {
               <h3>Projects</h3>
               {this.props.openModal}
             </div>
-            <div className='sub-header'>
+            <div className='sub-header project-dashboard'>
               <h4>Project Name</h4>
-              <div className='sub-header-right'>
-                <h4>Owner</h4>
-                <h4>Last Modified</h4>
-                <h4>Modified By</h4>
-              </div>
+              <h4>Owner</h4>
+              <h4>Last Modified</h4>
             </div>
               { this.renderList() }
           </section>

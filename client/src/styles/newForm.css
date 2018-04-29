@@ -80,3 +80,27 @@ input.save {
 .submit:hover {
   cursor: pointer;
 }
+
+
+.new-form .buttons-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons-holder input.new-form.submit {
+  margin: 15px;
+}
+
+.new-form .cancel-button {
+  margin: 15px;
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+  color: white;
+  background-color: #999;
+}
+
+.new-form .cancel-button:hover {
+  cursor: pointer;
+}

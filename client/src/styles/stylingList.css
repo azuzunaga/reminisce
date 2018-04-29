@@ -23,3 +23,40 @@
   padding: 0;
   margin: 0;
 }
+
+.list-name {
+  display: flex;
+  align-items: center;
+}
+
+.list-item .wrap {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.edit-button-pencil {
+  width: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-button-pencil i {
+  font-size: 14px;
+  color: #E0E0E0;
+  margin: 0;
+  padding: 0;
+}
+
+.edit-button-pencil i:hover {
+  color: #666666;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 20px;
+}

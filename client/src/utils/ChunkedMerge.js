@@ -38,7 +38,7 @@ class ChunkedMerge {
       conflicts.push({
         contextBefore: prevChunk
           .slice(prevChunk.length - this.contextLength)
-          .join(),
+          .join(''),
         contextAfter: nextChunk.slice(0, this.contextLength).join(''),
         mainDraft: this.chunks[i].mainLines.join(''),
         mergeDraft: this.chunks[i].mergeLines.join('')

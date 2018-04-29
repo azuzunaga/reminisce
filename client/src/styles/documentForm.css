@@ -20,27 +20,30 @@
 }
 
 .save-button {
+  margin-left: 25%;
+  margin-top: 30px;
   background: #EF6F6C;
   color: white;
   border: none;
-  padding: 10px;
-  height: 30px;
+  padding: 15px;
   min-width: 120px;
   font-size: 16px;
   cursor: pointer;
+  font-family:  'Josefin Sans', sans-serif;
 }
 
 .header {
   background: #EF6F6C;
   display: block;
   color: white;
-  padding: 35px 0;
+  padding: 30px 0;
   text-align: center;
-  font-size: 42px;
+  font-size: 40px;
   font-family: 'Josefin Sans', sans-serif;
   margin: 0 auto;
-  font-weight: normal;
+  font-weight: 400;
   width: 100vw;
+  box-shadow: 0px 5px 8px -5px #d8d6d6, 0px -5px 8px -5px #d8d6d6;
 }
 
 .draft-version {
@@ -54,9 +57,10 @@
   color: #F5F5F5;
   display: flex;
   justify-content: center;
-  margin: 0 auto !important;
-  width: 80%;
+  margin: 0 auto;
+  width: 100%;
   background: #F5F5F5;
+
 }
 
 .toolbar li {
@@ -76,16 +80,16 @@
 .editor .public-DraftEditor-content {
   min-height: 400px;
   padding: 20px;
-  margin: 0 10px;
+  padding-top: 30px;
+  /* margin: 0 10px; */
+  overflow: scroll;
 
 }
 
 .editor {
   margin: 0 auto;
-  margin-top: 10px;
-  width: 80%;
+  width: 100%;
   background: #FFFDFD;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 .bold {
@@ -102,4 +106,13 @@
 
 .ul {
   height: 20px;
+}
+
+.editor-main {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  overflow: scroll;
+}
+
+.header.doc-form {
+  border: none;
 }
