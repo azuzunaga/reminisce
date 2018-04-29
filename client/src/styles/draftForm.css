@@ -106,3 +106,7 @@ ul {
 .list-item {
   padding: 5px 0;
 }
+
+.draft-menu.hidden {
+  display: none;
+}

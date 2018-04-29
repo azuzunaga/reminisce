@@ -40,6 +40,17 @@ class DraftForm extends React.Component {
     this.props.fetchDraft(draftId);
   }
 
+  toggleDraftMenu() {
+    const draftMenu = document.getElementsByClassName('draft-menu')[0];
+    const icon = document.getElementsByClassName('material-icons')[0];
+
+    icon.innerHTML = icon.innerHTML === 'arrow_drop_down'
+      ? 'arrow_drop_up'
+      : 'arrow_drop_down';
+
+    draftMenu.classList.toggle('hidden');
+  }
+
   drafts(draftsArray) {
     return (
       <ul>
@@ -67,29 +78,34 @@ class DraftForm extends React.Component {
           <h4 className="draft-version">
             Draft Version:
           </h4>
-          <div className="draft-drop-down-button">
+          <div
+            className="draft-drop-down-button"
+            onClick={this.toggleDraftMenu}
+          >
             <h4>
               {this.props.activeDraft.name}
             </h4>
             <i className="material-icons">arrow_drop_down</i>
           </div>
         </div>
-        {this.drafts(draftsArray)}
-        <div className="draft-form">
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="text"
-              placeholder="New Draft"
-              onChange={this.update('name')}
-              className="draft-form text"
-              value={this.state.name}
-            />
-            <input
-              className="draft-form submit "
-              type="submit"
-              value="Create Draft"
-            />
-          </form>
+        <div className="draft-menu hidden">
+          {this.drafts(draftsArray)}
+          <div className="draft-form">
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                placeholder="New Draft"
+                onChange={this.update('name')}
+                className="draft-form text"
+                value={this.state.name}
+              />
+              <input
+                className="draft-form submit "
+                type="submit"
+                value="Create Draft"
+              />
+            </form>
+          </div>
         </div>
       </div>
     );
