@@ -5,20 +5,24 @@ import ProjectFileTree from './ProjectFileTree';
 
 class LeftSidebar extends React.Component {
   render() {
-    return (
-      <div>
-        <DraftForm
-          activeDraft={this.props.activeDraft}
-          project={this.props.project}
-          drafts={this.props.drafts}
-        />
+    if (this.props.view === 'ProjectShow') {
+      return (
+        <div>
+          <DraftForm
+            activeDraft={this.props.activeDraft}
+            project={this.props.project}
+            drafts={this.props.drafts}
+          />
+        </div>
+      );
+    } else {
+      return (
         <ProjectFileTree
           project={this.props.project}
-          view={this.props.view}
           revisions={this.props.revisions}
         />
-      </div>
-    );
+      );
+    }
   }
 }
 
