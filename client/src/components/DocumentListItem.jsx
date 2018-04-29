@@ -5,6 +5,7 @@ import { dateTimeFormatter } from '../utils/dateFormatter';
 import { Link } from 'react-router-dom';
 import { openModal } from '../actions';
 import TitleEditForm from './TitleEditForm';
+import ConfirmDeleteForm from './ConfirmDeleteForm';
 import pencil from '../assets/pencil-edit-button.png';
 class DocumentListItem extends React.Component {
   render() {
@@ -27,13 +28,22 @@ class DocumentListItem extends React.Component {
               )}>
             <img className="pencil" src={pencil} alt="Edit Title"/>
           </button>
+          <button
+            className="delete-button"
+            onClick={
+              () => this.props.openModal(
+                <ConfirmDeleteForm revisionId={doc._id} projectId={projectId} />
+              )
+            }>
+            ×
+          </button>
         </div>
         <div className='doc-list-details'>
           <p>{dateTimeFormatter(doc.createdAt)}</p>
           <p>{user.firstName}</p>
         </div>
       </li>
-    )
+    );
   }
 }
 
@@ -45,6 +55,6 @@ function mapStateToProps({ auth }) {
 
 const mapDispatchToProps = (dispatch) => ({
   openModal: (component) => dispatch(openModal(component))
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentListItem);
