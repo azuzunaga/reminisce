@@ -98,6 +98,6 @@ module.exports = app => {
   app.delete("/api/projects/:id", async (req, res) => {
     const project = await Project.findById(req.params.id);
     await project.remove();
-    res.json(project);
+    res.json({ project });
   });
 };
