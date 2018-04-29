@@ -185,15 +185,6 @@
 }
 
 
-.draft1-highlight {
-  background-color: #AFE3E3;
-}
-
-.draft2-highlight {
-  background-color: #9abcf1;
-}
-
-
 .conflicts-checkbox-filter {
   opacity: 0;
   position: absolute;
@@ -313,4 +304,13 @@
   font-size: 14px;
   border: 1px solid #D3D3D3;
   background: white;
+}
+
+
+.conflict-paragraph-mainDraft {
+  background: #AFE3E3;
+}
+
+.conflict-paragraph-mergeDraft {
+  background-color: #9abcf1;
 }

@@ -16,7 +16,6 @@ const byParentLine = diff => {
       result[result.length - 1].push(operation);
     }
   });
-  console.log(result);
   return result;
 };
 
@@ -44,15 +43,13 @@ const mergeRevisions = (mainRev, mergeRev) => {
       });
     }
   }
-  debugger;
-  console.log(chunks)
+
   return chunks;
 };
 
 const mergeSaves = (mainSave, mergeSave, parentSave, revisions) => {
   const mainRevs = keyBy(diffSaves(parentSave, mainSave, revisions), 'title');
   const mergeRevs = keyBy(diffSaves(parentSave, mergeSave, revisions), 'title');
-  debugger;
 
   const titles = uniq([...Object.keys(mainRevs), ...Object.keys(mergeRevs)]);
 
@@ -61,7 +58,6 @@ const mergeSaves = (mainSave, mergeSave, parentSave, revisions) => {
     const mergeRev = mergeRevs[title];
     if (!mergeRev) return mainRev;
     if (!mainRev) return mergeRev;
-    debugger;
     return mergeRevisions(mainRev, mergeRev);
     // let merge = mergeRevisions(mainRev, mergeRev);
     // if (merge.getConflicts().length === 0) {

@@ -1,58 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { openModal, closeModal } from '../actions';
-import { fetchDraft, setAllConflicts, updateConflictSelection } from '../actions/index';
+import { fetchDraft, updateConflictSelection } from '../actions/index';
 import ResolveConflictsModal from './ResolveConflictsModal';
 import '../styles/draftConflicts.css';
-
-
-const draftConflicts = {
-  1: {
-    document: 'Chapter One',
-    id: 1,
-    contextBefore: 'before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context before context before context before context before context before context  before context before context  before context before context  before context before context',
-    draft1: 'draft1-Lorem ipsum dolor sit amet, ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    draft2: 'draft2-four score and 7 years ago,  ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    contextAfter:'after context after context after context after context after context  after context after context  after context after context  after context after context context after context after context after context  after context after context  after context after context  after context after context context after context after context after context  after context after context  after context after context  after context after context',
-    selectedDraft: null,
-  },
-  2: {
-    document: 'Chapter One',
-    id: 2,
-    contextBefore: 'before context before context before context before context before context  before context before context  before context before context  before context before context',
-    draft1: 'draft1-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    draft2: 'draft2-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    contextAfter:'after context after context after context after context after context  after context after context  after context after context  after context after context',
-    selectedDraft: null,
-  },
-  3: {
-    document: 'Chapter Two',
-    id: 3,
-    contextBefore: 'before context before context before context before context before context  before context before context  before context before context  before context before context',
-    draft1: 'draft1-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    draft2: 'draft2-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    contextAfter:'after context after context after context after context after context  after context after context  after context after context  after context after context',
-    selectedDraft: null,
-  },
-  4: {
-    document: 'Chapter Three',
-    id: 4,
-    contextBefore: 'before context before context before context before context before context  before context before context  before context before context  before context before context',
-    draft1: 'draft1-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    draft2: 'draft2-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    contextAfter:'after context after context after context after context after context  after context after context  after context after context  after context after context',
-    selectedDraft: null,
-  },
-  5: {
-    document: 'Chapter Three',
-    id: 5,
-    contextBefore: 'before context before context before context before context before context  before context before context  before context before context  before context before context',
-    draft1: 'draft1-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    draft2: 'draft2-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    contextAfter:'after context after context after context after context after context  after context after context  after context after context  after context after context',
-    selectedDraft: null,
-  }
-}
 
 class CombineDraftsModal extends React.Component {
 
@@ -63,10 +14,6 @@ class CombineDraftsModal extends React.Component {
   }
 
   componentDidMount() {
-    if (Object.keys(this.props.conflicts).length === 0) {
-      this.props.setAllConflicts(draftConflicts);
-    }
-
     const combineButton = document.getElementById('combine-drafts-modal-button');
     combineButton.disabled = true;
     this.checkAllSelected();
@@ -115,21 +62,22 @@ class CombineDraftsModal extends React.Component {
   }
 
   renderListItem(conflict) {
+    const { drafts } = this.props;
     return (
       <li className='draft-conflicts-list-item'
-      key={`conflict-${conflict.document}-${conflict.id}`}>
+      key={`conflict-${conflict.name}-${conflict.id}`}>
         <div className='draft-conflicts-resolve'
           onClick={() => this.props.resolveConflictsModal(conflict)}>
           <p>{conflict.id}</p>
-          <p>{conflict.document}</p>
-          <p>{conflict.selectedDraft === null ? "" : conflict.selectedDraft } </p>
+          <p>{conflict.name}</p>
+          <p>{conflict.selectedDraft === null ? "" : drafts[conflict.selectedDraft].name} </p>
           <input
             id={`conflict-${conflict.document}-${conflict.id}`}
             className='conflicts-checkbox-filter'
             type="checkbox"
             checked={ conflict.selectedDraft === null ?  "" : "checked"}
              />
-         <label htmlFor={`conflict-${conflict.document}-${conflict.id}`} className='conflicts-checkbox-label'> </label>
+         <label htmlFor={`conflict-${conflict.name}-${conflict.id}`} className='conflicts-checkbox-label'> </label>
 
         </div>
       </li>
@@ -150,7 +98,7 @@ class CombineDraftsModal extends React.Component {
   }
 
   render() {
-    const { draft1, draft2, winningDraft } = this.props.drafts;
+    const { draft1, draft2, winningDraft } = this.props.selectedDrafts;
       return (
         <div className='draft-conflicts-modal'>
           <div>
@@ -199,8 +147,8 @@ class CombineDraftsModal extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    modal: state.ui.modal,
-    drafts: state.ui.selectedDrafts,
+    selectedDrafts: state.ui.selectedDrafts,
+    drafts: state.drafts,
     saves: Object.values(state.saves),
     users: state.users,
     conflicts: state.ui.conflicts,
@@ -211,7 +159,6 @@ const mapDispatchToProps = dispatch => {
   return {
     closeModal: () => dispatch(closeModal()),
     fetchDraft: id => dispatch(fetchDraft(id)),
-    setAllConflicts: conflicts => dispatch(setAllConflicts(conflicts)),
     resolveConflictsModal: conflict => dispatch(openModal(<ResolveConflictsModal conflict={conflict}/>)),
     updateConflictSelection: conflict => dispatch(updateConflictSelection(conflict)),
 
