@@ -7,9 +7,20 @@ class ProjectFileTree extends React.Component {
   menu() {
     if (this.props.view === 'DocumentForm') {
       return (
-        <div>
-          hello
-        </div>
+        <ul className="project-file-tree-list">
+          {this.props.revisions.map(doc => {
+            return (
+              <li>
+                <Link
+                  to={`/project/${this.props.project._id}/document/${doc._id}`}
+                >
+                  <i class="material-icons">chevron_right</i>
+                  <h6>{doc.title}</h6>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       );
     } else {
       return null;
@@ -26,9 +37,9 @@ class ProjectFileTree extends React.Component {
             <i class="material-icons">chevron_left</i>
           </Link>
         </header>
-        <main>
+        <div>
           {this.menu()}
-        </main>
+        </div>
       </div>
     );
   }
