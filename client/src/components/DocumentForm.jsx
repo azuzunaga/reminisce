@@ -3,8 +3,8 @@ import { Editor, EditorState, RichUtils,
   convertToRaw, convertFromRaw, getDefaultKeyBinding,
   KeyBindingUtil } from 'draft-js';
 import { connect } from 'react-redux';
-import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
+import '../styles/documentForm.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
 import { openModal, closeModal, createSave, fetchRevision } from '../actions/index';
@@ -116,7 +116,7 @@ class DocumentForm extends React.Component {
       draftId: this.props.draft._id, isAuto: auto},
       newRevs: [{title: this.state.title,
       body: body}],
-      deletedRevIds: [this.props.document._id]
+      deletedRevIds: [this.props.documentId]
     });
   }
 
