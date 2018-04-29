@@ -7,7 +7,7 @@ class ChunkedMerge {
   }
 
   addOps(ops) {
-    const lines = ops.map(op => op.data);
+    const lines = ops.filter(op => op.type !== 'delete').map(op => op.data);
     if (this.inConflict) {
       this.chunks.push(lines);
     } else {
