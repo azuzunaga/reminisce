@@ -6,6 +6,7 @@ import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import SaveHistory from  './SaveHistory';
 import DraftForm from './DraftForm';
+import LeftSidebar from './LeftSidebar';
 
 import { closeModal, openModal } from '../actions';
 import { dateTimeFormatter } from '../utils/dateFormatter';
@@ -62,6 +63,11 @@ class Project extends React.Component {
           </header>
           <main className='main'>
             <aside className='aside-left'>
+              <LeftSidebar
+                activeDraft={this.props.activeDraft}
+                project={this.props.project}
+                drafts={this.props.drafts}
+              />
             </aside>
             <section className='main-list'>
               <div className='draft-drop-down-header'>
@@ -87,11 +93,6 @@ class Project extends React.Component {
                 </div>
               </div>
               { this.renderList() }
-              <DraftForm
-                activeDraft={this.props.activeDraft}
-                project={this.props.project}
-                drafts={this.props.drafts}
-              />
             </section>
             <aside className='aside-right save-history'>
               {this.props.saveModal}

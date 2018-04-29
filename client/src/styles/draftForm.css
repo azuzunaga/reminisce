@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
+
 .draft-form-container {
   display: flex;
   flex-direction: column;
-  width: 400px;
   border: 1px solid lightgray;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .draft-form-container li {
@@ -17,9 +19,13 @@
 
 .draft-form {
   box-sizing: border-box;
-  width: 400px;
+  width: 100%;
   align-items: center;
   display: flex;
+}
+
+.draft-form form {
+  width: 100%
 }
 
 .draft-form.text {
@@ -41,7 +47,42 @@
   line-height: 40px;
 }
 
+.draft-version {
+  font-weight: normal;
+  font-size: 24px;
+  font-family: 'Josefin Sans', sans-serif;
+  background: white;
+  padding: 0;
+  margin: 15px 20px;
+  margin-right: 0;
+  color:  #434343;
+  display: inline-block;
+}
+
 .draft-form.submit:hover {
   background-color: #af2649;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.draft-drop-down-header {
+  display: flex;
+  align-items: center;
+}
+
+.main-list .draft-drop-down-button {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: #666666;
+}
+
+.draft-drop-down-button:hover {
+  cursor: pointer;
+  color: #CA2E55;
+}
+
+.draft-drop-down-button h4 {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
 }

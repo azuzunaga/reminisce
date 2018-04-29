@@ -58,7 +58,17 @@ class DraftForm extends React.Component {
 
     return (
       <div className="draft-form-container">
-        HAI IM DRAFTFORM
+        <div className='draft-drop-down-header'>
+          <h4 className="draft-version">
+            Draft Version:
+          </h4>
+          <div className="draft-drop-down-button">
+            <h4>
+              {this.props.activeDraft.name}
+            </h4>
+            <i className="material-icons">arrow_drop_down</i>
+          </div>
+        </div>
         {this.drafts(draftsArray)}
         <div className="draft-form">
           <form onSubmit={this.handleSubmit}>
