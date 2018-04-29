@@ -1,12 +1,18 @@
+//libraries
 import React from 'react';
 import { connect } from 'react-redux';
 import { pickBy } from 'lodash';
 
+//utils & actions
 import { fetchSave } from '../../actions';
 import diffSaves from '../../utils/diffSaves';
-import RevisionDiff from './RevisionDiff';
-
 import { dateTimeFormatter } from '../../utils/dateFormatter';
+import { openModal, closeModal } from '../../actions';
+
+//components
+import RevisionDiff from './RevisionDiff';
+import SaveHistoryModal from '../SaveHistory';
+
 
 
 class SaveDiff extends React.Component {
@@ -29,7 +35,12 @@ class SaveDiff extends React.Component {
     const saveTime = dateTimeFormatter(save.createdAt)
     return (
       <div className="diff-view">
-        <h3>Document: {changedRevisions[0].title} <span> (changes since previous save) </span></h3>
+        <h3>
+          <div>Document: {changedRevisions[0].title} </div>
+          <span> (changes since previous save) </span>
+          <strong onClick={() => this.props.saveHistoryModal()} className="close-x">x</strong>
+        </h3>
+
         <h4>Save:  {save.name} | {saveTime}  </h4>
         <div className="diff-table">
           <RevisionDiff rev={changedRevisions[this.state.activeRevisionIdx]} />
@@ -58,7 +69,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchSave: id => dispatch(fetchSave(id))
+  fetchSave: id => dispatch(fetchSave(id)),
+  saveHistoryModal: () => dispatch(openModal(<SaveHistoryModal />)),
+  closeModal: () => dispatch(closeModal()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveDiff);
