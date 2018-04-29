@@ -116,6 +116,6 @@ i.new-hidden {
   grid-template-columns: 6.4fr 3fr 3fr
 }
 
-.doc-title {
+.document .doc-title {
   text-align: left;
 }
