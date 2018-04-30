@@ -12,10 +12,10 @@ const Splash = () => {
       </h4>
       <div className="login-buttons">
         <a className="google-signin" href="/auth/google">
-          log in
+          login
         </a>
         <a className="google-signin" href="/api/demo_login">
-          Demo User
+          demo
         </a>
       </div>
     </div>
