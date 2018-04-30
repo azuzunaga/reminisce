@@ -24,7 +24,6 @@ class SaveHistoryModal extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     if (this.props.draft._id != nextProps.draft._id) {
       this.props.fetchDraft(nextProps.draft._id);
     }
@@ -39,9 +38,9 @@ class SaveHistoryModal extends React.Component {
 
 
   renderList() {
-    const { users, saves, draft } = this.props;
+    const { users, saves } = this.props;
 
-    const draftSaves = draft.saveIds.map(id => saves[id]);
+    const draftSaves = this.props.activeDraft.saveIds.map(id => saves[id]);
     let reversed = draftSaves.slice(1).reverse();
 
     if (this.hideAutoSaves) {
@@ -57,7 +56,8 @@ class SaveHistoryModal extends React.Component {
               <SaveListItem
               save={save}
               users={users}
-              key={save._id} />
+              key={save._id}
+              activeDraft={this.props.activeDraft} />
             )
           })
         }
@@ -66,10 +66,11 @@ class SaveHistoryModal extends React.Component {
   }
 
   render() {
-    const { saves, draft } =  this.props
+    const { saves } =  this.props
     const autoSaveText = this.hideAutoSaves ? "Show Auto-Saves" : "Hide Auto-Saves";
+    debugger;
 
-    if ( draft.saveIds.length === 0 ) {
+    if ( this.props.activeDraft.saveIds.length === 0 ) {
       return <div> </div>
     } else {
       return (
@@ -96,12 +97,13 @@ class SaveHistoryModal extends React.Component {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     modal: state.ui.modal,
-    draft: Object.values(state.drafts)[0],
+    draft: ownProps.activeDraft,
     saves: state.saves,
     users: state.users
+
   };
 };
 

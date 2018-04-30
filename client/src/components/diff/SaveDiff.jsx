@@ -34,11 +34,12 @@ class SaveDiff extends React.Component {
     const { save, changedRevisions } = this.props;
 
     const saveTime = dateTimeFormatter(save.createdAt)
+    debugger;
     return (
       <div className="diff-view">
         <h3>
           <div>Document: {changedRevisions[0].title} <span> (changes since previous save) </span></div>
-          <strong onClick={() => this.props.saveHistoryModal()} className="close-x">x</strong>
+          <strong onClick={() => this.props.saveHistoryModal(this.props.activeDraft)} className="close-x">x</strong>
         </h3>
 
         <h4>Save:  {save.name} | {saveTime}  </h4>
@@ -69,7 +70,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchSave: id => dispatch(fetchSave(id)),
-  saveHistoryModal: () => dispatch(openModal(<SaveHistoryModal />)),
+  saveHistoryModal: activeDraft => dispatch(openModal(<SaveHistoryModal activeDraft={activeDraft}/>)),
   closeModal: () => dispatch(closeModal()),
 
 });
