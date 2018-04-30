@@ -34,7 +34,6 @@ class SaveDiff extends React.Component {
     const { save, changedRevisions } = this.props;
 
     const saveTime = dateTimeFormatter(save.createdAt)
-    debugger;
     return (
       <div className="diff-view">
         <h3>
