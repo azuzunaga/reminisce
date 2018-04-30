@@ -33,9 +33,9 @@ class ProjectsListItem extends React.Component {
           </button>
 
         </div>
-        <Link to={`/users/${project.ownerId}`}>
+        
           <p>{users[project.ownerId].firstName}</p>
-        </Link>
+
         <p>{dateTimeFormatter(project.updatedAt)}</p>
       </li>
     );
