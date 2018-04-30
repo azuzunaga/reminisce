@@ -62,7 +62,6 @@ input.new-form.submit {
   border: none;
   color: white;
   font-family: 'Josefin Sans', sans-serif;
-  font-weight: 300;
 }
 
 input.Document {
@@ -100,6 +99,8 @@ input.save {
   color: white;
   background-color: #999;
   border: none;
+  font-family: 'Josefin Sans', sans-serif;
+
 }
 
 .new-form .cancel-button:hover {
