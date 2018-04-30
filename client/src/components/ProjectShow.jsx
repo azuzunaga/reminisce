@@ -92,7 +92,9 @@ class Project extends React.Component {
               />
             </section>
             <aside className='aside-right save-history'>
-              {this.props.saveModal}
+              <button onClick={() => this.props.saveModal(this.props.activeDraft)}>
+                View Save History
+              </button>
               <div className="last-save">
                 <p> Last saved: </p>
                 <p> { lastSavedDate } </p>
@@ -137,11 +139,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     fetchDraft: id => dispatch(fetchDraft(id)),
-    saveModal: (
-      <button onClick={() => dispatch(openModal(<SaveHistory />))}>
-        View Save History
-      </button>
-    ),
+    saveModal:  activeDraft => dispatch(openModal(<SaveHistory activeDraft={activeDraft} />)),
     newModal: (
       <div
         className="add-icon"

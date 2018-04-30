@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { closeModal } from '../actions';
 import { fetchDraft } from '../actions/index'
 
@@ -23,6 +24,7 @@ class SaveHistoryModal extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
+    debugger;
     if (this.props.draft._id != nextProps.draft._id) {
       this.props.fetchDraft(nextProps.draft._id);
     }
@@ -110,4 +112,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SaveHistoryModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SaveHistoryModal));
