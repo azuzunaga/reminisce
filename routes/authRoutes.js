@@ -27,7 +27,7 @@ module.exports = app => {
   });
 
   app.get("/api/demo_login", (req, res) => {
-    req.session.passport.user = keys.demoUserId;
+    req.session = { passport: { user: keys.demoUserId } };
     res.redirect("/");
   });
 };
