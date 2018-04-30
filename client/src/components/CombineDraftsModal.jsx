@@ -25,6 +25,10 @@ class CombineDraftsModal extends React.Component {
     // 3. Display results from UI conflicts reducer
   }
 
+  componentDidUpdate() {
+    this.checkAllSelected();
+  }
+
   handleChooseDraft(e) {
     const { conflicts, drafts } = this.props;
     const conflictIds = Object.keys(conflicts);
@@ -66,8 +70,6 @@ class CombineDraftsModal extends React.Component {
       .filter(rev => newTitles.includes(rev.title))
       .map(rev => rev._id);
 
-    debugger;
-
     this.props.createSave({
       save: {
         name: `Merge from draft: ${this.props.mergeDraft.name}`,
@@ -85,7 +87,7 @@ class CombineDraftsModal extends React.Component {
   checkAllSelected() {
     const checkboxes = Array.from(document.getElementsByClassName('conflicts-checkbox-filter'));
 
-    if (checkboxes.length > 0) {
+    if (!this.props.loading) {
       const checked = checkboxes.filter(checkbox => checkbox.checked === true).length;
       const combineButton = document.getElementById('combine-drafts-modal-button');
       if (checked === checkboxes.length) {
@@ -201,7 +203,8 @@ const mapStateToProps = (state, ownProps) => {
     lastSaveRevisions,
     mergeRevisions: state.ui.merge.revisions,
     chunkedMerges: state.ui.merge.chunkedMerges,
-    mergeDraft: state.drafts[state.ui.selectedDrafts.losingDraft]
+    mergeDraft: state.drafts[state.ui.selectedDrafts.losingDraft],
+    loading: state.ui.merge.loading
   };
 };
 

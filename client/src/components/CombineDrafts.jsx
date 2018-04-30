@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 //utils & actions
-import { closeModal, openModal } from '../actions';
+import { closeModal, openModal, mergeLoading } from '../actions';
 import { fetchProject, setDrafts, fetchMerge, setAllConflicts } from '../actions/index';
 import mergeSaves from '../utils/mergeSaves';
 import { dateTimeFormatter } from '../utils/dateFormatter';
@@ -101,6 +101,8 @@ class CombineDrafts extends React.Component {
     });
 
     that.props.combineDraftsModal();
+
+    that.props.mergeLoading();
 
     that.props.fetchMerge({
       mainDraftId: winningDraft,
@@ -226,7 +228,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     fetchMerge: params => dispatch(fetchMerge(params)),
     setAllConflicts: (...args) => (
       dispatch(setAllConflicts(...args))
-    )
+    ),
+    mergeLoading: () => dispatch(mergeLoading())
   };
 };
 
