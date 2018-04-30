@@ -1,7 +1,7 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils,
   convertToRaw, convertFromRaw, getDefaultKeyBinding,
-  KeyBindingUtil } from 'draft-js';
+  KeyBindingUtil, Modifier } from 'draft-js';
 import { connect } from 'react-redux';
 import '../styles/stylingMain.css';
 import '../styles/documentForm.css';
@@ -13,6 +13,7 @@ import SaveRev from './SaveRev';
 import TitleErrorModal from './TitleErrorModal';
 
 const {hasCommandModifier} = KeyBindingUtil;
+const tabCharacter = "    ";
 class DocumentForm extends React.Component {
 
   constructor(props) {
@@ -103,8 +104,16 @@ class DocumentForm extends React.Component {
 
   _onTab(e) {
     e.preventDefault();
-    const maxDepth = 4;
-    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+    let currentState = this.state.editorState;
+    let newContentState = Modifier.replaceText(
+      currentState.getCurrentContent(),
+      currentState.getSelection(),
+      tabCharacter
+    );
+
+    this.setState({
+      editorState: EditorState.push(currentState, newContentState, 'insert-characters')
+    })
   }
 
   makeSaveReq(typeofSave) {

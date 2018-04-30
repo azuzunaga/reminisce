@@ -82,8 +82,6 @@
   padding: 20px;
   padding-top: 30px;
   /* margin: 0 10px; */
-  overflow: scroll;
-
 }
 
 .editor h1 {
@@ -111,6 +109,17 @@
    text-align: inherit;
 }
 
+.editor ul {
+  display: block;
+ list-style-type: disc;
+ -webkit-margin-before: 1em;
+ -webkit-margin-after: 1em;
+ -webkit-margin-start: 0px;
+ -webkit-margin-end: 0px;
+ -webkit-padding-start: 40px;
+
+}
+
 .editor {
   margin: 0 auto;
   width: 100%;
@@ -136,6 +145,7 @@
 .editor-main {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   overflow: scroll;
+  min-width: 500px;
 }
 
 .header.doc-form {
