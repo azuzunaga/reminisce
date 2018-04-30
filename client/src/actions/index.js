@@ -17,6 +17,7 @@ import {
   UPDATE_CONFLICT_SELECTION,
   FETCH_MERGE,
   DELETE_PROJECT,
+  MERGE_LOADING
 
 } from './types';
 
@@ -206,3 +207,7 @@ export const fetchMerge = params => async dispatch => {
     })
   })
 }
+
+export const mergeLoading = () => ({
+  type: MERGE_LOADING
+});
