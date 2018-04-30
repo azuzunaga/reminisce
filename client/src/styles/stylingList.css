@@ -72,5 +72,7 @@
 .error-message {
   color: #bb0000;
   list-style: none;
-  left: 0;
+  padding-right: 15%;
+  margin-top: 0;
+
 }
