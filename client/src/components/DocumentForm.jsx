@@ -171,6 +171,7 @@ class DocumentForm extends React.Component {
   }
 
   render () {
+    console.log(this.props.projectName, this.props.projectId);
     if (!this.state.editorState) {
       return (<div>Loading...</div>);
     }
@@ -288,7 +289,7 @@ function mapStateToProps(state, ownProps) {
   if (draft.saveIds) {
     let save = state.saves[draft.saveIds[draft.saveIds.length - 1]];
     if (save) {
-      revisions = save.revisionIds.map(id => state.revisions[id]);  
+      revisions = save.revisionIds.map(id => state.revisions[id]);
     }
   }
 

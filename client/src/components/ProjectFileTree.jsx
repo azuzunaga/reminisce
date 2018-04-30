@@ -64,12 +64,6 @@ class ProjectFileTree extends React.Component {
   render() {
     return (
       <div className="project-file-tree">
-        <header>
-          <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
-            <h5>To Projects Dashboard</h5>
-            <i className="material-icons">chevron_left</i>
-          </Link>
-        </header>
         {this.menu()}
       </div>
     );

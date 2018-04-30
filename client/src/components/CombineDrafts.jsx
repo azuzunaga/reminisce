@@ -2,6 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { find } from 'lodash';
+
 
 //utils & actions
 import { closeModal, openModal, mergeLoading } from '../actions';
@@ -12,6 +14,7 @@ import { dateTimeFormatter } from '../utils/dateFormatter';
 //components
 import DraftsListItem from './DraftsListItem';
 import CombineDraftsModal from './CombineDraftsModal';
+import LeftSidebar from './LeftSidebar';
 
 //styles
 import '../styles/combinedrafts.css';
@@ -153,6 +156,7 @@ class CombineDrafts extends React.Component {
   }
 
   render() {
+    console.log(this.props.activeDraft);
     const { drafts } = this.props;
     const { draft1, draft2 } = this.props.selectedDrafts;
     const draft1Name = drafts[draft1] ? drafts[draft1].name : "";
@@ -163,8 +167,14 @@ class CombineDrafts extends React.Component {
         <header className='combine-drafts'>
           <h2>Combine Drafts</h2>
         </header>
-          <main className='main'>
-            <aside className='aside-left'>
+        <main className='main'>
+          <aside className='aside-left'>
+            <LeftSidebar
+              drafts={drafts}
+              activeDraft={this.props.activeDraft}
+              projectName={this.props.projectName}
+              projectId={this.props.projectId}
+            />
             </aside>
             <section className='main-list'>
               <div className="project-header">
@@ -205,7 +215,15 @@ class CombineDrafts extends React.Component {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const project = state.projects[ownProps.match.params.projectId];
+  if (project === undefined || !project.draftIds) return {};
+  const activeDraftId = find(state.auth.projectsActiveDraft, el => (
+    el.projectId === project._id
+  )).draftId;
+  const activeDraft = state.drafts[activeDraftId];
+
+
   return {
     modal: state.ui.modal,
     conflicts: state.ui.conflicts,
@@ -214,7 +232,10 @@ const mapStateToProps = state => {
     saves: state.saves,
     users: state.users,
     merge: state.ui.merge,
-   };
+    activeDraft: activeDraft,
+    projectId: ownProps.match.params.projectId,
+    projectName: project.name
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
