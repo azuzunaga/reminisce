@@ -16,18 +16,18 @@ class DocumentListItem extends React.Component {
         <div className="wrap">
           <p className='doc-title'>
             <Link to={`/project/${projectId}/document/${doc._id}`}>
-            {doc.title}
+              {doc.title}
             </Link>
           </p>
 
           <button className="edit-button-pencil"
-          onClick={() =>
-            this.props.openModal(
-              <TitleEditForm
-              document={doc}
-              projectId={projectId}
-              />
-            )}>
+            onClick={() =>
+              this.props.openModal(
+                <TitleEditForm
+                  document={doc}
+                  projectId={projectId}
+                />
+              )}>
             <i className="fa fa-pencil"></i>
           </button>
           <button
@@ -35,11 +35,11 @@ class DocumentListItem extends React.Component {
             onClick={
               () => this.props.openModal(
                 <ConfirmDeleteForm
-                message="Are you sure you want to delete this document?"
-                action={this.props.deleteDocument(doc, draftId)} />
+                  message="Are you sure you want to delete this document?"
+                  action={this.props.deleteDocument(doc, draftId)} />
               )
             }>
-            <i class="fa fa-trash" aria-hidden="true"></i>
+            <i className="fa fa-trash" aria-hidden="true"></i>
           </button>
         </div>
         <p>{dateTimeFormatter(doc.createdAt)}</p>
