@@ -1,5 +1,4 @@
-import { stateToHTML } from 'draft-js-export-html';
-import { convertFromRaw } from 'draft-js';
+import { getRevHTML } from './draftUtils.js';
 
 const shortestEdit = (original, target) => {
   const [n, m] = [original.length, target.length];
@@ -112,10 +111,6 @@ const diffRevisions = (original, target) => {
   result.reverse();
   return result;
 };
-
-const getRevHTML = rev => (
-  stateToHTML(convertFromRaw(Object.assign(rev.body, {entityMap: {}}))).split('\n')
-);
 
 const diffSaves = (original, target, revisions) => {
   const changedRevs = [];

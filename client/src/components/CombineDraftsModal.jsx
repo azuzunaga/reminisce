@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { openModal, closeModal } from '../actions';
+import { groupBy } from 'lodash';
+import { withRouter } from 'react-router-dom';
+
+import { openModal, closeModal, createSave } from '../actions';
 import { fetchDraft, updateConflictSelection } from '../actions/index';
 import ResolveConflictsModal from './ResolveConflictsModal';
 import '../styles/draftConflicts.css';
@@ -36,11 +39,47 @@ class CombineDraftsModal extends React.Component {
 
   }
 
-  handleCombine() {
-    return e => {
-      e.preventDefault();
-      console.log('combineeeee baby')
+  handleCombine(e) {
+    e.preventDefault();
+    const conflicts = [];
+    Object.values(this.props.conflicts).forEach(conflict => {
+      conflicts[conflict.conflictIdx] = conflicts[conflict.conflictIdx] || [];
+      conflicts[conflict.conflictIdx].push(conflict);
+    });
+    const orderedConflicts = conflicts.map(el => el.sort((x, y) => x.id - y.id));
+    const revisions = this.props.mergeRevisions;
+    const mainDraftId = this.props.selectedDrafts.winningDraft;
+    for (let i = 0; i < orderedConflicts.length; i++) {
+      const resolutions = orderedConflicts[i].map(c => {
+        if (c.selectedDraft === mainDraftId) {
+          return c.body.mainDraft;
+        } else {
+          return c.body.mergeDraft;
+        }
+      });
+      revisions.push(this.props.chunkedMerges[i].resolveConflicts(resolutions));
     }
+
+    const newTitles = revisions.map(r => r.title);
+
+    const deletedRevIds = this.props.lastSaveRevisions
+      .filter(rev => newTitles.includes(rev.title))
+      .map(rev => rev._id);
+
+    debugger;
+
+    this.props.createSave({
+      save: {
+        name: `Merge from draft: ${this.props.mergeDraft.name}`,
+        draftId: this.props.selectedDrafts.winningDraft,
+      },
+      newRevs: revisions,
+      deletedRevIds
+    }).then(payload => {
+      this.props.closeModal();
+      this.props.history.push(`/projects/${this.props.projectId}`);
+    });
+
   }
 
   checkAllSelected() {
@@ -145,24 +184,35 @@ class CombineDraftsModal extends React.Component {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const mainSave = state.ui.merge.mainSave;
+  let lastSaveRevisions = [];
+  if (mainSave) {
+    lastSaveRevisions = mainSave.revisionIds.map(
+      id => state.revisions[id]
+    );
+  }
   return {
     selectedDrafts: state.ui.selectedDrafts,
     drafts: state.drafts,
     saves: Object.values(state.saves),
     users: state.users,
     conflicts: state.ui.conflicts,
+    lastSaveRevisions,
+    mergeRevisions: state.ui.merge.revisions,
+    chunkedMerges: state.ui.merge.chunkedMerges,
+    mergeDraft: state.drafts[state.ui.selectedDrafts.losingDraft]
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     closeModal: () => dispatch(closeModal()),
     fetchDraft: id => dispatch(fetchDraft(id)),
-    resolveConflictsModal: conflict => dispatch(openModal(<ResolveConflictsModal conflict={conflict}/>)),
+    resolveConflictsModal: conflict => dispatch(openModal(<ResolveConflictsModal projectId={ownProps.projectId} conflict={conflict}/>)),
     updateConflictSelection: conflict => dispatch(updateConflictSelection(conflict)),
-
+    createSave: save => dispatch(createSave(save))
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CombineDraftsModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CombineDraftsModal));

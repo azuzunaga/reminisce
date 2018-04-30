@@ -1,3 +1,5 @@
+import { convertToDraftJS } from './draftUtils';
+
 class ChunkedMerge {
   constructor(title) {
     this.title = title;
@@ -61,10 +63,7 @@ Passed: ${newChunks.length}`);
         blocks.push(...newChunks[Math.floor(i / 2)]);
       }
     }
-    return {
-      title: this.title,
-      bodyHTML: blocks.join('')
-    };
+    return convertToDraftJS(this.title, blocks.join(''));
   }
 }
 

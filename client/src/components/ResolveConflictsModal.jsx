@@ -79,11 +79,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     closeModal: () => dispatch(closeModal()),
     fetchDraft: id => dispatch(fetchDraft(id)),
-    combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal />)),
+    combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal projectId={ownProps.projectId} />)),
     updateConflictSelection: conflict => dispatch(updateConflictSelection(conflict)),
   };
 };
