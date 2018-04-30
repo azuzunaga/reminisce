@@ -7,7 +7,10 @@ export default function mergeReducer(state = {}, action) {
     case FETCH_MERGE:
       return action.data;
     case SET_ALL_CONFLICTS:
-      return merge({}, state, {revisions: action.revisions});
+      return merge({}, state, {
+        revisions: action.revisions,
+        chunkedMerges: action.chunkedMerges
+      });
     default:
       return state;
   }

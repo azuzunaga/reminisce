@@ -1,14 +1,20 @@
 import { stateToHTML } from 'draft-js-export-html';
-import { convertFromRaw, convertFromHTML } from 'draft-js';
+import {
+  convertFromRaw,
+  convertToRaw,
+  convertFromHTML,
+  ContentState
+} from 'draft-js';
 
 export const convertToDraftJS = (title, bodyHTML) => {
   const blocksFromHTML = convertFromHTML(bodyHTML);
+  const state = ContentState.createFromBlockArray(
+    blocksFromHTML.contentBlocks,
+    blocksFromHTML.entityMap
+  );
   return {
+    body: convertToRaw(state),
     title,
-    body: {
-      blocks: blocksFromHTML.contentBlocks,
-      entityMap: blocksFromHTML.entityMap
-    }
   };
 };
 

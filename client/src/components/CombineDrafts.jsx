@@ -108,26 +108,31 @@ class CombineDrafts extends React.Component {
     }).then(merge => {
       const response = mergeSaves(merge.data.mainSave, merge.data.mergeSave, merge.data.parentSave, merge.data.revisions);
       const conflicts = {};
+      const chunkedMerges = [];
       const revisions = [];
       let counter = 1;
+      let conflictIdx = 0;
       response.forEach(doc => {
         if (doc.chunks) {
+          chunkedMerges.push(doc);
           const docConflicts = doc.getConflicts();
           docConflicts.forEach(conflict => {
             conflicts[counter] = {
               id: counter,
+              conflictIdx,
               name: doc.title,
               body: conflict,
               selectedDraft: null,
             };
             counter += 1;
           });
+          conflictIdx += 1;
         } else {
           revisions.push(doc);
         }
       });
 
-      this.props.setAllConflicts(conflicts, revisions);
+      this.props.setAllConflicts(conflicts, revisions, chunkedMerges);
     });
   }
 
@@ -210,15 +215,17 @@ const mapStateToProps = state => {
    };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     closeModal: () => dispatch(closeModal()),
     fetchProject: id => dispatch(fetchProject(id)),
     setDrafts: drafts => dispatch(setDrafts(drafts)),
-    combineDraftsModal: () => dispatch(openModal(<CombineDraftsModal />)),
+    combineDraftsModal: () => dispatch(openModal(
+      <CombineDraftsModal projectId={ownProps.match.params.projectId} />
+    )),
     fetchMerge: params => dispatch(fetchMerge(params)),
-    setAllConflicts: (conflicts, revisions) => (
-      dispatch(setAllConflicts(conflicts, revisions))
+    setAllConflicts: (...args) => (
+      dispatch(setAllConflicts(...args))
     )
   };
 };
