@@ -1,10 +1,19 @@
+//libraries
 import React from 'react';
 import { connect } from 'react-redux';
 import { pickBy } from 'lodash';
 
+//utils & actions
 import { fetchSave } from '../../actions';
 import diffSaves from '../../utils/diffSaves';
+import { dateTimeFormatter } from '../../utils/dateFormatter';
+import { openModal, closeModal } from '../../actions';
+
+//components
 import RevisionDiff from './RevisionDiff';
+import SaveHistoryModal from '../SaveHistory';
+
+
 
 class SaveDiff extends React.Component {
   constructor(props) {
@@ -19,25 +28,22 @@ class SaveDiff extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.loading || !this.props.save) {
       return <div className="diff-view loading" />;
     }
     const { save, changedRevisions } = this.props;
+
+    const saveTime = dateTimeFormatter(save.createdAt)
+    debugger;
     return (
       <div className="diff-view">
-        <h3>Save: {save.name}</h3>
+        <h3>
+          <div>Document: {changedRevisions[0].title} <span> (changes since previous save) </span></div>
+          <strong onClick={() => this.props.saveHistoryModal(this.props.activeDraft)} className="close-x">x</strong>
+        </h3>
+
+        <h4>Save:  {save.name} | {saveTime}  </h4>
         <div className="diff-table">
-          <ol className="rev-titles">
-            {changedRevisions.map((rev, idx) => (
-              <li
-                onClick={() => this.setState({ activeRevisionIdx: idx })}
-                key={rev._id}
-                className={idx === this.state.activeRevisionIdx ? 'active' : ''}
-                >
-                {rev.title}
-              </li>
-            ))}
-          </ol>
           <RevisionDiff rev={changedRevisions[this.state.activeRevisionIdx]} />
         </div>
       </div>
@@ -48,13 +54,13 @@ class SaveDiff extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const save = state.saves[ownProps.saveId];
   if (!save) return {};
-  const prevSave = state.saves[save.previousSaveId] || { revisionIds: [] };
-  const revisions = pickBy(
-    state.revisions,
-    (rev, id) =>
-      prevSave.revisionIds.includes(id) || save.revisionIds.includes(id)
-  );
-  const changedRevisions = diffSaves(prevSave, save, revisions);
+
+  const prevSave = state.saves[save.previousManualSaveId] || { revisionIds: [] };
+  if (!prevSave) return {};
+  const revisionIds = save.revisionIds.concat(prevSave.revisionIds);
+  if (!revisionIds.every( id => state.revisions[id])) return {};
+
+  const changedRevisions = diffSaves(prevSave, save, state.revisions);
   return {
     save,
     prevSave,
@@ -63,7 +69,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchSave: id => dispatch(fetchSave(id))
+  fetchSave: id => dispatch(fetchSave(id)),
+  saveHistoryModal: activeDraft => dispatch(openModal(<SaveHistoryModal activeDraft={activeDraft}/>)),
+  closeModal: () => dispatch(closeModal()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveDiff);

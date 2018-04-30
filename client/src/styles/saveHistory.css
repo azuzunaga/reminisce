@@ -1,9 +1,12 @@
 .save-history-modal {
-  width: 60vw;
-  min-height: 67vh;
-  max-height: 67vh;
   background: white;
   overflow: scroll;
+  display: flex;
+  width: 50vw;
+  min-height: 67vh;
+  max-height: 67vh;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .save-history-modal header {
@@ -42,7 +45,7 @@
   font-weight: 400;
   font-family: 'Josefin Sans', sans-serif;
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 3fr 1.5fr 1.5fr;
   padding: 15px;
   box-sizing: border-box;
   position: fixed;
@@ -73,7 +76,7 @@
 
 .save-list-item {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 3fr 1.5fr 1.5fr;
   padding: 0px 15px;
   cursor: pointer;
 }
@@ -82,7 +85,7 @@
   color: #666666;
   font-family: 'Josefin Sans', sans-serif;
   text-align: center;
-  border-bottom: 1px solid #FAFAFA;
+
 }
 
 .save-list-item p:first-of-type {
@@ -93,9 +96,18 @@
   text-decoration: underline;
 }
 
-
 .save-history-modal ul {
   padding: 0;
   margin: 0;
   margin-top: 100px;
+}
+
+.show-auto-saves {
+  color:  #226CE0;
+  font-size: 14px;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: right;
+  padding-right: 30px;
+  cursor: pointer;
+
 }

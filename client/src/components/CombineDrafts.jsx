@@ -170,7 +170,7 @@ class CombineDrafts extends React.Component {
                 <p className='main-header-helper-text'> (Select 2) </p>
               </div>
               <div className='sub-header drafts'>
-                <h4> Draft Version</h4>
+                <h4>Draft Version</h4>
                 <h4>Last Saved</h4>
                 <h4>Saved By</h4>
               </div>

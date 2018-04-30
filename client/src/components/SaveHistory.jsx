@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { closeModal } from '../actions';
 import { fetchDraft } from '../actions/index'
 
@@ -7,23 +8,56 @@ import SaveListItem from'./SaveListItem'
 import '../styles/saveHistory.css'
 
 class SaveHistoryModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.hideAutoSaves = true;
+    this.state = {
+      saveHistory: this.hideAutoSaves,
+    }
+
+    this.toggleShowAutos = this.toggleShowAutos.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchDraft(this.props.draft._id)
   }
 
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.draft._id != nextProps.draft._id) {
+      this.props.fetchDraft(nextProps.draft._id);
+    }
+  }
+
+  toggleShowAutos() {
+    this.hideAutoSaves = !this.hideAutoSaves;
+    this.setState(
+      { saveHistory: this.hideAutoSaves }
+    )
+  }
+
+
   renderList() {
     const { users, saves } = this.props;
-    const reversed = saves.reverse();
+
+    const draftSaves = this.props.activeDraft.saveIds.map(id => saves[id]);
+    let reversed = draftSaves.slice(1).reverse();
+
+    if (this.hideAutoSaves) {
+      reversed = reversed.filter( save => !save.isAuto)
+    }
+
     return (
       <ul className='save-list-items scrollable-list'>
         {
           reversed.map(save => {
+
             return (
               <SaveListItem
               save={save}
               users={users}
-              key={save.id} />
+              key={save._id}
+              activeDraft={this.props.activeDraft} />
             )
           })
         }
@@ -33,8 +67,10 @@ class SaveHistoryModal extends React.Component {
 
   render() {
     const { saves } =  this.props
+    const autoSaveText = this.hideAutoSaves ? "Show Auto-Saves" : "Hide Auto-Saves";
+    debugger;
 
-    if ( saves.length === 0 ) {
+    if ( this.props.activeDraft.saveIds.length === 0 ) {
       return <div> </div>
     } else {
       return (
@@ -49,6 +85,11 @@ class SaveHistoryModal extends React.Component {
             <h4>Saved By</h4>
           </section>
             { this.renderList() }
+          <footer>
+            <p className='show-auto-saves'
+              onClick={() => this.toggleShowAutos()}
+            > {autoSaveText}</p>
+          </footer>
         </div>
       )
     }
@@ -56,12 +97,13 @@ class SaveHistoryModal extends React.Component {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     modal: state.ui.modal,
-    draft: Object.values(state.drafts)[0],
-    saves: Object.values(state.saves),
+    draft: ownProps.activeDraft,
+    saves: state.saves,
     users: state.users
+
   };
 };
 
@@ -72,4 +114,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SaveHistoryModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SaveHistoryModal));

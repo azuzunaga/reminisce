@@ -1,18 +1,27 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils,
   convertToRaw, convertFromRaw, getDefaultKeyBinding,
-  KeyBindingUtil } from 'draft-js';
+  KeyBindingUtil, Modifier } from 'draft-js';
 import { connect } from 'react-redux';
-import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
+import '../styles/documentForm.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
-import { openModal, closeModal, createSave, fetchRevision } from '../actions/index';
+import {
+  openModal,
+  closeModal,
+  createSave,
+  fetchRevision,
+  fetchProject
+ } from '../actions/index';
 import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
 import TitleErrorModal from './TitleErrorModal';
-
+import LeftSidebar from './LeftSidebar';
 const {hasCommandModifier} = KeyBindingUtil;
+
+const tabCharacter = "    ";
+
 class DocumentForm extends React.Component {
 
   constructor(props) {
@@ -20,7 +29,8 @@ class DocumentForm extends React.Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       title: this.props.document.title,
-      body: ''
+      body: '',
+      revisions: this.props.revisions
     };
 
     this.focus = () => this.refs.editor.focus();
@@ -62,6 +72,8 @@ class DocumentForm extends React.Component {
     } else {
       this.props.fetchRevision(this.props.projectId, this.props.documentId);
     }
+
+    this.props.fetchProject(this.props.projectId);
   }
 
   componentWillReceiveProps(newProps) {
@@ -69,7 +81,8 @@ class DocumentForm extends React.Component {
       let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
       this.setState({
         editorState: EditorState.createWithContent(convertFromRaw(document)),
-        title: newProps.document.title
+        title: newProps.document.title,
+        revisions: newProps.revisions
       });
     }
   }
@@ -103,8 +116,16 @@ class DocumentForm extends React.Component {
 
   _onTab(e) {
     e.preventDefault();
-    const maxDepth = 4;
-    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+    let currentState = this.state.editorState;
+    let newContentState = Modifier.replaceText(
+      currentState.getCurrentContent(),
+      currentState.getSelection(),
+      tabCharacter
+    );
+
+    this.setState({
+      editorState: EditorState.push(currentState, newContentState, 'insert-characters')
+    })
   }
 
   makeSaveReq(typeofSave) {
@@ -116,7 +137,7 @@ class DocumentForm extends React.Component {
       draftId: this.props.draft._id, isAuto: auto},
       newRevs: [{title: this.state.title,
       body: body}],
-      deletedRevIds: [this.props.document._id]
+      deletedRevIds: [this.props.documentId]
     });
   }
 
@@ -159,9 +180,18 @@ class DocumentForm extends React.Component {
           className="header doc-form" value={this.state.title}/>
 
         <main className='main'>
-        <aside className='aside-left'>
-        </aside>
-        <section className='editor-main'>
+          <aside className='aside-left'>
+            <LeftSidebar
+              activeDraft={this.props.activeDraft}
+              projectId={this.props.projectId}
+              drafts={this.props.drafts}
+              view='DocumentForm'
+              revisions={this.state.revisions}
+              projectName={this.props.projectName}
+              documentId={this.props.documentId}
+            />
+          </aside>
+          <section className='editor-main'>
           <ul className="toolbar">
             <li>
               <button className="bold" onMouseDown={(e)=> e.preventDefault()} onClick={() => this.handleStyleClick('BOLD')}>
@@ -249,12 +279,20 @@ function mapStateToProps(state, ownProps) {
     document = state.revisions[ownProps.match.params.documentId];
     draft = state.drafts[draftId];
   }
+
+  let projectName;
+  if (Object.keys(state.projects).length != 0) {
+    projectName = state.projects[ownProps.match.params.projectId].name
+  }
+
   return {
     documentId,
     errors: state.errors,
     draft,
     document,
-    projectId: ownProps.match.params.projectId
+    projectId: ownProps.match.params.projectId,
+    revisions: state.revisions,
+    projectName: projectName,
   };
 }
 
@@ -262,7 +300,8 @@ const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
   fetchRevision: (projectId, revisionId) => dispatch(fetchRevision(projectId, revisionId)),
   openModal: (component) => dispatch(openModal(component)),
-  closeModal: () => dispatch(closeModal())
+  closeModal: () => dispatch(closeModal()),
+  fetchProject: id => dispatch(fetchProject(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);

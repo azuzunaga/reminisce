@@ -6,19 +6,6 @@
   text-decoration: underline #226CE0;
 }
 
-
-.draft-version {
-  font-weight: normal;
-  font-size: 24px;
-  font-family: 'Josefin Sans', sans-serif;
-  background: white;
-  padding: 0;
-  margin: 15px 20px;
-  margin-right: 0;
-  color:  #434343;
-  display: inline-block;
-}
-
 .save-history {
   font-family: 'Josefin Sans', sans-serif;
   text-align: center;
@@ -77,11 +64,6 @@ i.new-hidden {
   align-items: center;
 }
 
-.draft-drop-down-header {
-  display: flex;
-  align-items: center;
-}
-
 .main-list .draft-drop-down-button {
   display: flex;
   align-items: center;
@@ -89,23 +71,12 @@ i.new-hidden {
   color: #666666;
 }
 
-.draft-drop-down-button:hover {
-  cursor: pointer;
-  color: #CA2E55;
-}
-
-.draft-drop-down-button h4 {
-  font-size: 24px;
-  font-weight: 400;
-  margin: 0;
-}
-
 .list-item.document {
   display: grid;
   grid-template-columns: 0.4fr 12fr;
 }
 
-.list-item.document a {
+.list-item.document div {
   display: grid;
   grid-template-columns: 6fr 3fr 3fr;
 }
@@ -118,4 +89,8 @@ i.new-hidden {
 
 .document .doc-title {
   text-align: left;
+}
+
+.aside-left {
+  overflow: scroll;
 }

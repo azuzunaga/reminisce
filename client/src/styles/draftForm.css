@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
+
 .draft-form-container {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  border: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .draft-form-container li {
@@ -17,16 +19,24 @@
 
 .draft-form {
   box-sizing: border-box;
-  width: 400px;
+  width: 100%;
   align-items: center;
   display: flex;
 }
 
+.draft-form form {
+  width: 100%;
+}
+
 .draft-form.text {
+  padding: 10px 0;
   padding-left: 10px;
   border: 1px solid lightgray;
   border-left: none;
   border-right: none;
+  font-size: 16px;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #666666;
 }
 
 .draft-form.submit {
@@ -41,7 +51,66 @@
   line-height: 40px;
 }
 
+.draft-version {
+  font-weight: normal;
+  font-size: 20px;
+  font-family: 'Josefin Sans', sans-serif;
+  padding: 0;
+  margin: 15px 10px;
+  margin-right: 0;
+  color:  #434343;
+  display: inline-block;
+}
+
 .draft-form.submit:hover {
   background-color: #af2649;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.draft-drop-down-header {
+  display: flex;
+  align-items: center;
+  background-color: #F7F7F7;
+}
+
+.draft-drop-down-button {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: #666666;
+}
+
+.draft-drop-down-button:hover {
+  cursor: pointer;
+  color: #226CE0;
+}
+
+.draft-drop-down-button h4 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+  display: inline;
+}
+
+.list-item:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: #FAFAFA;
+}
+
+ul {
+  background-color: white;
+  color: #666666;
+}
+
+.draft-list .list-item {
+  padding: 10px 20px;
+}
+
+.list-item.draft {
+  padding-left: 20;
+}
+
+.draft-menu.hidden {
+  display: none;
 }

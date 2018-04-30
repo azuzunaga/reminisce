@@ -82,7 +82,41 @@
   padding: 20px;
   padding-top: 30px;
   /* margin: 0 10px; */
-  overflow: scroll;
+}
+
+.editor h1 {
+  display: block;
+ font-size: 2em;
+ margin-top: 0.67em;
+ margin-bottom: 0.67em;
+ margin-left: 0;
+ margin-right: 0;
+ font-weight: bold;
+}
+
+.editor h2 {
+  display: block;
+   font-size: 1.5em;
+   margin-top: 0.83em;
+   margin-bottom: 0.83em;
+   margin-left: 0;
+   margin-right: 0;
+   font-weight: bold;
+   color: inherit;
+   background: none;
+   box-shadow: none;
+   padding: 0;
+   text-align: inherit;
+}
+
+.editor ul {
+  display: block;
+ list-style-type: disc;
+ -webkit-margin-before: 1em;
+ -webkit-margin-after: 1em;
+ -webkit-margin-start: 0px;
+ -webkit-margin-end: 0px;
+ -webkit-padding-start: 40px;
 
 }
 
@@ -111,6 +145,7 @@
 .editor-main {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   overflow: scroll;
+  min-width: 500px;
 }
 
 .header.doc-form {

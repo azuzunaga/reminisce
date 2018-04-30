@@ -64,14 +64,25 @@ class RevisionDiff extends React.Component {
     return (
       <div className="revision-diff">
         <ol ref={this.diffRef} onScroll={e => this.adjustWindow(e.target)}>
-          {rev.diffInfo.map(op => (
-            <li className={op.type} key={`${op.origIdx}:${op.targetIdx}`}>
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{ __html: op.data }}
-              />
-            </li>
-          ))}
+          {rev.diffInfo.map(op => {
+
+            let opSymbol = ' ';
+
+            if (op.type === 'insert') {
+              opSymbol = "+";
+            } else if (op.type === 'delete') {
+              opSymbol = "-";
+            }
+            return (
+              <li className={op.type} key={`${op.origIdx}:${op.targetIdx}`}>
+                <span className='op-symbol'> {opSymbol} </span>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: op.data }}
+                />
+              </li>
+            )}
+          )}
         </ol>
         <div className="minimap" ref={this.minimapRef}>
           <div className="container">

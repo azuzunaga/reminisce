@@ -6,6 +6,7 @@ import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import SaveHistory from  './SaveHistory';
 import DraftForm from './DraftForm';
+import LeftSidebar from './LeftSidebar';
 
 import { closeModal, openModal } from '../actions';
 import { dateTimeFormatter } from '../utils/dateFormatter';
@@ -20,7 +21,7 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
+    if (this.props.match.params.projectId != nextProps.match.params.projectId) {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }
@@ -62,19 +63,15 @@ class Project extends React.Component {
           </header>
           <main className='main'>
             <aside className='aside-left'>
+              <LeftSidebar
+                activeDraft={this.props.activeDraft}
+                projectId={this.props.project._id}
+                drafts={this.props.drafts}
+                view="ProjectShow"
+                revisions={this.props.revisions}
+              />
             </aside>
             <section className='main-list'>
-              <div className='draft-drop-down-header'>
-                <h4 className="draft-version">
-                  Draft Version:
-                </h4>
-                <div className="draft-drop-down-button">
-                  <h4>
-                    {this.props.activeDraft.name}
-                  </h4>
-                  <i className="material-icons">arrow_drop_down</i>
-                </div>
-              </div>
               <div className="project-header">
                 <h3>Documents</h3>
                 {this.props.newModal}
@@ -85,14 +82,11 @@ class Project extends React.Component {
                 <h4> Modified By </h4>
               </div>
               { this.renderList() }
-              <DraftForm
-                activeDraft={this.props.activeDraft}
-                project={this.props.project}
-                drafts={this.props.drafts}
-              />
             </section>
             <aside className='aside-right save-history'>
-              {this.props.saveModal}
+              <button onClick={() => this.props.saveModal(this.props.activeDraft)}>
+                View Save History
+              </button>
               <div className="last-save">
                 <p> Last saved: </p>
                 <p> { lastSavedDate } </p>
@@ -117,7 +111,9 @@ function mapStateToProps(state, ownProps) {
   const activeDraft = state.drafts[activeDraftId];
   const drafts = project.draftIds.map(id => state.drafts[id]);
   const saves = activeDraft.saveIds.map(id => state.saves[id]);
-  const users = saves.map(save => state.users[save.userId]);
+  const users = saves.map(save => {
+    return ( state.users[save.userId] )
+  });
   const revisions = Object.keys(saves).length !== 0
     ? saves[saves.length - 1].revisionIds.map(id => state.revisions[id])
     : [];
@@ -135,11 +131,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     fetchDraft: id => dispatch(fetchDraft(id)),
-    saveModal: (
-      <button onClick={() => dispatch(openModal(<SaveHistory />))}>
-        View Save History
-      </button>
-    ),
+    saveModal:  activeDraft => dispatch(openModal(<SaveHistory activeDraft={activeDraft} />)),
     newModal: (
       <div
         className="add-icon"

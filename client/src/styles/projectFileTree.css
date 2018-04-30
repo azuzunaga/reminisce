@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
+
+
+.project-file-tree {
+  font-family: 'Josefin Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-file-tree header {
+  background-color: #F7F7F7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 10px;
+}
+
+header a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+header .to-dashboard-DocumentForm:hover {
+  color: #EF6F6C;
+}
+
+header .to-dashboard-ProjectShow:hover {
+  color: #226CE0;
+}
+
+h5 {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 15px 0;
+  padding: 5px 0;
+}
+
+.project-file-tree ul li {
+  margin-left: 20px;
+  list-style: none;
+  padding: 10px 0;
+  border-bottom: 1px solid #FAFAFA;
+
+}
+
+.project-file-tree ul li a:hover {
+  color: #EF6F6C;
+}
+
+.project-file-tree ul li a {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+h6 {
+  display: inline;
+  margin: 0;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+h4 {
+  display: inline-block;
+  font-weight: 400;
+  margin: 0;
+}
+
+.folder-header a {
+  margin: 5px 0;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.folder-header a:hover {
+  color: #EF6F6C;
+}
+
+.current-doc {
+  display: flex;
+  align-items: center;
+  color: #EF6F6C;
+}

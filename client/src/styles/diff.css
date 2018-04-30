@@ -1,37 +1,50 @@
 .diff-view {
   background: white;
-  height: 80vh;
-  width: 1000px;
+  width: 50vw;
+  min-height: 67vh;
+  max-height: 67vh;
   position: relative;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .diff-view p {
   margin: 0;
-  padding: 10px;
+  font-weight: 3 00;
 }
 
 .diff-view li,
-.diff-view ul,
-.diff-view ol {
+.diff-view ul {
   margin: 0;
-  padding: 0;
   border: none;
+  font-weight: 300;
+  box-sizing: border-box;
+}
+
+.diff-view ol {
+  padding: 20px;
 }
 
 .diff-view h3 {
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
   width: 100%;
   height: 50px;
+  font-size: 24px;
+  background:   #F7F7F7;
+  color: #434343;
+  font-weight: 400;
 }
 
 .diff-table {
   display: flex;
   position: absolute;
-  top: 50px;
+  top: 75px;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 3;
 }
 
 .diff-table .rev-titles {
@@ -64,11 +77,13 @@
 .revision-diff {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 
 .revision-diff>ol {
   max-height: 100%;
   overflow: scroll;
+  width: 100%;
 }
 
 .revision-diff li {
@@ -86,16 +101,25 @@
 
 .revision-diff p {
   text-align: left;
+  padding: 5px;
 }
 
 .revision-diff .minimap {
   height: 100%;
   overflow: scroll;
   position: relative;
+  width: 30%;
+  z-index: 3;
 }
 
 .revision-diff .minimap p {
   font-size: 4px;
+  padding: 2px;
+
+}
+
+.revision-diff .minimap h1, .revision-diff .minimap h2 {
+  font-size: 8px;
   padding: 2px;
 }
 
@@ -108,6 +132,41 @@
   left: 0;
   right: 0;
   box-sizing: border-box;
-  border: 1px solid blue;
+  border: 2px solid #BABABA;
   pointer-events: none;
+}
+
+.diff-view span{
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #666666;
+  font-weight: 400;
+  padding-left: 10px;
+}
+
+.diff-view strong {
+  color: #434343;
+  font-size: 24px;
+  font-weight: 400;
+  padding-right: 5px;
+}
+
+.diff-view h4 {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  padding-left: 15px;
+  height: 30px;
+  position: relative;
+  top: -10px;
+  color: #666666;
+  z-index: 1;
+}
+
+.op-symbol {
+  width: 20px;
+  text-align: center;
+  box-sizing: border-box;
+  font-weight: 400;
 }

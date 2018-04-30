@@ -20,7 +20,7 @@ class SaveListItem extends React.Component {
     return (
       <li key={save._id}
         className='save-list-item'
-        onClick={() => this.props.saveDiff(save._id)}>
+        onClick={() => this.props.saveDiff(save._id, this.props.activeDraft)}>
         <p> {save.name} </p>
         <p> {saveTime} </p>
         <p> {users[save.userId].firstName} </p>
@@ -31,7 +31,7 @@ class SaveListItem extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    saveDiff: id => dispatch(openModal(<SaveDiff saveId={id}/>)),
+    saveDiff: (id, activeDraft) => dispatch(openModal(<SaveDiff saveId={id} activeDraft={activeDraft}/>)),
     closeModal: () => dispatch(closeModal()),
     fetchSave: id => dispatch(fetchSave(id)),
   }
