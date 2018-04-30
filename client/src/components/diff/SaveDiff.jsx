@@ -28,16 +28,16 @@ class SaveDiff extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.loading || !this.props.save) {
       return <div className="diff-view loading" />;
     }
     const { save, changedRevisions } = this.props;
+
     const saveTime = dateTimeFormatter(save.createdAt)
     return (
       <div className="diff-view">
         <h3>
-          <div>Document: {changedRevisions[0].title} </div>
-          <span> (changes since previous save) </span>
+          <div>Document: {changedRevisions[0].title} <span> (changes since previous save) </span></div>
           <strong onClick={() => this.props.saveHistoryModal()} className="close-x">x</strong>
         </h3>
 
@@ -54,9 +54,8 @@ const mapStateToProps = (state, ownProps) => {
   const save = state.saves[ownProps.saveId];
   if (!save) return {};
 
-  const prevSave = state.saves[save.previousSaveId] || { revisionIds: [] };
+  const prevSave = state.saves[save.previousManualSaveId] || { revisionIds: [] };
   if (!prevSave) return {};
-
   const revisionIds = save.revisionIds.concat(prevSave.revisionIds);
   if (!revisionIds.every( id => state.revisions[id])) return {};
 

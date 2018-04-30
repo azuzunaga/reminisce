@@ -75,7 +75,7 @@ class RevisionDiff extends React.Component {
             }
             return (
               <li className={op.type} key={`${op.origIdx}:${op.targetIdx}`}>
-                <strong className='op-symbol'> {opSymbol} </strong>
+                <span className='op-symbol'> {opSymbol} </span>
                 <div
                   className="content"
                   dangerouslySetInnerHTML={{ __html: op.data }}

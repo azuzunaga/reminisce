@@ -10,24 +10,38 @@ class SaveHistoryModal extends React.Component {
   constructor(props) {
     super(props);
     this.hideAutoSaves = true;
-    this.handleShowAutos = this.handleShowAutos.bind(this);
+    this.state = {
+      saveHistory: this.hideAutoSaves,
+    }
+
+    this.toggleShowAutos = this.toggleShowAutos.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchDraft(this.props.draft._id)
   }
 
-  handleShowAutos() {
-    this.hideAutoSaves = !this.hideAutoSaves;
-    this.renderList();
-    this.render();
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.draft._id != nextProps.draft._id) {
+      this.props.fetchDraft(nextProps.draft._id);
+    }
+  }
+
+  toggleShowAutos() {
+    this.hideAutoSaves = !this.hideAutoSaves;
+    this.setState(
+      { saveHistory: this.hideAutoSaves }
+    )
   }
 
 
   renderList() {
-    const { users, saves } = this.props;
-    let reversed = saves.slice(1).reverse();
+    const { users, saves, draft } = this.props;
+
+    const draftSaves = draft.saveIds.map(id => saves[id]);
+    let reversed = draftSaves.slice(1).reverse();
+
     if (this.hideAutoSaves) {
       reversed = reversed.filter( save => !save.isAuto)
     }
@@ -36,11 +50,12 @@ class SaveHistoryModal extends React.Component {
       <ul className='save-list-items scrollable-list'>
         {
           reversed.map(save => {
+
             return (
               <SaveListItem
               save={save}
               users={users}
-              key={save.id} />
+              key={save._id} />
             )
           })
         }
@@ -49,10 +64,10 @@ class SaveHistoryModal extends React.Component {
   }
 
   render() {
-    const { saves } =  this.props
+    const { saves, draft } =  this.props
     const autoSaveText = this.hideAutoSaves ? "Show Auto-Saves" : "Hide Auto-Saves";
 
-    if ( saves.length === 0 ) {
+    if ( draft.saveIds.length === 0 ) {
       return <div> </div>
     } else {
       return (
@@ -69,7 +84,7 @@ class SaveHistoryModal extends React.Component {
             { this.renderList() }
           <footer>
             <p className='show-auto-saves'
-              onClick={() => this.handleShowAutos()}
+              onClick={() => this.toggleShowAutos()}
             > {autoSaveText}</p>
           </footer>
         </div>
@@ -83,7 +98,7 @@ const mapStateToProps = state => {
   return {
     modal: state.ui.modal,
     draft: Object.values(state.drafts)[0],
-    saves: Object.values(state.saves),
+    saves: state.saves,
     users: state.users
   };
 };

@@ -14,7 +14,7 @@ export default (state = {}, action) => {
   let newState;
   switch (action.type) {
   case FETCH_REVISION:
-    return merge({}. state, { [action.draft._id]: action.draft });
+    return merge({}, state, { [action.draft._id]: action.draft });
   case FETCH_PROJECT:
     return merge({}, state, action.drafts);
   case CREATE_PROJECT:

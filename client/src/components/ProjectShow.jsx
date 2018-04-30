@@ -20,7 +20,7 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
+    if (this.props.match.params.projectId != nextProps.match.params.projectId) {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }
@@ -117,7 +117,9 @@ function mapStateToProps(state, ownProps) {
   const activeDraft = state.drafts[activeDraftId];
   const drafts = project.draftIds.map(id => state.drafts[id]);
   const saves = activeDraft.saveIds.map(id => state.saves[id]);
-  const users = saves.map(save => state.users[save.userId]);
+  const users = saves.map(save => {
+    return ( state.users[save.userId] )
+  });
   const revisions = Object.keys(saves).length !== 0
     ? saves[saves.length - 1].revisionIds.map(id => state.revisions[id])
     : [];

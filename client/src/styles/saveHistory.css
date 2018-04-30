@@ -85,7 +85,7 @@
   color: #666666;
   font-family: 'Josefin Sans', sans-serif;
   text-align: center;
-  border-bottom: 1px solid #FAFAFA;
+
 }
 
 .save-list-item p:first-of-type {
@@ -107,7 +107,7 @@
   font-size: 14px;
   font-family: 'Josefin Sans', sans-serif;
   text-align: right;
-  padding-right: 50px;
+  padding-right: 30px;
   cursor: pointer;
 
 }
