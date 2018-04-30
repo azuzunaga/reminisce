@@ -142,3 +142,7 @@ option {
 .combine-drafts-text > p {
   padding-top: 10px;
 }
+
+.combine-drafts-footer > button {
+  font-size: 16px;
+}
