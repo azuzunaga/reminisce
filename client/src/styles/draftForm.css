@@ -3,8 +3,19 @@
 .draft-form-container {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid lightgray;
   font-family: 'Josefin Sans', sans-serif;
+  padding-top: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.draft-form-container header {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+
+
 }
 
 .draft-form-container li {
@@ -46,14 +57,15 @@
   color: white;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
-  background-color: #CA2E55;
+  background-color: #226CE0;
   text-align: center;
   line-height: 40px;
+  margin-top: 15px;
 }
 
 .draft-version {
   font-weight: normal;
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Josefin Sans', sans-serif;
   padding: 0;
   margin: 15px 10px;
@@ -70,7 +82,6 @@
 .draft-drop-down-header {
   display: flex;
   align-items: center;
-  background-color: #F7F7F7;
 }
 
 .draft-drop-down-button {
@@ -86,7 +97,7 @@
 }
 
 .draft-drop-down-button h4 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   margin: 0;
   display: inline;
@@ -113,4 +124,22 @@ ul {
 
 .draft-menu.hidden {
   display: none;
+}
+
+
+.combine-drafts-link {
+  padding-top: 0;
+  color: #226CE0;
+  padding-left: 25px;
+  font-size: 18px;
+}
+
+
+.combine-drafts-link:hover {
+  color: #226CE0;
+  text-decoration: underline;
+}
+
+.link-to-combine-drafts {
+  display: hidden;
 }

@@ -73,9 +73,10 @@ class DraftForm extends React.Component {
 
     return (
       <div className="draft-form-container">
+        <header> Drafts </header>
         <div className='draft-drop-down-header'>
           <h4 className="draft-version">
-            Draft Version:
+            Current Draft:
           </h4>
           <div
             className="draft-drop-down-button"
