@@ -1,5 +1,6 @@
-import { zip, pickBy, keyBy, uniq } from 'lodash';
+import { zip, omitBy, keyBy, uniq } from 'lodash';
 
+import { convertToDraftJS } from './draftUtils';
 import diffSaves from './diffSaves';
 import ChunkedMerge from './ChunkedMerge';
 
@@ -42,6 +43,10 @@ const mergeRevisions = (mainRev, mergeRev) => {
         mergeOps: mergeOps.filter(op => op.type !== 'delete')
       });
     }
+  }
+
+  if (chunks.getConflicts().length === 0) {
+    return chunks.resolveConflicts([]);
   }
 
   return chunks;
