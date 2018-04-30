@@ -41,7 +41,7 @@ class DraftForm extends React.Component {
 
   toggleDraftMenu() {
     const draftMenu = document.getElementsByClassName('draft-menu')[0];
-    const icon = document.getElementsByClassName('material-icons')[0];
+    const icon = document.getElementById('draft-expand');
 
     icon.innerHTML = icon.innerHTML === 'expand_more'
       ? 'expand_less'
@@ -84,7 +84,7 @@ class DraftForm extends React.Component {
             <h4>
               {this.props.activeDraft.name}
             </h4>
-            <i className="material-icons">expand_more</i>
+            <i className="material-icons" id='draft-expand'>expand_more</i>
           </div>
         </div>
         <div className="draft-menu hidden">
