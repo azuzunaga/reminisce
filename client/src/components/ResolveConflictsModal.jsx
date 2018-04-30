@@ -25,8 +25,6 @@ class ResolveConflictsModal extends React.Component {
         this.props.updateConflictSelection({[conflictId]: that.state});
         this.props.combineDraftsModal();
       })
-      //
-      // this.props.combineDraftsModal();
     }
   }
 

@@ -21,7 +21,7 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
+    if (this.props.match.params.projectId != nextProps.match.params.projectId) {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }
@@ -84,7 +84,9 @@ class Project extends React.Component {
               { this.renderList() }
             </section>
             <aside className='aside-right save-history'>
-              {this.props.saveModal}
+              <button onClick={() => this.props.saveModal(this.props.activeDraft)}>
+                View Save History
+              </button>
               <div className="last-save">
                 <p> Last saved: </p>
                 <p> { lastSavedDate } </p>
@@ -109,7 +111,9 @@ function mapStateToProps(state, ownProps) {
   const activeDraft = state.drafts[activeDraftId];
   const drafts = project.draftIds.map(id => state.drafts[id]);
   const saves = activeDraft.saveIds.map(id => state.saves[id]);
-  const users = saves.map(save => state.users[save.userId]);
+  const users = saves.map(save => {
+    return ( state.users[save.userId] )
+  });
   const revisions = Object.keys(saves).length !== 0
     ? saves[saves.length - 1].revisionIds.map(id => state.revisions[id])
     : [];
@@ -127,11 +131,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     fetchDraft: id => dispatch(fetchDraft(id)),
-    saveModal: (
-      <button onClick={() => dispatch(openModal(<SaveHistory />))}>
-        View Save History
-      </button>
-    ),
+    saveModal:  activeDraft => dispatch(openModal(<SaveHistory activeDraft={activeDraft} />)),
     newModal: (
       <div
         className="add-icon"
