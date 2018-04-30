@@ -29,7 +29,7 @@
 }
 
 .draft-form.text {
-  padding: 5px 0;
+  padding: 10px 0;
   padding-left: 10px;
   border: 1px solid lightgray;
   border-left: none;
@@ -82,7 +82,7 @@
 
 .draft-drop-down-button:hover {
   cursor: pointer;
-  color: #CA2E55;
+  color: #226CE0;
 }
 
 .draft-drop-down-button h4 {

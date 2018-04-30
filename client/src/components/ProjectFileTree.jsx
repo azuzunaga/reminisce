@@ -5,7 +5,6 @@ import '../styles/projectFileTree.css';
 
 class ProjectFileTree extends React.Component {
   menu() {
-    console.log(this.props.documentId);
     let revisions = Object.values(this.props.revisions);
     if (this.props.view === 'DocumentForm') {
       return (
@@ -52,7 +51,7 @@ class ProjectFileTree extends React.Component {
     return (
       <div className="project-file-tree">
         <header>
-          <Link to="/dashboard">
+          <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
             <h5>To Projects Dashboard</h5>
             <i className="material-icons">chevron_left</i>
           </Link>
