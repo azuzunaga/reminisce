@@ -1,11 +1,13 @@
 .title-change-errors {
   background: #EF6F6C;
-  min-height: 400px;
+  min-height: 50px;
   padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 400;
   border-radius: 5px;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .title-change-errors li {

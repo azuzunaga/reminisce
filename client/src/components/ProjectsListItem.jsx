@@ -17,7 +17,7 @@ class ProjectsListItem extends React.Component {
       <li className='list-item project'>
         <div className='list-name'>
           <Link to={`/projects/${project._id}`}>
-            <p> {project.name} </p>
+            <p className='project-name'> {project.name} </p>
           </Link>
           <button
             className='delete-button'
