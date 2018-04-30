@@ -1,4 +1,5 @@
 const passport = require("passport");
+const keys = require("../config/keys");
 
 module.exports = app => {
   app.get(
@@ -23,5 +24,10 @@ module.exports = app => {
 
   app.get("/api/current_user", (req, res) => {
     res.json(req.user);
+  });
+
+  app.get("/api/demo_login", (req, res) => {
+    req.session.passport.user = keys.demoUserId;
+    res.redirect("/");
   });
 };
