@@ -65,11 +65,13 @@ a {
 
 .hover-arrow img {
   height: 10px;
+  padding: 15px;
 }
 
 .sign-out {
   display: none;
 }
+
 
 .hover-family:hover .sign-out {
   display: inline-block;
@@ -83,6 +85,7 @@ a {
   text-align: right;
   min-width: 120px;
 }
-.sign-out a {
 
+.sign-out a:hover {
+  background: #FAFAFA;
 }

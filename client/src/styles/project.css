@@ -73,18 +73,12 @@ i.new-hidden {
 
 .list-item.document {
   display: grid;
-  grid-template-columns: 0.4fr 12fr;
+  grid-template-columns: 2fr 1fr 1fr;
 }
-
-.list-item.document div {
-  display: grid;
-  grid-template-columns: 6fr 3fr 3fr;
-}
-
 
 .sub-header.project-show {
   display: grid;
-  grid-template-columns: 6.4fr 3fr 3fr
+  grid-template-columns: 2fr 1fr 1fr;
 }
 
 .document .doc-title {
@@ -93,4 +87,13 @@ i.new-hidden {
 
 .aside-left {
   overflow: scroll;
+}
+
+.doc-title {
+  min-width: 100px;
+}
+
+.doc-title a {
+  font-size: 16px;
+  color: #666666;
 }

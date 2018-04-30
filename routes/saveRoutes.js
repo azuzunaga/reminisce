@@ -20,7 +20,7 @@ module.exports = app => {
     if (!project.canUserEdit(req.user.id)) {
       return res
         .status(403)
-        .json(["You don't have permission to edit that project"]);
+        .json(["You do not have permission to edit this project"]);
     }
 
     let prevRevIds = prevSave.revisionIds;
@@ -31,7 +31,7 @@ module.exports = app => {
       return res
         .status(403)
         .json([
-          "You can't have multiple documents with the same title in a draft"
+          "You cannot have multiple documents with the same title"
         ]);
     }
 

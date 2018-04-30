@@ -49,3 +49,7 @@ i.new-hidden {
   display: grid;
   grid-template-columns: 3fr 1fr 2fr;
 }
+
+.project-name {
+  min-width: 100px;
+}

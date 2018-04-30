@@ -176,12 +176,12 @@ class CombineDrafts extends React.Component {
                     <option id='draft2-option' value={draft2} >{draft2Name}</option>
                   </select>
                 </div>
-                  <button
-                    id="combine-selected-drafts-button"
-                    className="combine-selected-drafts"
-                    onClick={this.handleCombineModal}>
-                    Combine
-                  </button>
+                <button
+                  id="combine-selected-drafts-button"
+                  className="combine-selected-drafts"
+                  onClick={this.handleCombineModal}>
+                  Combine
+                </button>
               </div>
 
             </section>
