@@ -1,8 +1,10 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils,
+  convertToRaw, convertFromRaw, getDefaultKeyBinding,
+  KeyBindingUtil } from 'draft-js';
 import { connect } from 'react-redux';
-import '../styles/documentForm.css';
 import '../styles/stylingMain.css';
+import '../styles/documentForm.css';
 import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
 import {
@@ -16,8 +18,10 @@ import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
 import TitleErrorModal from './TitleErrorModal';
 import LeftSidebar from './LeftSidebar';
+const {hasCommandModifier} = KeyBindingUtil;
 
 class DocumentForm extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -35,6 +39,13 @@ class DocumentForm extends React.Component {
     this.update = this.update.bind(this);
     this.makeSaveReq = this.makeSaveReq.bind(this);
     this.createSave = this.createSave.bind(this);
+  }
+
+  myKeyBindingFn(e: SyntheticKeyboardEvent): string {
+    if (e.keyCode === 83 && hasCommandModifier(e)) {
+      return 'save';
+    }
+    return getDefaultKeyBinding(e);
   }
 
   saveTitle = debounce(() => {
@@ -83,6 +94,16 @@ class DocumentForm extends React.Component {
   }
 
   handleKeyCommand(command, editorState) {
+    if (command === 'save') {
+      this.props.openModal(
+        <SaveRev
+          projectId={this.props.match.params.projectId}
+          document={this.props.document}
+          title={this.state.title}
+          draftId={this.props.draft._id}
+          body={convertToRaw(this.state.editorState.getCurrentContent())}
+        />);
+    }
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       this.onChange(newState);
@@ -103,10 +124,10 @@ class DocumentForm extends React.Component {
     let body = convertToRaw(this.state.editorState.getCurrentContent());
     return Object.assign({}, {
       save: {name: typeofSave,
-        draftId: this.props.draft._id, isAuto: auto},
+      draftId: this.props.draft._id, isAuto: auto},
       newRevs: [{title: this.state.title,
       body: body}],
-      deletedRevIds: [this.props.document._id]
+      deletedRevIds: [this.props.documentId]
     });
   }
 
@@ -213,6 +234,7 @@ class DocumentForm extends React.Component {
               handleKeyCommand={this.handleKeyCommand}
               onTab={this.onTab}
               spellCheck={!this.spellCheck}
+              keyBindingFn={this.myKeyBindingFn}
               />
           </div>
         </section>

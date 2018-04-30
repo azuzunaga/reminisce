@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   width: auto;
-  background: black;
+  background: #434343;
   color: white;
   padding: 30px;
   position: relative;
@@ -27,18 +27,23 @@
 .dev-list {
   min-width: 600px;
   width: 60%;
+
 }
 
 .dev-list li {
   margin-top: 30px;
+  background: #F7F7F7;
 }
 
 .dev-list h3 {
-  background: black;
   color: white;
   font-size: 28px;
   padding: 15px;
   margin: 0 auto;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+  font-weight: 400;
+  background-color: #17BEBB;
 }
 
 .contact-info {
@@ -55,23 +60,25 @@
 .about-container p {
   padding: 15px;
   margin: 0 auto;
-  color: white;
+  color: #434343;
   font-size: 24px;
   text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+
 }
 
-.kimberly {
+/* .kimberly h3 {
+    background: #17BEBB;
+}
+
+.ian h3 {
   background: #17BEBB;
 }
 
-.ian {
-  background: #EF6F6C;
-}
-
-.americo {
+.americo h3 {
   background: #226CE0;
 }
 
-.gabriel {
+.gabriel h3 {
   background: #CA2E55;
-}
+} */

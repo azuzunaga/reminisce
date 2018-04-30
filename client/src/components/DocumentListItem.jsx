@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { openModal, createSave } from '../actions';
 import TitleEditForm from './TitleEditForm';
 import ConfirmDeleteForm from './ConfirmDeleteForm';
-import pencil from '../assets/pencil-edit-button.png';
 class DocumentListItem extends React.Component {
   render() {
 
@@ -14,34 +13,38 @@ class DocumentListItem extends React.Component {
 
     return (
       <li className='list-item document'>
-        <div className="wrap">
-          <button className="edit-button-pencil"
-            onClick={() =>
-              this.props.openModal(
-                <TitleEditForm
-                  document={doc}
-                  projectId={projectId}
-                  />
-              )}>
-              <i className="fa fa-pencil"></i>
-          </button>
-          <button
-            className="delete-button"
-            onClick={
-              () => this.props.openModal(
-                <ConfirmDeleteForm
-                  message="Are you sure you want to delete this document?"
-                  action={this.props.deleteDocument(doc, draftId)} />
-              )
-            }>
-            ×
-          </button>
+      <div className="wrap">
+      <button className="edit-button-pencil"
+      onClick={() =>
+        this.props.openModal(
+          <TitleEditForm
+          document={doc}
+          projectId={projectId}
+          />
+        )}>
+        <i className="fa fa-pencil"></i>
+        </button>
+        <button
+        className="delete-button"
+        onClick={
+          () => this.props.openModal(
+            <ConfirmDeleteForm
+            message="Are you sure you want to delete this document?"
+            action={this.props.deleteDocument(doc, draftId)} />
+          )
+        }>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
         </div>
-        <Link to={`/project/${projectId}/document/${doc._id}`}>
-          <p className='doc-title'> {doc.title}</p>
+        <div className="details">
+          <p className='doc-title'>
+            <Link to={`/project/${projectId}/document/${doc._id}`}>
+            {doc.title}
+            </Link>
+          </p>
           <p>{dateTimeFormatter(doc.createdAt)}</p>
           <p>{user.firstName}</p>
-        </Link>
+        </div>
       </li>
     );
   }
