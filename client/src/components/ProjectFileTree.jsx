@@ -6,6 +6,21 @@ import '../styles/projectFileTree.css';
 class ProjectFileTree extends React.Component {
   menu() {
     let revisions = Object.values(this.props.revisions);
+
+    if (revisions.length > 0 ){
+      revisions.sort((a, b) => {
+        let titleA = a.title.toUpperCase();
+        let titleB = b.title.toUpperCase();
+        if (titleA < titleB) {
+          return -1;
+        }
+        if (titleA > titleB) {
+          return 1;
+        }
+        return 0;}
+      );
+    }
+
     if (this.props.view === 'DocumentForm') {
       return (
         <div>
@@ -44,7 +59,6 @@ class ProjectFileTree extends React.Component {
       return null;
     }
   }
-  // }
 
 
   render() {
@@ -61,5 +75,7 @@ class ProjectFileTree extends React.Component {
     );
   }
 }
+
+
 
 export default ProjectFileTree;
