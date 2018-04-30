@@ -282,7 +282,14 @@ function mapStateToProps(state, ownProps) {
 
   let projectName;
   if (Object.keys(state.projects).length != 0) {
-    projectName = state.projects[ownProps.match.params.projectId].name
+    let projectName = state.projects[ownProps.match.params.projectId].name;
+  }
+  let revisions = [];
+  if (draft.saveIds) {
+    let save = state.saves[draft.saveIds[draft.saveIds.length - 1]];
+    if (save) {
+      revisions = save.revisionIds.map(id => state.revisions[id]);  
+    }
   }
 
   return {
@@ -291,7 +298,7 @@ function mapStateToProps(state, ownProps) {
     draft,
     document,
     projectId: ownProps.match.params.projectId,
-    revisions: state.revisions,
+    revisions: revisions,
     projectName: projectName,
   };
 }
