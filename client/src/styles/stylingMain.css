@@ -104,3 +104,7 @@
 .scrollable-list {
   overflow: scroll;
 }
+
+.material-icons {
+  font-size: 20px
+}
