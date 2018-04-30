@@ -41,7 +41,6 @@ class CombineDraftsModal extends React.Component {
 
   handleCombine(e) {
     e.preventDefault();
-    console.log('combineeeee baby');
     const conflicts = [];
     Object.values(this.props.conflicts).forEach(conflict => {
       conflicts[conflict.conflictIdx] = conflicts[conflict.conflictIdx] || [];
@@ -71,7 +70,7 @@ class CombineDraftsModal extends React.Component {
 
     this.props.createSave({
       save: {
-        name: "Merge",
+        name: `Merge from draft: ${this.props.mergeDraft.name}`,
         draftId: this.props.selectedDrafts.winningDraft,
       },
       newRevs: revisions,
@@ -185,7 +184,7 @@ class CombineDraftsModal extends React.Component {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const mainSave = state.ui.merge.mainSave;
   let lastSaveRevisions = [];
   if (mainSave) {
@@ -201,7 +200,8 @@ const mapStateToProps = state => {
     conflicts: state.ui.conflicts,
     lastSaveRevisions,
     mergeRevisions: state.ui.merge.revisions,
-    chunkedMerges: state.ui.merge.chunkedMerges
+    chunkedMerges: state.ui.merge.chunkedMerges,
+    mergeDraft: state.drafts[state.ui.selectedDrafts.losingDraft]
   };
 };
 
