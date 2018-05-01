@@ -8,11 +8,12 @@ class LeftSidebar extends React.Component {
   render() {
     if (this.props.view === 'DocumentForm') {
       return (
-        <div>
+        <div className='left-sidebar'>
           <header>
             <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
-              <h5>To Projects Dashboard</h5>
               <i className="material-icons">chevron_left</i>
+              <h5>To Projects Dashboard</h5>
+
             </Link>
           </header>
           <ProjectFileTree
@@ -26,11 +27,11 @@ class LeftSidebar extends React.Component {
       );
     } else if (this.props.view === 'ProjectShow') {
       return (
-        <div>
+        <div className='left-sidebar'>
           <header>
             <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
-              <h5>To Projects Dashboard</h5>
               <i className="material-icons">chevron_left</i>
+              <h5>To Projects Dashboard</h5>
             </Link>
           </header>
           <DraftForm
@@ -38,23 +39,23 @@ class LeftSidebar extends React.Component {
             projectId={this.props.projectId}
             drafts={this.props.drafts}
           />
-          <Link to={`/projects/${this.props.projectId}/drafts`} >
-            Combine Drafts
+          <Link to={`/projects/${this.props.projectId}/drafts`} className='link-to-combine-drafts' >
+            <h5 className='combine-drafts-link'> Combine Drafts </h5>
           </Link>
         </div>
       );
     } else {
       return (
-        <div>
+        <div className='left-sidebar'>
           <header>
             <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
-              <h5>To Projects Dashboard</h5>
               <i className="material-icons">chevron_left</i>
+              <h5>To Projects Dashboard</h5>
             </Link>
           </header>
           <div className="folder-header">
             <Link to={`/projects/${this.props.projectId}`}>
-              <i className="material-icons">chevron_right</i>
+              <i className="material-icons">chevron_left</i>
               <h4>{this.props.projectName}</h4>
             </Link>
           </div>

@@ -26,7 +26,7 @@ class ProjectFileTree extends React.Component {
         <div>
           <div className="folder-header">
             <Link to={`/projects/${this.props.projectId}`}>
-              <i className="material-icons">chevron_right</i>
+              <i className="material-icons">chevron_left</i>
               <h4>{this.props.projectName}</h4>
             </Link>
           </div>

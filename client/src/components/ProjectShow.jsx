@@ -69,6 +69,7 @@ class Project extends React.Component {
                 drafts={this.props.drafts}
                 view="ProjectShow"
                 revisions={this.props.revisions}
+                projectName={this.props.projectName}
               />
             </aside>
             <section className='main-list'>
@@ -123,11 +124,13 @@ function mapStateToProps(state, ownProps) {
     saves,
     users,
     activeDraft,
-    revisions
+    revisions,
+    projectName: project.name,
   };
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     fetchDraft: id => dispatch(fetchDraft(id)),

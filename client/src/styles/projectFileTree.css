@@ -8,6 +8,7 @@
 }
 
 .project-file-tree header {
+  font-family: 'Josefin Sans', sans-serif;
   background-color: #F7F7F7;
   display: flex;
   flex-direction: row;
@@ -30,17 +31,28 @@ header .to-dashboard-ProjectShow:hover {
   color: #226CE0;
 }
 
-h5 {
+header .to-dashboard-undefined:hover {
+  color: #CA2E55;
+}
+
+
+.left-sidebar h5 {
   font-weight: 400;
   font-size: 18px;
   margin: 15px 0;
-  padding: 5px 0;
+  padding-right: 30px;
+  text-align: left;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.left-sidebar i {
+  padding-left: 20px;
 }
 
 .project-file-tree ul li {
-  margin-left: 20px;
+  margin-left: 30px;
   list-style: none;
-  padding: 10px 0;
+  padding: 15px 0;
   border-bottom: 1px solid #FAFAFA;
 
 }
@@ -57,18 +69,20 @@ h5 {
   align-items: center;
 }
 
-h6 {
+.project-file-tree h6 {
   display: inline;
   margin: 0;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
   font-size: 16px;
+  padding-left: 15px;
 }
 
-h4 {
+.project-file-tree h4 {
   display: inline-block;
   font-weight: 400;
   margin: 0;
+  padding-left: 30px;
 }
 
 .folder-header a {
@@ -77,6 +91,7 @@ h4 {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .folder-header a:hover {
