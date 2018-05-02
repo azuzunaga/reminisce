@@ -1,5 +1,7 @@
 ## Reminisce
 
+[Live Site!](https://reminisce-app.herokuapp.com/)
+
 ### Background and Overview
 Reminisce is a web application that lets writers use version control in their documents, while also preserving formatting. Users will be able to “commit” versions of their documents or projects and switch between them. Users can also invite other users to view their documents.
 
