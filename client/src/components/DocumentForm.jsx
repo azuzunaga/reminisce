@@ -5,14 +5,14 @@ import { Editor, EditorState, RichUtils,
 import { connect } from 'react-redux';
 import '../styles/stylingMain.css';
 import '../styles/documentForm.css';
-import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
 import {
   openModal,
   closeModal,
   createSave,
   fetchRevision,
-  fetchProject
+  fetchProject,
+  receiveErrors
  } from '../actions/index';
 import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
@@ -43,6 +43,10 @@ class DocumentForm extends React.Component {
     this.createSave = this.createSave.bind(this);
   }
 
+  localSave = (content) => {
+    window.localStorage.setItem(this.state.title, JSON.stringify(convertToRaw(content)));
+  }
+
   myKeyBindingFn(e: SyntheticKeyboardEvent): string {
     if (e.keyCode === 83 && hasCommandModifier(e)) {
       return 'save';
@@ -56,38 +60,63 @@ class DocumentForm extends React.Component {
 
   saveContent = debounce(() => {
     this.handleSave('auto-save');
-  }, 15000);
+  }, 7000);
 
   onChange(editorState) {
-    this.saveContent();
+    let formChange = convertToRaw(editorState.getCurrentContent());
+    let stateBefore = convertToRaw(this.state.editorState.getCurrentContent());
+    if (JSON.stringify(formChange) !== JSON.stringify(stateBefore)) {
+      this.saveContent();
+    }
+    this.localSave(editorState.getCurrentContent())
     this.setState({editorState});
   }
 
   componentDidMount () {
-    if (Object.keys(this.props.document).length != 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
-      this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document))
-      })
+    if (Object.keys(this.props.document).length !== 0) {
+      const content = window.localStorage.getItem(this.state.title);
+      if (content) {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+        })
+      } else {
+        let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(document))
+        })
+      }
     } else {
-      this.props.fetchRevision(this.props.projectId, this.props.documentId);
+      this.props.fetchRevision(this.props.projectId, this.props.title);
     }
 
     this.props.fetchProject(this.props.projectId);
   }
 
   componentWillReceiveProps(newProps) {
-    if (Object.keys(newProps.document).length != 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
+    if (Object.keys(newProps.document).length !== 0) {
+      const content = window.localStorage.getItem(newProps.document.title);
+      if (content) {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+        })
+      } else {
+        let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(document))
+        });
+      }
       this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document)),
         title: newProps.document.title,
         revisions: newProps.revisions
-      });
+      })
     }
   }
 
   componentWillUnmount() {
+    this.saveContent.cancel();
+    this.saveTitle.cancel();
+    this.props.clearErrors();
+    this.forceSave();
     this.props.closeModal();
   }
 
@@ -152,6 +181,17 @@ class DocumentForm extends React.Component {
     });
   }
 
+  forceSave() {
+    let save = this.makeSaveReq('auto-save')
+    this.props.createSave(save).then((payload) => {
+    }).catch( () => {
+      this.props.openModal(<TitleErrorModal />)
+      this.setState({
+        editorState: this.state.body
+      });
+    });
+  }
+
   handleSave(typeofSave) {
     let save = this.makeSaveReq(typeofSave);
     this.createSave(save);
@@ -171,7 +211,6 @@ class DocumentForm extends React.Component {
   }
 
   render () {
-    console.log(this.props.projectName, this.props.projectId);
     if (!this.state.editorState) {
       return (<div>Loading...</div>);
     }
@@ -271,18 +310,23 @@ class DocumentForm extends React.Component {
 function mapStateToProps(state, ownProps) {
   let draft = {};
   let document = {};
-  let documentId = ownProps.match.params.documentId;
-  if (Object.keys(state.revisions).length != 0) {
+  let documentId;
+  if (Object.keys(state.revisions).length !== 0) {
     let activeDraftArr = state.auth.projectsActiveDraft;
     let idx = activeDraftArr.findIndex(el =>
       { return el.projectId === ownProps.match.params.projectId});
       let draftId = activeDraftArr[idx].draftId;
-    document = state.revisions[ownProps.match.params.documentId];
+    Object.values(state.revisions).forEach(rev => {
+      if (ownProps.match.params.title === rev.title) {
+        document = rev;
+        documentId = rev._id;
+      }
+    })
     draft = state.drafts[draftId];
   }
 
   let projectName;
-  if (Object.keys(state.projects).length != 0) {
+  if (Object.keys(state.projects).length !== 0) {
     projectName = state.projects[ownProps.match.params.projectId].name;
   }
   let revisions = [];
@@ -306,10 +350,11 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
-  fetchRevision: (projectId, revisionId) => dispatch(fetchRevision(projectId, revisionId)),
+  fetchRevision: (projectId, title) => dispatch(fetchRevision(projectId, title)),
   openModal: (component) => dispatch(openModal(component)),
   closeModal: () => dispatch(closeModal()),
-  fetchProject: id => dispatch(fetchProject(id))
+  fetchProject: id => dispatch(fetchProject(id)),
+  clearErrors: () => dispatch(receiveErrors([]))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);

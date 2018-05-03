@@ -24,7 +24,7 @@ class SaveHistoryModal extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.draft._id != nextProps.draft._id) {
+    if (this.props.draft._id !== nextProps.draft._id) {
       this.props.fetchDraft(nextProps.draft._id);
     }
   }

@@ -43,7 +43,7 @@ class ProjectFileTree extends React.Component {
                 return (
                   <li key={doc._id}>
                     <Link
-                      to={`/project/${this.props.projectId}/document/${doc._id}`}
+                      to={`/project/${this.props.projectId}/document/${doc.title}`}
                     >
                       <i className="material-icons">chevron_right</i>
                       <h6>{doc.title}</h6>

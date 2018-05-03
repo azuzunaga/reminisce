@@ -30,7 +30,7 @@ class App extends React.Component {
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
             <ProtectedRoute exact path="/projects/:projectId" component={Project} />
             <ProtectedRoute exact path="/documents/:documentId" component={Document} />
-            <ProtectedRoute exact path="/project/:projectId/document/:documentId" component={DocumentForm} />
+            <ProtectedRoute exact path="/project/:projectId/document/:title" component={DocumentForm} />
             <ProtectedRoute exact path="/projects/:projectId/drafts" component={CombineDrafts} />
             <Route exact path="/about" component={About} />
           </div>

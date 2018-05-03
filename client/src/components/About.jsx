@@ -15,12 +15,18 @@ class About extends React.Component {
         <ul className="dev-list">
           <li className="gabriel">
             <h3>Gabriel Talavera</h3>
-            <p>Bio</p>
+            <p>Gabriel has never written one line of bad code.
+              His greatest weaknesses are that he works too hard
+              and he cares too much. When Gabriel isn't referring to
+              himself in the third person or coding he enjoys writing,
+              watching movies and long walks on the beach
+            </p>
             <ul className="contact-info">
               <li>
                 <a href="https://github.com/gabrieltal"
                   target="_blank" rel="noopener noreferrer">
                   <img src={ghBlack}
+                    alt="GitHub"
                     onMouseOver={e => e.currentTarget.src=ghRed}
                     onMouseOut={e => e.currentTarget.src=ghBlack}/>
               </a>
@@ -29,6 +35,7 @@ class About extends React.Component {
               <a href="https://www.linkedin.com/in/gvtalavera/"
                 target="_blank" rel="noopener noreferrer">
                 <img src={lnBlack}
+                  alt="LinkedIn"
                   onMouseOver={e => e.currentTarget.src=lnBlue}
                   onMouseOut={e => e.currentTarget.src=lnBlack}/>
               </a>
@@ -46,6 +53,7 @@ class About extends React.Component {
                 <a href="https://github.com/Ian-MacLeod"
                   target="_blank" rel="noopener noreferrer">
                   <img src={ghBlack}
+                    alt="GitHub"
                     onMouseOver={e => e.currentTarget.src=ghRed}
                     onMouseOut={e => e.currentTarget.src=ghBlack}/>
                 </a>
@@ -54,6 +62,7 @@ class About extends React.Component {
               <a href="https://www.linkedin.com/in/ian-macleod-6421a2137/"
                 target="_blank" rel="noopener noreferrer">
                 <img src={lnBlack}
+                  alt="LinkedIn"
                   onMouseOver={e => e.currentTarget.src=lnBlue}
                   onMouseOut={e => e.currentTarget.src=lnBlack}/>
               </a>
@@ -69,6 +78,7 @@ class About extends React.Component {
                 <a href="https://github.com/azuzunaga"
                   target="_blank" rel="noopener noreferrer">
                   <img src={ghBlack}
+                    alt="GitHub"
                     onMouseOver={e => e.currentTarget.src=ghRed}
                     onMouseOut={e => e.currentTarget.src=ghBlack}/>
                 </a>
@@ -77,6 +87,7 @@ class About extends React.Component {
                 <a href="https://www.linkedin.com/in/americozuzunaga/"
                   target="_blank" rel="noopener noreferrer">
                   <img src={lnBlack}
+                    alt="LinkedIn"
                     onMouseOver={e => e.currentTarget.src=lnBlue}
                     onMouseOut={e => e.currentTarget.src=lnBlack}/>
                 </a>
@@ -94,6 +105,7 @@ class About extends React.Component {
                 <a href="https://github.com/youknowhu"
                   target="_blank" rel="noopener noreferrer">
                   <img src={ghBlack}
+                    alt="GitHub"
                     onMouseOver={e => e.currentTarget.src=ghRed}
                     onMouseOut={e => e.currentTarget.src=ghBlack}/>
                 </a>
@@ -102,6 +114,7 @@ class About extends React.Component {
               <a href="https://www.linkedin.com/in/kimberly-hu/"
                 target="_blank" rel="noopener noreferrer">
                 <img src={lnBlack}
+                  alt="LinkedIn"
                   onMouseOver={e => e.currentTarget.src=lnBlue}
                   onMouseOut={e => e.currentTarget.src=lnBlack}/>
               </a>
