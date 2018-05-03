@@ -5,7 +5,6 @@ import { Editor, EditorState, RichUtils,
 import { connect } from 'react-redux';
 import '../styles/stylingMain.css';
 import '../styles/documentForm.css';
-import {stateToHTML} from 'draft-js-export-html';
 import ul from '../assets/ul-icon.png';
 import {
   openModal,
@@ -64,7 +63,7 @@ class DocumentForm extends React.Component {
   }
 
   componentDidMount () {
-    if (Object.keys(this.props.document).length != 0) {
+    if (Object.keys(this.props.document).length !== 0) {
       let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
       this.setState({
         editorState: EditorState.createWithContent(convertFromRaw(document))
@@ -77,7 +76,7 @@ class DocumentForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (Object.keys(newProps.document).length != 0) {
+    if (Object.keys(newProps.document).length !== 0) {
       let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
       this.setState({
         editorState: EditorState.createWithContent(convertFromRaw(document)),
@@ -273,7 +272,7 @@ function mapStateToProps(state, ownProps) {
   let draft = {};
   let document = {};
   let documentId = ownProps.match.params.documentId;
-  if (Object.keys(state.revisions).length != 0) {
+  if (Object.keys(state.revisions).length !== 0) {
     let activeDraftArr = state.auth.projectsActiveDraft;
     let idx = activeDraftArr.findIndex(el =>
       { return el.projectId === ownProps.match.params.projectId});
@@ -283,7 +282,7 @@ function mapStateToProps(state, ownProps) {
   }
 
   let projectName;
-  if (Object.keys(state.projects).length != 0) {
+  if (Object.keys(state.projects).length !== 0) {
     projectName = state.projects[ownProps.match.params.projectId].name;
   }
   let revisions = [];
