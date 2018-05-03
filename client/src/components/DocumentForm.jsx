@@ -11,7 +11,8 @@ import {
   closeModal,
   createSave,
   fetchRevision,
-  fetchProject
+  fetchProject,
+  receiveErrors
  } from '../actions/index';
 import debounce from 'lodash/debounce';
 import SaveRev from './SaveRev';
@@ -62,7 +63,11 @@ class DocumentForm extends React.Component {
   }, 7000);
 
   onChange(editorState) {
-    this.saveContent();
+    let formChange = convertToRaw(editorState.getCurrentContent());
+    let stateBefore = convertToRaw(this.state.editorState.getCurrentContent());
+    if (JSON.stringify(formChange) !== JSON.stringify(stateBefore)) {
+      this.saveContent();
+    }
     this.localSave(editorState.getCurrentContent())
     this.setState({editorState});
   }
@@ -110,6 +115,7 @@ class DocumentForm extends React.Component {
   componentWillUnmount() {
     this.saveContent.cancel();
     this.saveTitle.cancel();
+    this.props.clearErrors();
     this.props.closeModal();
   }
 
@@ -166,6 +172,17 @@ class DocumentForm extends React.Component {
   createSave(save) {
     this.props.createSave(save).then((payload) => {
       this.props.history.replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
+    }).catch( () => {
+      this.props.openModal(<TitleErrorModal />)
+      this.setState({
+        editorState: this.state.body
+      });
+    });
+  }
+
+  forceSave() {
+    let save = this.makeSaveReq('auto-save')
+    this.props.createSave(save).then((payload) => {
     }).catch( () => {
       this.props.openModal(<TitleErrorModal />)
       this.setState({
@@ -330,7 +347,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRevision: (projectId, revisionId) => dispatch(fetchRevision(projectId, revisionId)),
   openModal: (component) => dispatch(openModal(component)),
   closeModal: () => dispatch(closeModal()),
-  fetchProject: id => dispatch(fetchProject(id))
+  fetchProject: id => dispatch(fetchProject(id)),
+  clearErrors: () => dispatch(receiveErrors([]))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentForm);
