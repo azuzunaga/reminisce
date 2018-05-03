@@ -315,7 +315,7 @@ function mapStateToProps(state, ownProps) {
     let idx = activeDraftArr.findIndex(el =>
       { return el.projectId === ownProps.match.params.projectId});
       let draftId = activeDraftArr[idx].draftId;
-    document = state.revisions[ownProps.match.params.revisionTitle];
+    document = Object.values(state.revisions)[ownProps.match.params.revisionTitle];
     draft = state.drafts[draftId];
   }
 
