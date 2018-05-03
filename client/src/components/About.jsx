@@ -15,7 +15,12 @@ class About extends React.Component {
         <ul className="dev-list">
           <li className="gabriel">
             <h3>Gabriel Talavera</h3>
-            <p>Bio</p>
+            <p>Gabriel has never written one line of bad code.
+              His greatest weaknesses are that he works too hard
+              and he cares too much. When Gabriel isn't referring to
+              himself in the third person or coding he enjoys writing,
+              watching movies and long walks on the beach
+            </p>
             <ul className="contact-info">
               <li>
                 <a href="https://github.com/gabrieltal"

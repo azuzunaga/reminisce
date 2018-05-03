@@ -42,6 +42,10 @@ class DocumentForm extends React.Component {
     this.createSave = this.createSave.bind(this);
   }
 
+  localSave = (content) => {
+    window.localStorage.setItem(this.state.title, JSON.stringify(convertToRaw(content)));
+  }
+
   myKeyBindingFn(e: SyntheticKeyboardEvent): string {
     if (e.keyCode === 83 && hasCommandModifier(e)) {
       return 'save';
@@ -55,19 +59,27 @@ class DocumentForm extends React.Component {
 
   saveContent = debounce(() => {
     this.handleSave('auto-save');
-  }, 15000);
+  }, 7000);
 
   onChange(editorState) {
     this.saveContent();
+    this.localSave(editorState.getCurrentContent())
     this.setState({editorState});
   }
 
   componentDidMount () {
     if (Object.keys(this.props.document).length !== 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
-      this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document))
-      })
+      const content = window.localStorage.getItem(this.state.title);
+      if (content) {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+        })
+      } else {
+        let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(document))
+        })
+      }
     } else {
       this.props.fetchRevision(this.props.projectId, this.props.documentId);
     }
@@ -77,12 +89,21 @@ class DocumentForm extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (Object.keys(newProps.document).length !== 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
+      const content = window.localStorage.getItem(newProps.document.title);
+      if (content) {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+        })
+      } else {
+        let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(document))
+        });
+      }
       this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document)),
         title: newProps.document.title,
         revisions: newProps.revisions
-      });
+      })
     }
   }
 
