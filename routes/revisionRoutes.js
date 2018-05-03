@@ -18,7 +18,6 @@ module.exports = app => {
     const lastSave = await Save.findById(saveId);
     const revisions = await Revision.find({ _id: { $in: lastSave.revisionIds } }) || [];
 
-    console.log(revisions);
     const revision = _.find(
       revisions,
       rev => rev.title == req.params.title
