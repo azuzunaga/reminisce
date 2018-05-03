@@ -112,6 +112,7 @@ function mapStateToProps(state, ownProps) {
   const activeDraft = state.drafts[activeDraftId];
   const drafts = project.draftIds.map(id => state.drafts[id]);
   const saves = activeDraft.saveIds.map(id => state.saves[id]);
+  console.log(state.saves);
   const users = saves.map(save => {
     return ( state.users[save.userId] )
   });
