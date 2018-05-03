@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 import { createDraft, fetchDraft } from '../actions';
 
 import '../styles/draftForm.css';
@@ -73,7 +73,6 @@ class DraftForm extends React.Component {
 
     return (
       <div className="draft-form-container">
-        <header> Drafts </header>
         <div className='draft-drop-down-header'>
           <h4 className="draft-version">
             Current Draft:
@@ -107,6 +106,9 @@ class DraftForm extends React.Component {
             </form>
           </div>
         </div>
+        <Link to={`/projects/${this.props.projectId}/drafts`} className='link-to-combine-drafts' >
+          <h5 id='combine-drafts-link' className='combine-drafts-link'> Combine Drafts </h5>
+        </Link>
       </div>
     );
   }

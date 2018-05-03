@@ -35,17 +35,17 @@ class ProjectFileTree extends React.Component {
               if (doc._id === this.props.documentId) {
                 return (
                   <li className='current-doc' key={doc._id}>
-                    <i className="material-icons">chevron_right</i>
+                    <i className="fa fa-file"></i>
                     <h6>{doc.title}</h6>
                   </li>
                 );
               } else {
                 return (
-                  <li key={doc._id}>
+                  <li className='other-doc' key={doc._id}>
+                    <i className="fa fa-file"></i>
                     <Link
                       to={`/project/${this.props.projectId}/document/${doc._id}`}
                     >
-                      <i className="material-icons">chevron_right</i>
                       <h6>{doc.title}</h6>
                     </Link>
                   </li>

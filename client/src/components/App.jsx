@@ -10,7 +10,6 @@ import { AuthRoute, ProtectedRoute } from "../utils/authRoutes";
 import Dashboard from "./ProjectsDashboard";
 import Project from "./ProjectShow";
 import CombineDrafts from "./CombineDrafts";
-import SaveDiff from "./diff/SaveDiff";
 import About from './About';
 class App extends React.Component {
   componentDidMount() {

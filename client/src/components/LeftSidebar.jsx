@@ -39,9 +39,6 @@ class LeftSidebar extends React.Component {
             projectId={this.props.projectId}
             drafts={this.props.drafts}
           />
-          <Link to={`/projects/${this.props.projectId}/drafts`} className='link-to-combine-drafts' >
-            <h5 className='combine-drafts-link'> Combine Drafts </h5>
-          </Link>
         </div>
       );
     } else {

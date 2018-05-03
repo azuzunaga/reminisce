@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
 
-
 .project-file-tree {
   font-family: 'Josefin Sans', sans-serif;
   display: flex;
@@ -19,7 +18,6 @@
 header a {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
 }
 
@@ -40,7 +38,7 @@ header .to-dashboard-undefined:hover {
   font-weight: 400;
   font-size: 18px;
   margin: 15px 0;
-  padding-right: 30px;
+  padding-left: 10px;
   text-align: left;
   font-family: 'Josefin Sans', sans-serif;
 }
@@ -52,7 +50,7 @@ header .to-dashboard-undefined:hover {
 .project-file-tree ul li {
   margin-left: 30px;
   list-style: none;
-  padding: 15px 0;
+  padding: 8px 0;
   border-bottom: 1px solid #FAFAFA;
 
 }
@@ -75,19 +73,24 @@ header .to-dashboard-undefined:hover {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
   font-size: 16px;
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 .project-file-tree h4 {
   display: inline-block;
   font-weight: 400;
   margin: 0;
-  padding-left: 30px;
+  padding-left: 15px;
+}
+
+.folder-header {
+  padding-left: 5px;
 }
 
 .folder-header a {
-  margin: 5px 0;
+  margin: 0;
   margin-left: 10px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -98,8 +101,27 @@ header .to-dashboard-undefined:hover {
   color: #EF6F6C;
 }
 
+
+.project-file-tree-list i {
+  margin-left: 15px;
+}
+
 .current-doc {
   display: flex;
   align-items: center;
   color: #EF6F6C;
+}
+
+.other-doc {
+  display: flex;
+  align-items: center;
+  color: #666666;
+}
+
+.other-doc > * {
+  color: #666666;
+}
+
+.other-doc:hover > * {
+  color:  #EF6F6C;
 }
