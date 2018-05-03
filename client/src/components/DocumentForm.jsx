@@ -88,6 +88,8 @@ class DocumentForm extends React.Component {
   }
 
   componentWillUnmount() {
+    this.saveContent.cancel();
+    this.saveTitle.cancel();
     this.props.closeModal();
   }
 
@@ -171,7 +173,6 @@ class DocumentForm extends React.Component {
   }
 
   render () {
-    console.log(this.props.projectName, this.props.projectId);
     if (!this.state.editorState) {
       return (<div>Loading...</div>);
     }
