@@ -29,11 +29,11 @@ class ProjectsListItem extends React.Component {
               )
             }
             >
-            <i class="fa fa-trash" aria-hidden="true"></i>
+            <i className="fa fa-trash" aria-hidden="true"></i>
           </button>
 
         </div>
-        
+
           <p>{users[project.ownerId].firstName}</p>
 
         <p>{dateTimeFormatter(project.updatedAt)}</p>
