@@ -309,13 +309,13 @@ class DocumentForm extends React.Component {
 function mapStateToProps(state, ownProps) {
   let draft = {};
   let document = {};
-  let documentId = ownProps.match.params.documentId;
+  let documentId = ownProps.match.params.revisionTitle;
   if (Object.keys(state.revisions).length !== 0) {
     let activeDraftArr = state.auth.projectsActiveDraft;
     let idx = activeDraftArr.findIndex(el =>
       { return el.projectId === ownProps.match.params.projectId});
       let draftId = activeDraftArr[idx].draftId;
-    document = state.revisions[ownProps.match.params.documentId];
+    document = state.revisions[ownProps.match.params.revisionTitle];
     draft = state.drafts[draftId];
   }
 
@@ -344,7 +344,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
-  fetchRevision: (projectId, revisionId) => dispatch(fetchRevision(projectId, revisionId)),
+  fetchRevision: (projectId, revisionTitle) => dispatch(fetchRevision(projectId, revisionTitle)),
   openModal: (component) => dispatch(openModal(component)),
   closeModal: () => dispatch(closeModal()),
   fetchProject: id => dispatch(fetchProject(id)),

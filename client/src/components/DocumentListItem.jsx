@@ -15,7 +15,7 @@ class DocumentListItem extends React.Component {
       <li className='list-item document' key={doc._id}>
         <div className="wrap">
           <p className='doc-title'>
-            <Link to={`/project/${projectId}/document/${doc._id}`}>
+            <Link to={`/project/${projectId}/document/${doc.title}`}>
               {doc.title}
             </Link>
           </p>
