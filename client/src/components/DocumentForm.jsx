@@ -316,8 +316,8 @@ function mapStateToProps(state, ownProps) {
     let idx = activeDraftArr.findIndex(el =>
       { return el.projectId === ownProps.match.params.projectId});
       let draftId = activeDraftArr[idx].draftId;
-    let revs = Object.values(state.revisions).forEach(rev => {
-      if (ownProps.match.params.title == rev.title) {
+    Object.values(state.revisions).forEach(rev => {
+      if (ownProps.match.params.title === rev.title) {
         document = rev;
         documentId = rev._id;
       }

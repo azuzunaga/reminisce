@@ -5,7 +5,6 @@ import { find } from 'lodash';
 import DocumentListItem from './DocumentListItem';
 import NewDocument from './NewDocument';
 import SaveHistory from  './SaveHistory';
-import DraftForm from './DraftForm';
 import LeftSidebar from './LeftSidebar';
 
 import { closeModal, openModal } from '../actions';
@@ -21,7 +20,7 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.projectId != nextProps.match.params.projectId) {
+    if (this.props.match.params.projectId !== nextProps.match.params.projectId) {
       this.props.fetchProject(nextProps.match.params.projectId);
     }
   }
