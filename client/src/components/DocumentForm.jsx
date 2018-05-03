@@ -86,7 +86,7 @@ class DocumentForm extends React.Component {
         })
       }
     } else {
-      this.props.fetchRevision(this.props.projectId, this.props.documentId);
+      this.props.fetchRevision(this.props.projectId, this.props.title);
     }
 
     this.props.fetchProject(this.props.projectId);
@@ -116,6 +116,7 @@ class DocumentForm extends React.Component {
     this.saveContent.cancel();
     this.saveTitle.cancel();
     this.props.clearErrors();
+    this.forceSave();
     this.props.closeModal();
   }
 
@@ -309,13 +310,18 @@ class DocumentForm extends React.Component {
 function mapStateToProps(state, ownProps) {
   let draft = {};
   let document = {};
-  let documentId = ownProps.match.params.revisionTitle;
+  let documentId;
   if (Object.keys(state.revisions).length !== 0) {
     let activeDraftArr = state.auth.projectsActiveDraft;
     let idx = activeDraftArr.findIndex(el =>
       { return el.projectId === ownProps.match.params.projectId});
       let draftId = activeDraftArr[idx].draftId;
-    document = Object.values(state.revisions)[ownProps.match.params.revisionTitle];
+    let revs = Object.values(state.revisions).forEach(rev => {
+      if (ownProps.match.params.title == rev.title) {
+        document = rev;
+        documentId = rev._id;
+      }
+    })
     draft = state.drafts[draftId];
   }
 
@@ -344,7 +350,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch) => ({
   createSave: (save) => dispatch(createSave(save)),
-  fetchRevision: (projectId, revisionTitle) => dispatch(fetchRevision(projectId, revisionTitle)),
+  fetchRevision: (projectId, title) => dispatch(fetchRevision(projectId, title)),
   openModal: (component) => dispatch(openModal(component)),
   closeModal: () => dispatch(closeModal()),
   fetchProject: id => dispatch(fetchProject(id)),

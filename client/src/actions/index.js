@@ -42,8 +42,8 @@ export const fetchProject = id => async dispatch => {
 
 ///////////////////////////////////////////////////////
 
-export const fetchRevision = (projectId, revisionId) => async dispatch => {
-  const res = await axios.get(`/api/projects/${projectId}/revisions/${revisionId}`);
+export const fetchRevision = (projectId, title) => async dispatch => {
+  const res = await axios.get(`/api/projects/${projectId}/revisions/${title}`);
 
   dispatch({
     type: FETCH_REVISION,
