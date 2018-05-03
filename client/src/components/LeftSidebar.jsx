@@ -12,7 +12,7 @@ class LeftSidebar extends React.Component {
           <header>
             <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
               <i className="material-icons">chevron_left</i>
-              <h5>To Projects Dashboard</h5>
+              <h5>My Projects Dashboard</h5>
 
             </Link>
           </header>

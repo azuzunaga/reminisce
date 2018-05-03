@@ -4,18 +4,17 @@
   display: flex;
   flex-direction: column;
   font-family: 'Josefin Sans', sans-serif;
-  padding-top: 50px;
-  padding-left: 15px;
-  padding-right: 15px;
+  background: white;
+  margin-left: 5%;
+  width: 90%
 }
 
 .draft-form-container header {
   text-align: left;
   padding: 0;
   margin: 0;
-  font-size: 18px;
-
-
+  font-size: 20px;
+  color: #226CE0;
 }
 
 .draft-form-container li {
@@ -24,43 +23,50 @@
 }
 
 .draft-form {
+  box-sizing: border-box;
+  width: 90%;
   display: flex;
   flex-direction: column;
 }
 
-.draft-form {
-  box-sizing: border-box;
-  width: 100%;
-  align-items: center;
-  display: flex;
+.draft-form form {
+  width: 75%;
 }
 
-.draft-form form {
-  width: 100%;
+.draft-form h4 {
+  color: #434343;
+  font-weight: 400;
+  font-size: 18px;
+  margin: 10px 0px;
+  padding-left: 10px;
+
 }
+
 
 .draft-form.text {
-  padding: 10px 0;
+  padding: 5px 0;
   padding-left: 10px;
   border: 1px solid lightgray;
-  border-left: none;
-  border-right: none;
+  text-align: center;
   font-size: 16px;
   font-family: 'Josefin Sans', sans-serif;
   color: #666666;
+  width: 90%;
 }
 
 .draft-form.submit {
-  font-size: 18px;
-  height: 40px;
+  font-size: 16px;
+  height: 30px;
   border: none;
   color: white;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
   background-color: #226CE0;
   text-align: center;
-  line-height: 40px;
-  margin-top: 15px;
+  line-height: 30px;
+  padding-left: 22%;
+  margin-top: 10px;
+  width: 90%;
 }
 
 .draft-version {
@@ -74,8 +80,12 @@
   display: inline-block;
 }
 
+.draft-version span {
+  color: #666666;
+}
+
 .draft-form.submit:hover {
-  background-color: #af2649;
+  background-color: #666666;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
@@ -101,11 +111,21 @@
   font-weight: 400;
   margin: 0;
   display: inline;
+  color: #434343;
+}
+
+.material-icons.all-drafts {
+  color: #434343;
+  text-align: left;
+  padding-left: 5px;
+}
+
+.draft-drop-down-button i:hover {
+  color: #226CE0;
 }
 
 .list-item:hover {
   cursor: pointer;
-  text-decoration: underline;
   background-color: #FAFAFA;
 }
 
@@ -120,19 +140,32 @@
 
 .list-item.draft {
   padding-left: 20;
+  display: flex;
+  justify-content: flex-start;
+  color: #666666;
+  line-height: 16px;
+}
+
+.list-item.draft span {
+  padding-right: 10px;
 }
 
 .draft-menu.hidden {
   display: none;
 }
 
+.list-item.draft:hover {
+  color: #226CE0;
+  line-height: 16px;
+}
 
 #combine-drafts-link {
-  padding-top: 10px;
   margin: 0;
-  color: #226CE0;
   padding-left: 10px;
-  font-size: 18px;
+  font-size: 14px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
 }
 
 
