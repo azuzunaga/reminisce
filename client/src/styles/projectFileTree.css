@@ -106,6 +106,10 @@ header .to-dashboard-undefined:hover {
   color: #EF6F6C;
 }
 
+.folder-header h4 {
+  font-weight: 400;
+}
+
 
 
 .current-doc {
@@ -126,4 +130,10 @@ header .to-dashboard-undefined:hover {
 
 .other-doc:hover > * {
   color:  #EF6F6C;
+}
+
+.combine-drafts-project-link h4 {
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
 }

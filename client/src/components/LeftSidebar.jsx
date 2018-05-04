@@ -12,7 +12,7 @@ class LeftSidebar extends React.Component {
           <header>
             <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
               <i className="material-icons">chevron_left</i>
-              <h5>My Projects Dashboard</h5>
+              <h5>Projects Dashboard</h5>
 
             </Link>
           </header>
@@ -31,7 +31,7 @@ class LeftSidebar extends React.Component {
           <header>
             <Link to="/dashboard" className={'to-dashboard-' + this.props.view}>
               <i className="material-icons">chevron_left</i>
-              <h5>To Projects Dashboard</h5>
+              <h5>Projects Dashboard</h5>
             </Link>
           </header>
           <DraftForm
@@ -54,7 +54,7 @@ class LeftSidebar extends React.Component {
             </Link>
           </header>
           <div className="folder-header">
-            <Link to={`/projects/${this.props.projectId}`}>
+            <Link className='combine-drafts-project-link' to={`/projects/${this.props.projectId}`}>
               <i className="material-icons">chevron_left</i>
               <h4>{this.props.projectName}</h4>
             </Link>

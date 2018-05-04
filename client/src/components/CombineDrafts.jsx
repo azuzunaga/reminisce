@@ -31,8 +31,6 @@ class CombineDrafts extends React.Component {
 
   componentDidMount() {
     this.props.fetchProject(this.props.match.params.projectId)
-    const combineButton = document.getElementById('combine-selected-drafts-button');
-    combineButton.disabled = true;
   }
 
 
@@ -156,61 +154,64 @@ class CombineDrafts extends React.Component {
   }
 
   render() {
-    console.log(this.props.activeDraft);
-    const { drafts } = this.props;
-    const { draft1, draft2 } = this.props.selectedDrafts;
-    const draft1Name = drafts[draft1] ? drafts[draft1].name : "";
-    const draft2Name = drafts[draft2] ? drafts[draft2].name : "";
+    if (!this.props.selectedDrafts) {
+      return <div> </div>
+    } else {
+      const { drafts } = this.props;
+      const { draft1, draft2 } = this.props.selectedDrafts;
+      const draft1Name = drafts[draft1] ? drafts[draft1].name : "";
+      const draft2Name = drafts[draft2] ? drafts[draft2].name : "";
 
-    return (
-      <div className='standard-layout'>
-        <header className='combine-drafts'>
-          <h2>Combine Drafts</h2>
-        </header>
-        <main className='main'>
-          <aside className='aside-left'>
-            <LeftSidebar
-              drafts={drafts}
-              activeDraft={this.props.activeDraft}
-              projectName={this.props.projectName}
-              projectId={this.props.projectId}
-            />
-            </aside>
-            <section className='main-list'>
-              <div className="project-header">
-                <h3>Drafts</h3>
-                <p className='main-header-helper-text'> (Select 2) </p>
-              </div>
-              <div className='sub-header drafts'>
-                <h4>Draft Version</h4>
-                <h4>Last Saved</h4>
-                <h4>Saved By</h4>
-              </div>
-              { this.renderList() }
-              <div className='combine-drafts-footer'>
-                <div className='combine-drafts-text'>
-                  <p> Combine drafts into: </p>
-
-                  <select>
-                    <option id='draft1-option' value={draft1} selected>{draft1Name}</option>
-                    <option id='draft2-option' value={draft2} >{draft2Name}</option>
-                  </select>
+      return (
+        <div className='standard-layout'>
+          <header className='combine-drafts'>
+            <h2>Combine Drafts</h2>
+          </header>
+          <main className='main'>
+            <aside className='aside-left'>
+              <LeftSidebar
+                drafts={drafts}
+                activeDraft={this.props.activeDraft}
+                projectName={this.props.projectName}
+                projectId={this.props.projectId}
+              />
+              </aside>
+              <section className='main-list'>
+                <div className="project-header">
+                  <h3>Drafts</h3>
+                  <p className='main-header-helper-text'> (Select 2) </p>
                 </div>
-                <button
-                  id="combine-selected-drafts-button"
-                  className="combine-selected-drafts"
-                  onClick={this.handleCombineModal}>
-                  Combine
-                </button>
-              </div>
+                <div className='sub-header drafts'>
+                  <h4>Draft Version</h4>
+                  <h4>Last Saved</h4>
+                  <h4>Saved By</h4>
+                </div>
+                { this.renderList() }
+                <div className='combine-drafts-footer'>
+                  <div className='combine-drafts-text'>
+                    <p> Combine drafts into: </p>
 
-            </section>
-            <aside className='aside-right'>
-            </aside>
-          </main>
-        </div>
+                    <select>
+                      <option id='draft1-option' value={draft1} selected>{draft1Name}</option>
+                      <option id='draft2-option' value={draft2} >{draft2Name}</option>
+                    </select>
+                  </div>
+                  <button
+                    id="combine-selected-drafts-button"
+                    className="combine-selected-drafts"
+                    onClick={this.handleCombineModal}>
+                    Combine
+                  </button>
+                </div>
 
-    );
+              </section>
+              <aside className='aside-right'>
+              </aside>
+            </main>
+          </div>
+
+      );
+    }
   }
 }
 
