@@ -104,9 +104,6 @@ class DraftForm extends React.Component {
             </form>
           </div>
         </div>
-        <Link to={`/projects/${this.props.projectId}/drafts`} className='link-to-combine-drafts' >
-          <h5 id='combine-drafts-link' className='combine-drafts-link'> Combine Drafts </h5>
-        </Link>
       </div>
     );
   }

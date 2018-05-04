@@ -6,7 +6,8 @@
   font-family: 'Josefin Sans', sans-serif;
   background: white;
   margin-left: 5%;
-  width: 90%
+  width: 90%;
+  padding-bottom: 15px;
 }
 
 .draft-form-container header {
@@ -30,7 +31,7 @@
 }
 
 .draft-form form {
-  width: 75%;
+  width: 90%;
 }
 
 .draft-form h4 {
@@ -64,7 +65,7 @@
   background-color: #226CE0;
   text-align: center;
   line-height: 30px;
-  padding-left: 22%;
+  padding-left: 25%;
   margin-top: 10px;
   width: 90%;
 }
@@ -161,17 +162,14 @@
 
 #combine-drafts-link {
   margin: 0;
-  padding-left: 10px;
-  font-size: 14px;
-  padding-top: 15px;
+  font-size: 16px;
   padding-bottom: 15px;
-
+  padding-left: 25%;
 }
 
 
 .combine-drafts-link:hover {
   color: #226CE0;
-  text-decoration: underline;
 }
 
 .link-to-combine-drafts {
