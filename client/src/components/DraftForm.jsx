@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 import { createDraft, fetchDraft } from '../actions';
 
 import '../styles/draftForm.css';
@@ -60,7 +60,7 @@ class DraftForm extends React.Component {
               id={draft._id}
               className="list-item draft"
             >
-              {draft.name}
+            <span> ▸ </span> {draft.name}
             </li>
           );
         })}
@@ -73,28 +73,25 @@ class DraftForm extends React.Component {
 
     return (
       <div className="draft-form-container">
-        <header> Drafts </header>
-        <div className='draft-drop-down-header'>
-          <h4 className="draft-version">
-            Current Draft:
-          </h4>
-          <div
-            className="draft-drop-down-button"
-            onClick={this.toggleDraftMenu}
-          >
-            <h4>
-              {this.props.activeDraft.name}
-            </h4>
-            <i className="material-icons" id='draft-expand'>expand_more</i>
+        <h4 className="draft-version">
+          Draft: <span> {this.props.activeDraft.name} </span>
+        </h4>
+          <div className='draft-drop-down-header'>
+            <div
+              className="draft-drop-down-button"
+              onClick={this.toggleDraftMenu}>
+              <h4> All Drafts </h4>
+              <i className="material-icons all-drafts" id='draft-expand'>expand_more</i>
           </div>
         </div>
         <div className="draft-menu hidden">
           {this.drafts(draftsArray)}
           <div className="draft-form">
+            <h4> Create New Draft </h4>
             <form onSubmit={this.handleSubmit}>
               <input
                 type="text"
-                placeholder="New Draft"
+                placeholder="Draft Name"
                 onChange={this.update('name')}
                 className="draft-form text"
                 value={this.state.name}

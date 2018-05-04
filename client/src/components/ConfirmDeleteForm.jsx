@@ -37,7 +37,7 @@ class ConfirmDeleteForm extends React.Component {
         <form onSubmit={this.handleSubmit} className="new-form">
           <h3 className="new-form title">{this.props.message}</h3>
           {this.renderErrors()}
-          <div class="buttons-holder">
+          <div className="buttons-holder">
             <button className="cancel-button" onClick={this.props.closeModal}>Cancel</button>
             <input
               className="new-form submit Document"
