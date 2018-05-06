@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const enforce = require('express-sslify');
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -29,6 +30,9 @@ app.use(passport.session());
 routes(app);
 
 if (process.env.NODE_ENV === "production") {
+  // Redirect to https behind Heroku's reverse proxy
+  app.use(enforce.HTTPS());
+
   // Serve up production assets
   app.use(express.static("client/build"));
 
