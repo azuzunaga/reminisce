@@ -31,7 +31,7 @@ routes(app);
 
 if (process.env.NODE_ENV === "production") {
   // Redirect to https behind Heroku's reverse proxy
-  app.use(enforce.HTTPS());
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
   // Serve up production assets
   app.use(express.static("client/build"));
