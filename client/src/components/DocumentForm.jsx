@@ -115,8 +115,8 @@ class DocumentForm extends React.Component {
   componentWillUnmount() {
     this.saveContent.cancel();
     this.saveTitle.cancel();
-    this.props.clearErrors();
     this.forceSave();
+    this.props.clearErrors();
     this.props.closeModal();
   }
 
@@ -172,7 +172,6 @@ class DocumentForm extends React.Component {
 
   createSave(save) {
     this.props.createSave(save).then((payload) => {
-      this.props.history.replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
     }).catch( () => {
       this.props.openModal(<TitleErrorModal />)
       this.setState({

@@ -36,7 +36,7 @@ class SaveRev extends React.Component {
         isAuto: false
       },
       newRevs: [{
-        title: this.props.document.title,
+        title: this.props.title,
         body: this.props.body
       }],
       deletedRevIds: [this.props.document._id]
@@ -45,8 +45,6 @@ class SaveRev extends React.Component {
     this.props.createSave(save, this.props.draftId).then((payload) => {
       this.checkIfErrors();
       if (payload) {
-        this.props.history
-        .replace(`/project/${this.props.projectId}/document/${Object.keys(payload.revisions)[0]}`);
       }
     });
   }
@@ -92,6 +90,7 @@ const mapStateToProps = (state, ownProps) => {
     document: ownProps.document,
     draftId: ownProps.draftId,
     errors: state.errors,
+    title: ownProps.title
   };
 };
 
