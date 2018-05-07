@@ -3,33 +3,34 @@
 [Live Site!](https://reminisce-app.herokuapp.com/)
 
 ### Background and Overview
-Reminisce is a web application that lets writers use version control in their documents, while also preserving formatting. Users will be able to “commit” versions of their documents or projects and switch between them. Users can also invite other users to view their documents.
+Reminisce is essentially a "GitHub for Writers" built using the MERN stack -- MongoDb, Express.js, React, and Node.js. We created our own version control system and text editor and combined them into a single application that enables users to write, commit their progress, and toggle between multiple drafts (e.g. for alternate endings). 
 
-### Functionality and MVP
+We enabled writers to execute complex version control actions by recreating the committing and branching workflows natively and simplifying processes by removing the use of terminal and using custom React modals in its place. We used Myers' diff algorithm to identify the text differences between commits and branches. 
 
-   * Text editor version control system (text format and changes)
-   * Create and merge branches (drafts)
-   * User commits (saves) - with commit messages
-   * Auto commits (auto-saves)
-   * Word processor look and base functionality (indent, bold, italics, underline, bulletpoints, headers)
-   * User auth with Google OAuth
-   * Add collaborators - project specific auth set by user
 
-### Bonus features
-   * Auth: add OAuth providers and allow for custom auth
-   * Add comments to documents
-   * Pre-set format (e.g. screenplay specific)
-   * Hotkeys for editor control
-   * Offline editing and committing
-   * Live multi-user updates to doc
-   * Suggestion mode with auto-comments
-   * Visualization of commit histories
-   * User show page
+## Contents
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Code Highlights](#code-highlights)
+* [Planned Work](#planned-work)
 
-### Wireframes
+
+## Technologies Used
+
+#### Backend
+* Backend Framework: Node/Express (v8.11.1/v4.16.13)
+* Database: MongoDB (v3.0.6)
+* User Authentication: Google OAuth
+
+#### Frontend
+* Frontend Framework: React/Redux (v16.3.2/v4.0.0)
+* Notable React Library: DraftJs
+* Styling: HTML5/CSS3
+
+## Features
 
 #### Splash Page
-Users must log in in order to access the site:
+Users must log in in order to access the site. Users can log in via Google OAuth.
 ![Splash Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498422/Screen_Shot_2018-04-23_at_8.29.12_AM.png)
 
 #### Projects Dashboard
@@ -46,78 +47,149 @@ List of documents that pertain to the selected project. On this page, users can:
  
 ![Project Show Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.45.47_AM.png)
 
-
 #### Document Editor
 Editing a specific document. Users will be spending the bulk of their time on this page. They can save this page directly, or toggle between past drafts as well. 
 
 ![Document Editor Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.45.53_AM.png)
 
-#### Save History Page
+#### Save History Modal
 Log of past saves (commits). When clicking on a specific save, a modal will pop up with the differentials between the current save and the save immediately prior. There will be a mini map with green and red highlights where users can jump to the sections of the document that changed.
-
-![Save History Page](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.46.02_AM.png)
 
 ![Save History Modal with Diffs](https://res.cloudinary.com/deor0br3s/image/upload/v1524498405/Screen_Shot_2018-04-23_at_8.46.08_AM.png)
 
-#### Additional Wireframes Coming Soon
-* Combine Drafts Page (merging branches)
-* About Us page
+
+#### Resolve Conflicts from Merging Drafts
+Once the user decides to combine two drafts, if there are any merge conflicts (same paragraph was changed in both drafts), the conflicting paragraph will be displayed for the user to decide which version to keep. In the resolve conflicts modal, paragarphs before and after the conflict will be included for context.
+
+![Resolve Conflicts Modal](https://res.cloudinary.com/deor0br3s/image/upload/v1525732048/image.png)
 
 
-### Technologies and Technical Challenges
 
-Backend: NodeJS/JavaScript/Express
-Frontend: React/Redux/JavaScript
-Database: MongoDB
-Libraries: DraftJS
+## Code Highlights
 
-  #### Implementation of the Myers diff algorithm for merges
-    * JS implementation
-    * Determining / resolving conflicts
+#### Applying Myers' Diff Algorithm for text diffing 
 
-  #### Adapting Git in the backend and api
-    * Compressing commits from client and reconstructing them on the server
-    * Commits impact the whole database
+To find and display the diffing for the user, we used Myers' algorithm to find the "shortest edit" from the one commit version to another. 
 
-  #### UX
-    * Letting users compare conflicts and select which version to keep
-    * Letting users write docs/revert changes/display changes/merge branches
-    * Making it intuitive for non-tech savvy users
+``` javascript 
+const shortestEdit = (original, target) => {
+  const [n, m] = [original.length, target.length];
+  const max = n + m;
+  const trace = [[0]];
+  let originalIdx, targetIdx;
 
- ### Things accomplished this weekend
+  for (let edits = 0; edits <= max; edits++) {
+    const v = [];
+    const prev = trace[trace.length - 1];
 
-   * Mapped out API calls, schema, Frontend routes, wireframes
-   * Set up MongoDB for user auth
-   * Begun work on user auth
-   * Familiarized ourselves with new technologies
-   * Picked our text editor, DraftJS
-   * Implemented diffing algorithm using JS
+    for (let deletes = 0; deletes <= edits; deletes++) {
+      if (
+        deletes === 0 ||
+        (deletes !== edits && prev[deletes - 1] < prev[deletes])
+      ) {
+        originalIdx = prev[deletes];
+      } else {
+        originalIdx = prev[deletes - 1] + 1;
+      }
 
-### Group Members and Work Breakdown
-  **Kimberly Allgeier, Gabriel Talavera, Ian MacLeod, Americo Zuzunaga**
+      targetIdx = originalIdx - (2 * deletes - edits);
 
-### Implementation Timeline
+      while (
+        originalIdx < n &&
+        targetIdx < m &&
+        original[originalIdx] === target[targetIdx]
+      ) {
+        originalIdx++;
+        targetIdx++;
+      }
 
-  * **Day 1:**
-     * Wrap up UA backend - *AZ*
-     * Finish UA frontend - *GT*
-     * Basic implementation of Mongo tables - *IM*
-     * Splash page - *KA*
-  *  **Day 2:**
-     * Backend - Ability to commit and checkout past commits, ability to rollback
-     * Frontend - Complete the individual document/text editor page
-  * **Day 3:**
-     * Backend - Start branching, merging and diffing
-     * Backend - Complete auto-commits (auto-saves done by the system when user is idle or quits out)
-     * Frontend - Create interactive commits page, enable users to click on various commits and see that commit version
-  * **Day 4:**
-     * Backend - Complete branching/merging/diffing
-     * Frontend - Complete project page (listing of all documents within the project)
-     * Frontend - Complete User page (listing all projects that user has access to)
-  * **Day 5:**
-     * Backend auth for documentation (allowing for collaborators)
-     * Frontend - Displaying branching/merging diffs
-     * Finish all MVPs/styling
-     * Complete production README
-  * **Day 6 & 7:**
-     * Implement bonus features
+      v.push(originalIdx);
+
+      if (originalIdx >= n && targetIdx >= m) {
+        return trace;
+      }
+    }
+    trace.push(v);
+  }
+};
+
+const backtrack = (original, target) => {
+  const result = [];
+  const trace = shortestEdit(original, target);
+  let [originalIdx, targetIdx] = [original.length, target.length];
+
+  for (let edits = trace.length - 1; edits >= 0; edits--) {
+    const row = trace[edits];
+    const deletes = (originalIdx - targetIdx + edits) / 2;
+    let prevDeletes;
+    if (
+      deletes === 0 ||
+      (deletes !== edits && row[deletes - 1] < row[deletes])
+    ) {
+      prevDeletes = deletes;
+    } else {
+      prevDeletes = deletes - 1;
+    }
+
+    const prevOriginalIdx = row[prevDeletes];
+    const prevTargetIdx = prevOriginalIdx - (2 * prevDeletes - edits + 1);
+
+    while (originalIdx > prevOriginalIdx && targetIdx > prevTargetIdx) {
+      result.push([originalIdx - 1, targetIdx - 1, originalIdx, targetIdx]);
+      originalIdx--;
+      targetIdx--;
+    }
+    if (edits > 0) {
+      result.push([prevOriginalIdx, prevTargetIdx, originalIdx, targetIdx]);
+    }
+    [originalIdx, targetIdx] = [prevOriginalIdx, prevTargetIdx];
+  }
+  return result;
+};
+
+const diffRevisions = (original, target) => {
+  const result = [];
+
+  for (const [
+    prevOriginalIdx,
+    prevTargetIdx,
+    originalIdx,
+    targetIdx
+  ] of backtrack(original, target)) {
+    if (originalIdx === prevOriginalIdx) {
+      result.push({
+        type: 'insert',
+        data: target[prevTargetIdx],
+        origIdx: originalIdx - 1,
+        targetIdx: prevTargetIdx + 1
+      });
+    } else if (targetIdx === prevTargetIdx) {
+      result.push({
+        type: 'delete',
+        data: original[prevOriginalIdx],
+        origIdx: prevOriginalIdx + 1,
+        targetIdx: targetIdx - 1
+      });
+    } else {
+      result.push({
+        type: 'none',
+        data: original[prevOriginalIdx],
+        origIdx: prevOriginalIdx + 1,
+        targetIdx: prevTargetIdx + 1
+      });
+    }
+  }
+
+  result.reverse();
+  return result;
+};
+
+```
+
+#### 
+
+
+## Planned Work
+* User Show Page with statistics
+* Add collaborators
+* Enable comments
