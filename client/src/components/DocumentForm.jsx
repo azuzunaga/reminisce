@@ -171,7 +171,9 @@ class DocumentForm extends React.Component {
   }
 
   createSave(save) {
+    let title = this.state.title;
     this.props.createSave(save).then((payload) => {
+      this.props.history.replace(`/project/${this.props.projectId}/document/${title}`)
     }).catch( () => {
       this.props.openModal(<TitleErrorModal />)
       this.setState({
