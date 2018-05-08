@@ -43,10 +43,6 @@ class DocumentForm extends React.Component {
     this.createSave = this.createSave.bind(this);
   }
 
-  localSave = (content) => {
-    window.localStorage.setItem(this.state.title, JSON.stringify(convertToRaw(content)));
-  }
-
   myKeyBindingFn(e: SyntheticKeyboardEvent): string {
     if (e.keyCode === 83 && hasCommandModifier(e)) {
       return 'save';
@@ -84,8 +80,9 @@ class DocumentForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (Object.keys(newProps.document).length !== 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, newProps.document.body);
+    if (Object.keys(newProps.revisions).length !== 0) {
+      let revision = newProps.revisions.find(rev => (rev.title === newProps.match.params.title));
+      let document = Object.assign({}, {entityMap: {}, data: {}}, revision.body);
       this.setState({
         editorState: EditorState.createWithContent(convertFromRaw(document))
       });
@@ -295,6 +292,7 @@ function mapStateToProps(state, ownProps) {
   let draft = {};
   let document = {};
   let documentId;
+  let saves = state.saves;
   if (Object.keys(state.revisions).length !== 0) {
     let activeDraftArr = state.auth.projectsActiveDraft;
     let idx = activeDraftArr.findIndex(el =>
@@ -302,11 +300,13 @@ function mapStateToProps(state, ownProps) {
     let draftId = activeDraftArr[idx].draftId;
     draft = state.drafts[draftId];
     let revisionId = '';
-    Object.values(state.saves).forEach(save => {
+    Object.values(saves).forEach(save => {
       if (draft.saveIds[draft.saveIds.length - 1] === save._id) {
         revisionId = save.revisionIds[0];
-        document = state.revisions[revisionId];
-        documentId = document._id;
+        if (state.revisions[revisionId].title === ownProps.match.params.title) {
+          document = state.revisions[revisionId];
+          documentId = revisionId;
+        }
       }
     })
   }
@@ -325,8 +325,10 @@ function mapStateToProps(state, ownProps) {
 
   return {
     documentId,
+    title: ownProps.match.params.title,
     errors: state.errors,
     draft,
+    saves,
     document,
     projectId: ownProps.match.params.projectId,
     revisions: revisions,
