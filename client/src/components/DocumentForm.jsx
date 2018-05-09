@@ -93,10 +93,11 @@ class DocumentForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    let title = this.state.title || newProps.match.params.title;
     if (Object.keys(newProps.revisions).length !== 0) {
-      let revision = newProps.revisions.find(rev => (rev.title === newProps.match.params.title));
+      let revision = newProps.revisions.find(rev => (rev.title === title));
       let document = Object.assign({}, {entityMap: {}, data: {}}, revision.body);
-      const content = window.localStorage.getItem(`${newProps.match.params.title}-${newProps.draft._id}`);
+      const content = window.localStorage.getItem(`${this.state.title}-${newProps.draft._id}`);
       if (content) {
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
@@ -107,7 +108,7 @@ class DocumentForm extends React.Component {
         });
       }
       this.setState({
-        title: newProps.match.params.title,
+        title: title,
         revisions: newProps.revisions
       })
     }
@@ -288,18 +289,22 @@ class DocumentForm extends React.Component {
               spellCheck={!this.spellCheck}
               keyBindingFn={this.myKeyBindingFn}
               />
-          </div>
+          </div>j
         </section>
         <aside className='aside-right'>
-        <button className="save-button" onClick={() => this.props.openModal(
-          <SaveRev
-            projectId={this.props.match.params.projectId}
-            document={this.props.document}
-            title={this.state.title}
-            draftId={this.props.draft._id}
-            body={convertToRaw(this.state.editorState.getCurrentContent())}
-          />
-        )}>
+        <button className="save-button" onClick={() => {
+          this.saveContent.cancel();
+          this.saveTitle.cancel();
+          this.props.openModal(
+            <SaveRev
+              projectId={this.props.match.params.projectId}
+              document={this.props.document}
+              title={this.state.title}
+              draftId={this.props.draft._id}
+              body={convertToRaw(this.state.editorState.getCurrentContent())}
+            />)
+            }
+          }>
           Save Document
         </button>
         </aside>
@@ -320,18 +325,17 @@ function mapStateToProps(state, ownProps) {
       { return el.projectId === ownProps.match.params.projectId});
     let draftId = activeDraftArr[idx].draftId;
     draft = state.drafts[draftId];
-    let revisionId = '';
-    Object.values(saves).forEach(save => {
+    Object.values(saves).forEach((save) => {
       if (draft.saveIds[draft.saveIds.length - 1] === save._id) {
-        revisionId = save.revisionIds[0];
-        if (state.revisions[revisionId].title === ownProps.match.params.title) {
-          document = state.revisions[revisionId];
-          documentId = revisionId;
-        }
+        save.revisionIds.forEach((revId) => {
+          if (state.revisions[revId].title === ownProps.match.params.title) {
+            document = state.revisions[revId];
+            documentId = revId;
+          }
+        });
       }
     })
   }
-
   let projectName;
   if (Object.keys(state.projects).length !== 0) {
     projectName = state.projects[ownProps.match.params.projectId].name;
