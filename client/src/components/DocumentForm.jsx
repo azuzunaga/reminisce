@@ -43,6 +43,11 @@ class DocumentForm extends React.Component {
     this.createSave = this.createSave.bind(this);
   }
 
+  localSave = (content) => {
+    window.localStorage.setItem(`${this.state.title}-${this.props.draft._id}`
+      , JSON.stringify(convertToRaw(content)));
+  }
+
   myKeyBindingFn(e: SyntheticKeyboardEvent): string {
     if (e.keyCode === 83 && hasCommandModifier(e)) {
       return 'save';
@@ -52,7 +57,7 @@ class DocumentForm extends React.Component {
 
   saveTitle = debounce(() => {
     this.handleSave('title-change');
-  }, 3000);
+  }, 2000);
 
   saveContent = debounce(() => {
     this.handleSave('auto-save');
@@ -64,15 +69,23 @@ class DocumentForm extends React.Component {
     if (JSON.stringify(formChange) !== JSON.stringify(stateBefore)) {
       this.saveContent();
     }
+    this.localSave(editorState.getCurrentContent())
     this.setState({editorState});
   }
 
   componentDidMount () {
     if (Object.keys(this.props.document).length !== 0) {
-      let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
-      this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document))
-      })
+      const content = window.localStorage.getItem(`${this.state.title}-${this.props.draft._id}`);
+      if (content) {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+        })
+      } else {
+        let document = Object.assign({}, {entityMap: {}, data: {}}, this.props.document.body);
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(document))
+        })
+      }
     } else {
       this.props.fetchRevision(this.props.projectId, this.props.title);
     }
@@ -83,11 +96,18 @@ class DocumentForm extends React.Component {
     if (Object.keys(newProps.revisions).length !== 0) {
       let revision = newProps.revisions.find(rev => (rev.title === newProps.match.params.title));
       let document = Object.assign({}, {entityMap: {}, data: {}}, revision.body);
+      const content = window.localStorage.getItem(`${newProps.match.params.title}-${newProps.draft._id}`);
+      if (content) {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+        })
+      } else {
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(document))
+        });
+      }
       this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(document))
-      });
-      this.setState({
-        title: newProps.document.title,
+        title: newProps.match.params.title,
         revisions: newProps.revisions
       })
     }
