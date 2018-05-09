@@ -57,7 +57,7 @@ class DocumentForm extends React.Component {
 
   saveTitle = debounce(() => {
     this.handleSave('title-change');
-  }, 2000);
+  }, 500);
 
   saveContent = debounce(() => {
     this.handleSave('auto-save');
@@ -93,11 +93,12 @@ class DocumentForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    let title = this.state.title || newProps.match.params.title;
+    let title = newProps.match.params.title || this.state.title
     if (Object.keys(newProps.revisions).length !== 0) {
       let revision = newProps.revisions.find(rev => (rev.title === title));
+      if (revision ){
       let document = Object.assign({}, {entityMap: {}, data: {}}, revision.body);
-      const content = window.localStorage.getItem(`${this.state.title}-${newProps.draft._id}`);
+      const content = window.localStorage.getItem(`${title}-${newProps.draft._id}`);
       if (content) {
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
@@ -107,6 +108,7 @@ class DocumentForm extends React.Component {
           editorState: EditorState.createWithContent(convertFromRaw(document))
         });
       }
+    }
       this.setState({
         title: title,
         revisions: newProps.revisions
@@ -182,6 +184,9 @@ class DocumentForm extends React.Component {
         editorState: this.state.body
       });
     });
+    this.saveContent.cancel();
+    this.saveTitle.cancel();
+    this.props.clearErrors();
   }
 
   forceSave() {
