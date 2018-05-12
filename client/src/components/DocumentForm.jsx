@@ -294,7 +294,7 @@ class DocumentForm extends React.Component {
               spellCheck={!this.spellCheck}
               keyBindingFn={this.myKeyBindingFn}
               />
-          </div>j
+          </div>
         </section>
         <aside className='aside-right'>
         <button className="save-button" onClick={() => {
