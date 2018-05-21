@@ -70,7 +70,7 @@ class SaveHistoryModal extends React.Component {
     const autoSaveText = this.hideAutoSaves ? "Show Auto-Saves" : "Hide Auto-Saves";
 
     if ( this.props.activeDraft.saveIds.length === 0 ) {
-      return <div> </div>
+      return <div> </div>;
     } else {
       return (
         <div className='save-history-modal'>
@@ -90,7 +90,7 @@ class SaveHistoryModal extends React.Component {
             > {autoSaveText}</p>
           </footer>
         </div>
-      )
+      );
     }
   }
 }

@@ -25,7 +25,6 @@ class RevisionDiff extends React.Component {
   }
 
   adjustWindow(scrollEl) {
-    console.log(scrollEl)
     const viewTop = scrollEl.scrollTop / scrollEl.scrollHeight;
     const viewHeight = scrollEl.offsetHeight / scrollEl.scrollHeight;
     this.setState({
@@ -55,11 +54,6 @@ class RevisionDiff extends React.Component {
   }
 
   render() {
-    // const added = sumBy(rev.diffInfo, op => op.type === 'insert');
-    // const addEl = added ? <span className="add">+{added}</span> : "";
-    // const deleted = sumBy(rev.diffInfo, op => op.type === 'delete');
-    // const deletedEl = deleted ? <span className="delete">-{deleted}</span> : "";
-    // const comma = added && deleted ? ", " : "";
     const { rev } = this.props;
     return (
       <div className="revision-diff">
@@ -81,8 +75,8 @@ class RevisionDiff extends React.Component {
                   dangerouslySetInnerHTML={{ __html: op.data }}
                 />
               </li>
-            )}
-          )}
+            );
+          })}
         </ol>
         <div className="minimap" ref={this.minimapRef}>
           <div className="container">

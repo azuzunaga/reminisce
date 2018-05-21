@@ -15,7 +15,7 @@ class SaveListItem extends React.Component {
   render() {
 
     const { save, users } = this.props;
-    const saveTime = dateTimeFormatter(save.createdAt)
+    const saveTime = dateTimeFormatter(save.createdAt);
 
     return (
       <li key={save._id}
@@ -25,7 +25,7 @@ class SaveListItem extends React.Component {
         <p> {saveTime} </p>
         <p> {users[save.userId].firstName} </p>
       </li>
-    )
+    );
   }
 }
 
@@ -34,6 +34,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     saveDiff: (id, activeDraft) => dispatch(openModal(<SaveDiff saveId={id} activeDraft={activeDraft}/>)),
     closeModal: () => dispatch(closeModal()),
     fetchSave: id => dispatch(fetchSave(id)),
-  }
-}
+  };
+};
 export default connect(null, mapDispatchToProps)(SaveListItem);

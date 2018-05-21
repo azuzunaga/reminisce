@@ -138,7 +138,9 @@ const diffSaves = (original, target, revisions) => {
       rev.change = 'edited';
       const originalRev = revisions[original.revisionIds[idx]];
       rev.diffInfo = diffRevisions(getRevHTML(originalRev), getRevHTML(rev));
-      changedRevs.push(rev);
+      if (rev.diffInfo.some(edit => edit.type !== 'none')) {
+        changedRevs.push(rev);
+      }
     }
   });
 
