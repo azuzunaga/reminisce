@@ -22,6 +22,9 @@
 
 .diff-view ol {
   padding: 20px;
+  margin: 0;
+  padding-bottom: 0;
+  padding-top: 0;
 }
 
 .diff-view h3 {
@@ -78,12 +81,17 @@
   display: flex;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
+  padding: 20px 0;
 }
 
 .revision-diff>ol {
   max-height: 100%;
   overflow: scroll;
   width: 100%;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .revision-diff li {
