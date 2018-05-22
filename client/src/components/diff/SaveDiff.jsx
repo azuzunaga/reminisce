@@ -33,6 +33,18 @@ class SaveDiff extends React.Component {
     }
     const { save, changedRevisions } = this.props;
 
+    if (changedRevisions.length === 0) {
+      return <div className="diff-view">
+          <h3>
+            No changes
+            <span> (since previous save) </span>
+            <strong onClick={() => this.props.saveHistoryModal(this.props.activeDraft)} className="close-x">
+              x
+            </strong>
+          </h3>
+        </div>;
+    }
+
     const saveTime = dateTimeFormatter(save.createdAt);
     return (
       <div className="diff-view">
