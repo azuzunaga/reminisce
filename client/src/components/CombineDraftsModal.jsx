@@ -159,18 +159,19 @@ class CombineDraftsModal extends React.Component {
 
           <footer>
             <div className='choose-draft-footer-text'>
-            <input
-              id='choose-draft-for-all-conflicts'
-              className='choose-draft-checkbox-filter'
-              type="checkbox"
-              onClick={this.handleChooseDraft.bind(this)}/>
-            <label htmlFor='choose-draft-for-all-conflicts' className='choose-draft-checkbox-label'> </label>
-              <p>Use this draft version for all conflicts: </p>
+                <input
+                id='choose-draft-for-all-conflicts'
+                className='choose-draft-checkbox-filter'
+                type="checkbox"
+                onClick={this.handleChooseDraft.bind(this)}/>
+              <label htmlFor='choose-draft-for-all-conflicts' className='choose-draft-checkbox-label'> </label>
+              <p>Use draft version  </p>
               <select className='select-draft-for-all-conflicts'>
                 <option id='default' value="" >-</option>
                 <option id='choose-draft1-option' value={draft1} >{drafts[draft1].name}</option>
                 <option id='choose-draft2-option' value={draft2} >{drafts[draft2].name}</option>
               </select>
+              <p> for all conflicts.</p>
             </div>
             <button
               id='combine-drafts-modal-button'

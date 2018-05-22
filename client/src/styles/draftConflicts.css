@@ -106,25 +106,21 @@
 .draft-conflicts-modal footer {
   padding: 20px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
 }
 
 .draft-conflicts-modal footer p {
-  background: #FAFAFA;
   font-size: 14px;
-  /* width: 60%; */
   font-family: 'Josefin Sans', sans-serif;
 }
 
 .combine-drafts-modal-button {
-  /* width: 30%; */
   font-size: 14px;
   border: none;
   background-color: #BABABA;
   color: white;
   font-family: 'Josefin Sans', sans-serif;
-  padding: none;
+  padding: 0px 30px;
   margin: none;
   box-sizing: border-box;
   display: block;
@@ -265,7 +261,7 @@
   font-size: 16px;
   vertical-align: middle;
   padding-left: 15px;
-  padding-top: 15px;
+  padding-top: 8px;
   color: #666666;
 }
 
@@ -291,12 +287,11 @@
 
 .choose-draft-footer-text {
   display: flex;
-  color: #434343;
-  background: #FAFAFA;
+  color: #666666;
 }
 
-.choose-draft-footer-text p {
-  font-size: 16px;
+.choose-draft-footer-text label p {
+  font-size: 18px;
 }
 
 
@@ -305,6 +300,7 @@
   font-size: 14px;
   border: 1px solid #D3D3D3;
   background: white;
+  margin: 0px 15px;
 }
 
 
