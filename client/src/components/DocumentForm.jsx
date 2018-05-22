@@ -44,7 +44,7 @@ class DocumentForm extends React.Component {
   }
 
   localSave = (content) => {
-    window.localStorage.setItem(`${this.state.title}-${this.props.draft._id}`
+    window.localStorage.setItem(`${this.props.document._id}`
       , JSON.stringify(convertToRaw(content)));
   }
 
@@ -75,7 +75,7 @@ class DocumentForm extends React.Component {
 
   componentDidMount () {
     if (Object.keys(this.props.document).length !== 0) {
-      const content = window.localStorage.getItem(`${this.state.title}-${this.props.draft._id}`);
+      const content = window.localStorage.getItem(`${this.props.document._id}`);
       if (content) {
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
@@ -98,7 +98,7 @@ class DocumentForm extends React.Component {
       let revision = newProps.revisions.find(rev => (rev.title === title));
       if (revision ){
       let document = Object.assign({}, {entityMap: {}, data: {}}, revision.body);
-      const content = window.localStorage.getItem(`${title}-${newProps.draft._id}`);
+      const content = window.localStorage.getItem(`${revision._id}`);
       if (content) {
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
