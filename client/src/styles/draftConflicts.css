@@ -106,18 +106,19 @@
 .draft-conflicts-modal footer {
   padding: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
 
 .draft-conflicts-modal footer p {
   background: #FAFAFA;
   font-size: 14px;
-  width: 60%;
+  /* width: 60%; */
   font-family: 'Josefin Sans', sans-serif;
 }
 
 .combine-drafts-modal-button {
-  width: 30%;
+  /* width: 30%; */
   font-size: 14px;
   border: none;
   background-color: #BABABA;
@@ -292,12 +293,12 @@
   display: flex;
   color: #434343;
   background: #FAFAFA;
-  padding: 20px;
 }
 
 .choose-draft-footer-text p {
   font-size: 16px;
 }
+
 
 .select-draft-for-all-conflicts {
   width: 200px;
