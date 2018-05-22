@@ -66,7 +66,6 @@ class SaveHistoryModal extends React.Component {
   }
 
   render() {
-    const { saves } =  this.props
     const autoSaveText = this.hideAutoSaves ? "Show Auto-Saves" : "Hide Auto-Saves";
 
     if ( this.props.activeDraft.saveIds.length === 0 ) {

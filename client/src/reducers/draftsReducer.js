@@ -3,7 +3,6 @@ import { merge } from 'lodash';
 import {
   FETCH_PROJECT,
   CREATE_DRAFT,
-  FETCH_SAVE,
   CREATE_PROJECT,
   FETCH_REVISION,
   CREATE_SAVE

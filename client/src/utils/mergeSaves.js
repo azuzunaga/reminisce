@@ -1,6 +1,5 @@
-import { zip, omitBy, keyBy, uniq } from 'lodash';
+import { zip, keyBy, uniq } from 'lodash';
 
-import { convertToDraftJS } from './draftUtils';
 import diffSaves from './diffSaves';
 import ChunkedMerge from './ChunkedMerge';
 
@@ -64,11 +63,6 @@ const mergeSaves = (mainSave, mergeSave, parentSave, revisions) => {
     if (!mergeRev) return mainRev;
     if (!mainRev) return mergeRev;
     return mergeRevisions(mainRev, mergeRev);
-    // let merge = mergeRevisions(mainRev, mergeRev);
-    // if (merge.getConflicts().length === 0) {
-    //   merge = merge.resolveConflicts([]);
-    // }
-    // return merge;
   });
 };
 

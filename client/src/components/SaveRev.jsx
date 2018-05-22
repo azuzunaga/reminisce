@@ -74,7 +74,7 @@ class SaveRev extends React.Component {
           />
           {this.renderErrors()}
           <input
-            className={"new-form submit " + "save"}
+            className={"new-form submit save"}
             type="submit"
             value="Save Document"
           />

@@ -52,7 +52,7 @@ class Project extends React.Component {
       return <div> </div>
     } else {
 
-      const { project, saves } = this.props;
+      const { project } = this.props;
       const lastSavedDate = dateTimeFormatter(project.updatedAt);
 
       return (

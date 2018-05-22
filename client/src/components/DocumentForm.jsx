@@ -225,7 +225,7 @@ class DocumentForm extends React.Component {
     return (
       <div className="standard-layout">
         <input input='text' onChange={this.update('title')}
-          className="header doc-form" value={this.state.title}/>
+          className="header doc-form" value={this.state.title || ""}/>
 
         <main className='main'>
           <aside className='aside-left'>

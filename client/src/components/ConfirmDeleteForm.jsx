@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createSave, closeModal, receiveErrors } from '../actions';
+import { closeModal, receiveErrors } from '../actions';
 import '../styles/newForm.css';
 import React from 'react';
 

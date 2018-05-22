@@ -1,7 +1,6 @@
 //libraries
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { find } from 'lodash';
 
 
@@ -12,7 +11,6 @@ import mergeSaves from '../utils/mergeSaves';
 import { dateTimeFormatter } from '../utils/dateFormatter';
 
 //components
-import DraftsListItem from './DraftsListItem';
 import CombineDraftsModal from './CombineDraftsModal';
 import LeftSidebar from './LeftSidebar';
 

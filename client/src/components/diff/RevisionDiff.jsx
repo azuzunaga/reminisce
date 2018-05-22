@@ -1,5 +1,4 @@
 import React from 'react';
-import { sumBy } from 'lodash';
 
 import '../../styles/diff.css';
 

@@ -71,7 +71,7 @@ export const fetchDraft = id => async dispatch => {
 };
 
 export const createDraft = draft => async dispatch => {
-  const res = await axios.post('/api/drafts', {
+  return await axios.post('/api/drafts', {
     draft
   }).then(function (res) {
     dispatch({
