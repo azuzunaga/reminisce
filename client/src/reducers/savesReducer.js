@@ -9,7 +9,7 @@ export default (state = {}, action) => {
     case FETCH_DRAFT:
       return merge({}, state, action.saves);
     case FETCH_PROJECT:
-      return merge({}, action.saves);
+      return merge({}, state, action.saves);
     case CREATE_SAVE:
       return merge({}, state, {[action.save._id]: action.save});
     default:
