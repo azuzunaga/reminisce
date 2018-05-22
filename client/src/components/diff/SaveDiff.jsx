@@ -1,7 +1,6 @@
 //libraries
 import React from 'react';
 import { connect } from 'react-redux';
-import { pickBy } from 'lodash';
 
 //utils & actions
 import { fetchSave } from '../../actions';

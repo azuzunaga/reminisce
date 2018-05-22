@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { groupBy } from 'lodash';
 import { withRouter } from 'react-router-dom';
 
 import { openModal, closeModal, createSave } from '../actions';
@@ -139,7 +138,7 @@ class CombineDraftsModal extends React.Component {
   }
 
   render() {
-    const { draft1, draft2, winningDraft } = this.props.selectedDrafts;
+    const { draft1, draft2 } = this.props.selectedDrafts;
       return (
         <div className='draft-conflicts-modal'>
           <div>

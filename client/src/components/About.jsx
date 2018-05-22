@@ -23,6 +23,7 @@ class About extends React.Component {
             <div className='bio-content'>
               <div className='about-left'>
                 <img src={gabrielHeadshot}
+                  alt="Gabriel Talavera"
                   className='about-headshot'/>
 
               </div>
@@ -62,6 +63,7 @@ class About extends React.Component {
             <div className='bio-content'>
               <div className='about-left'>
                 <img src={ianHeadshot}
+                  alt="Ian MacLeod"
                   className='about-headshot'/>
 
               </div>
@@ -97,6 +99,7 @@ class About extends React.Component {
             <div className='bio-content'>
               <div className='about-left'>
                 <img src={americoHeadshot}
+                  alt="Americo Zuzunaga"
                   className='about-headshot'/>
 
               </div>
@@ -133,6 +136,7 @@ class About extends React.Component {
             <div className='bio-content'>
               <div className='about-left'>
                 <img src={kimmyHeadshot}
+                  alt="Kimmy Allgeier"
                   className='about-headshot'/>
 
               </div>

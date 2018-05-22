@@ -32,7 +32,7 @@ class ResolveConflictsModal extends React.Component {
 
     const { drafts } = this.props;
     const { body } = this.props.conflict;
-    const { draft1, draft2, winningDraft, losingDraft } = this.props.selectedDrafts;
+    const { winningDraft, losingDraft } = this.props.selectedDrafts;
     const mainDraft =  drafts[winningDraft].name;
     const mergeDraft = drafts[losingDraft].name;
 
